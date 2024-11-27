@@ -1,4 +1,5 @@
 import Button from "../components/Elements/Button/Button";
+import Card from "../components/Fragments/Card/Card";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 
@@ -58,7 +59,7 @@ const HomePage = () => {
             )
           )}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
           {[
             {
               destination: "Jakarta -> Bangkok",
@@ -77,12 +78,20 @@ const HomePage = () => {
               label: "Limited!",
             },
             {
-              destination: "Jakarta -> Bangkok",
+              destination: "Jakarta -> Sydney",
               airline: "AirAsia",
-              date: "20 - 30 Maret 2023",
-              price: "IDR 950.000",
-              image: "src/assets/images/bangkok.png",
-              label: "Limited!",
+              date: "5 - 25 Maret 2023",
+              price: "IDR 3.650.000",
+              image: "src/assets/images/sydney.png",
+              label: "50% OFF",
+            },
+            {
+              destination: "Jakarta -> Sydney",
+              airline: "AirAsia",
+              date: "5 - 25 Maret 2023",
+              price: "IDR 3.650.000",
+              image: "src/assets/images/sydney.png",
+              label: "50% OFF",
             },
             {
               destination: "Jakarta -> Bangkok",
@@ -93,31 +102,15 @@ const HomePage = () => {
               label: "Limited!",
             },
           ].map((item, index) => (
-            <div
+            <Card
               key={index}
-              className="bg-white rounded-[4px] shadow-lg overflow-hidden"
-            >
-              <div className="relative">
-                <img
-                  src={item.image}
-                  alt={item.destination}
-                  className="w-full h-48 object-cover"
-                />
-                <span className="absolute top-2 right-2 bg-purple-600 text-white text-xs font-bold py-1 px-3 rounded-full">
-                  {item.label}
-                </span>
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {item.destination}
-                </h3>
-                <p className="text-sm text-purple-600">{item.airline}</p>
-                <p className="text-sm text-gray-500">{item.date}</p>
-                <p className="mt-2 text-lg font-bold text-red-600">
-                  Mulai dari {item.price}
-                </p>
-              </div>
-            </div>
+              destination={item.destination}
+              airline={item.airline}
+              date={item.date}
+              price={item.price}
+              image={item.image}
+              label={item.label}
+            />
           ))}
         </div>
         <Pagination />

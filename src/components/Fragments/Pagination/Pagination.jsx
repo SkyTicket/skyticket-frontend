@@ -21,16 +21,16 @@ const Pagination = () => {
   };
 
   return (
-    <div className="bg-white py-10 text-center">
-      <ul className="flex items-center justify-center gap-2">
+    <div className="py-8 text-center">
+      <ul className="flex items-center justify-center gap-3">
         <li>
           <button
             onClick={handlePrevious}
             disabled={currentPage === 1}
-            className={`flex h-10 min-w-[40px] items-center justify-center rounded-lg border px-2 text-base font-medium ${
+            className={`flex h-10 min-w-[40px] items-center justify-center rounded-lg border px-2 text-base font-semibold ${
               currentPage === 1
-                ? "border-gray-300 text-gray-400 cursor-not-allowed"
-                : "border-gray-300 text-[#7126B5] hover:bg-purple-100 hover:text-[#7126B5]"
+                ? "bg-gray-200 border-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-white border-gray-300 text-[#7126B5] hover:bg-purple-100 hover:text-[#7126B5]"
             }`}
           >
             <svg
@@ -50,7 +50,7 @@ const Pagination = () => {
             </svg>
           </button>
         </li>
-        
+
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (
             <li key={page}>
@@ -74,8 +74,8 @@ const Pagination = () => {
             disabled={currentPage === totalPages}
             className={`flex h-10 min-w-[40px] items-center justify-center rounded-lg border px-2 text-base font-medium ${
               currentPage === totalPages
-                ? "border-gray-300 text-gray-400 cursor-not-allowed"
-                : "border-gray-300 text-[#7126B5] hover:bg-purple-100 hover:text-[#7126B5]"
+                ? "bg-gray-200 border-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-white border-gray-300 text-[#7126B5] hover:bg-purple-100 hover:text-[#7126B5]"
             }`}
           >
             <svg
