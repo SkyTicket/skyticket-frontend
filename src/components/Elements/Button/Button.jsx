@@ -8,7 +8,7 @@ const buttonIcon = {
 
 const Button = ({
   type = "login",
-  children = "Login",
+  children = "Masuk",
   onAction,
   color = "purple",
   width = "md",

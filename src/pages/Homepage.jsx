@@ -15,7 +15,7 @@ const HomePage = () => {
         <div className="flex relative w-[90%] max-w-[1440px] min-h-[232px] rounded-[20px] overflow-hidden shadow-sm">
           <div className="flex flex-col justify-center bg-[#FFE9CA] pl-20">
             <p className="text-4xl leading-[54px] font-extrabold italic text-start text-[#151515]">
-              Today&apos;s Discount
+              Diskon Hari Ini
             </p>
             <p className="text-4xl leading-[54px] font-bold text-start text-[#7126B5]">
               85%!
@@ -47,10 +47,10 @@ const HomePage = () => {
 
       <section className="mx-auto w-[90%] max-w-[1440px] py-8">
         <p className="text-start font-bold text-black mb-4">
-          Favorite Destinations
+          Destinasi Favorit
         </p>
         <div className="flex gap-4 mb-8">
-          {["View All", "Asia", "America", "Australia", "Europe", "Africa"].map(
+          {["Semua", "Asia", "Amerika", "Australia", "Eropa", "Afrika"].map(
             (region) => (
               <Button type="search" key={region}>
                 {region}

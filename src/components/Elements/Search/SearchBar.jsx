@@ -3,7 +3,7 @@ const SearchBar = () => {
     <div className="relative w-full lg:min-w-[444px] md:max-w-[360px] bg-[#EEEEEE] rounded-2xl">
       <input
         className="rounded-2xl w-full bg-transparent h-12 placeholder:bg-[#EEEEEE] placeholder text-slate-700 text-sm px-6 py-3 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-        placeholder="Search here ..."
+        placeholder="Cari di sini ..."
         type="text"
       />
       <span className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-500">
