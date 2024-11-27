@@ -1,3 +1,4 @@
+import Button from "../components/Elements/Button/Button";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 
@@ -9,7 +10,7 @@ const HomePage = () => {
         <div className="bg-[#7126B5] bg-opacity-50 min-h-[150px] w-1/2"></div>
         <div className="bg-[#E2D4F0] min-h-[150px] w-1/2"></div>
       </section>
-      
+
       <section className="flex relative justify-center -mt-[182px]">
         <div className="flex relative w-[90%] max-w-[1440px] min-h-[232px] rounded-[20px] overflow-hidden shadow-sm">
           <div className="flex flex-col justify-center bg-[#FFE9CA] pl-20">
@@ -51,26 +52,9 @@ const HomePage = () => {
         <div className="flex gap-4 mb-8">
           {["View All", "Asia", "America", "Australia", "Europe", "Africa"].map(
             (region) => (
-              <button
-                key={region}
-                className="flex items-center gap-2 bg-[#7126B5] text-white font-medium py-[14px] px-6 rounded-xl shadow-md hover:bg-purple-600 active:bg-purple-600 active:ring-4 active:ring-purple-500"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="size-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                  />
-                </svg>
+              <Button type="search" key={region}>
                 {region}
-              </button>
+              </Button>
             )
           )}
         </div>

@@ -1,6 +1,6 @@
 import SearchBar from "../../Elements/Search/SearchBar";
-import LoginButton from "../../Elements/Button/LoginButton";
 import Logo from "../../Elements/Logo/Logo";
+import Button from "../../Elements/Button/Button";
 
 const Navbar = () => {
   return (
@@ -14,7 +14,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex items-center">
-            <LoginButton />
+            <Button type="login" />
           </div>
         </div>
       </div>
