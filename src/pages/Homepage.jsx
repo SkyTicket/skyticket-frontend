@@ -14,7 +14,7 @@ const HomePage = () => {
 
       <section className="flex relative justify-center -mt-[182px]">
         <div className="flex relative w-[90%] max-w-[1440px] min-h-[232px] rounded-[20px] overflow-hidden shadow-sm">
-          <div className="flex flex-col justify-center bg-[#FFE9CA] pl-20">
+          <div className="flex flex-col justify-center bg-[#FFE9CA] pl-20 pr-6">
             <p className="text-4xl leading-[54px] font-extrabold italic text-start text-[#151515]">
               Diskon Hari Ini
             </p>
@@ -33,8 +33,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="flex relative justify-center -mt-[50px]">
-        <div className="bg-white max-w-[1068px] sm:max-w-[80%] h-[298px] p-8 rounded-xl shadow-lg flex items-center justify-center text-center">
+      <section className="mx-4 flex relative justify-center -mt-[50px]">
+        <div className="flex items-center justify-center text-center bg-white max-w-[1068px] sm:max-w-[80%] h-[298px] p-8 rounded-xl shadow-lg">
           <div>
             <p className="text-2xl font-bold text-gray-800">Placeholder Card</p>
             <p className="mt-4 text-gray-600">
@@ -50,7 +50,7 @@ const HomePage = () => {
         <p className="text-start font-bold text-black mb-4">
           Destinasi Favorit
         </p>
-        <div className="flex gap-4 mb-8">
+        <div className="flex flex-wrap items-center gap-4 mb-8">
           {["Semua", "Asia", "Amerika", "Australia", "Eropa", "Afrika"].map(
             (region) => (
               <Button type="search" key={region}>
