@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../components/Elements/Button/Button";
 import FilterButton from "../components/Elements/Button/FilterButton";
 import DateList from "../components/Elements/Date/DateList";
@@ -7,13 +7,20 @@ import FilterModal from "../components/Fragments/Filter/FilterModals";
 import FlightInfo from "../components/Fragments/FlightInfo";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
 
-const TicketListPage = ({ image }) => {
+const TicketListPage = ({  data }) => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const handleFilterSelect = (filter) => {
     console.log("Filter selected:", filter);
     setIsFilterModalOpen(false);
   };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 3500);
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className=" max-w-7xl mx-auto px-4 py-6">
@@ -86,7 +93,7 @@ const TicketListPage = ({ image }) => {
           {isLoading ? (
             <div className="flex flex-col items-center">
               <LoadingAnimation />
-              <p className="text-black text-lg mt-4">Loading...</p>
+              <img src=""></img>
             </div>
           ) : data ? (
             <div>
