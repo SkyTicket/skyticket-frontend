@@ -6,7 +6,11 @@ export default {
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };

@@ -1,0 +1,26 @@
+@keyframes loader {
+    0% {
+        width: 0%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+  
+  @keyframes push {
+    0% {
+        transform: translateX(-10%);
+      }
+      100% {
+        transform: translateX(395%);
+      }
+    }
+  
+  .animate-loader {
+    animation: loader 3.5s infinite linear;
+  }
+  
+  .animate-push {
+    animation: push 3.5s infinite linear;
+  }
+  
