@@ -9,10 +9,10 @@
   
   @keyframes push {
     0% {
-        transform: translateX(0%);
+        transform: translateX(-10%);
       }
       100% {
-        transform: translateX(120%);
+        transform: translateX(395%);
       }
     }
   
@@ -21,6 +21,6 @@
   }
   
   .animate-push {
-    animation: push 3.5s infinite backwards;
+    animation: push 3.5s infinite linear;
   }
   
