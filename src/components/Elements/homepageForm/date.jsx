@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 
-const DatePicker = () => {
+const DatePicker = ({ disable }) => {
   const [value, setValue] = useState({
     startDate: null,
     endDate: null,
@@ -14,12 +14,15 @@ const DatePicker = () => {
       placeholder="Pilih Tanggal"
       containerClassName="block"
       toggleClassName="hidden"
-      inputClassName="border-b border-gray-500 w-36 pb-2 cursor-pointer focus:outline-none focus:border-slate-400 placeholder-gray-300"
+      inputClassName={`${
+        disable ? "cursor-not-allowed" : "cursor-pointer"
+      } bg-white border-b border-gray-500 w-36 pb-2 focus:outline-none focus:border-slate-400 placeholder-gray-300`}
       readOnly={true}
       useRange={false}
       asSingle={true}
-      value={value}
+      value={disable ? "" : value}
       onChange={(newValue) => setValue(newValue)}
+      disabled={disable}
     />
   );
 };

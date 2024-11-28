@@ -19,7 +19,7 @@ const TicketListPage = ({ data }) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 3500);
     return () => clearTimeout(timeout);
   }, []);
 
