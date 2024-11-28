@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Passengers from "./passengers";
 import DatePicker from "../../elements/homepageForm/date";
-import Destination from "./Destination";
+import Destination from "./destination";
 import Kelas from "./kelas";
 
 function HomepageForm() {

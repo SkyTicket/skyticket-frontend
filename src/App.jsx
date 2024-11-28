@@ -1,24 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Accordion from "./components/fragments/detailpage/accordion";
-import HomepageForm from "./components/fragments/homepageform/homepageForm";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <HomepageForm /> <Accordion />
-              </>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+  return <Router></Router>;
 }
 
 export default App;
