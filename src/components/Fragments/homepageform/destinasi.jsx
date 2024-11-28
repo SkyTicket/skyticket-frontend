@@ -12,7 +12,7 @@ function Destinasi() {
         type="text"
         value={destination == "" ? "" : destination}
         onClick={() => setShowSetDestination(true)}
-        className="font-bold border-b border-gray-500 w-80 pb-2 cursor-pointer focus:outline-none focus:border-slate-400"
+        className="border-b border-gray-500 w-80 pb-2 cursor-pointer focus:outline-none focus:border-slate-400 placeholder-gray-300"
         placeholder="Select City"
         readOnly
       />

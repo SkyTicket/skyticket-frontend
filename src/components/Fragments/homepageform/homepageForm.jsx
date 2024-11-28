@@ -85,7 +85,7 @@ function HomepageForm() {
         </div>
         <button
           type="submit"
-          className="font-bold text-white bg-purple-700 w-full rounded-t-none"
+          className="font-bold text-white bg-purple-700 w-full py-3 rounded-t-none"
         >
           Cari Penerbangan
         </button>

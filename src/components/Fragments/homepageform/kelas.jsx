@@ -12,7 +12,7 @@ function Kelas() {
         type="text"
         value={seat == "" ? "" : seat}
         onClick={() => setShowSetKelas(true)}
-        className="font-bold border-b border-gray-500 w-36 pb-2 cursor-pointer focus:outline-none focus:border-slate-400"
+        className="border-b border-gray-500 w-36 pb-2 cursor-pointer focus:outline-none focus:border-slate-400 placeholder-gray-300"
         placeholder="Select Class"
         readOnly
       />

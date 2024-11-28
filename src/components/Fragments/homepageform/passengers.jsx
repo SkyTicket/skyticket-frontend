@@ -13,7 +13,7 @@ function Passengers() {
         type="text"
         value={totalPassengers == 0 ? "" : totalPassengers + " Penumpang"}
         onClick={() => setShowSetPassenger(true)}
-        className="font-bold border-b border-gray-500 w-36 pb-2 cursor-pointer focus:outline-none focus:border-slate-400"
+        className="border-b border-gray-500 w-36 pb-2 cursor-pointer focus:outline-none focus:border-slate-400 placeholder-gray-300"
         placeholder="Select Passengers"
         readOnly
       />
