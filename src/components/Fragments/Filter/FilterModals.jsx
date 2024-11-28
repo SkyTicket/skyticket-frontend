@@ -59,7 +59,6 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
           ))}
         </ul>
 
-        {/* Tombol Pilih */}
         <div className="p-4 flex justify-end">
           <button
             onClick={() => {
