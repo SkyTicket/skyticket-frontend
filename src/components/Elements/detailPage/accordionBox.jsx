@@ -28,7 +28,7 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
         </div>
         <div className="flex justify-between w-full">
           <div className="flex text-left w-4/6 gap-2 items-center">
-            <div>
+            <div className="w-11">
               <p className="font-bold">{flight.departureTime}</p>
               <p className="font-semibold">{flight.departureCityShort}</p>
             </div>
@@ -40,7 +40,7 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
               </div>
               <p className="font-semibold">direct</p>
             </div>
-            <div>
+            <div className="w-11">
               <p className="font-bold">{flight.arrivalTime}</p>
               <p className="font-semibold">{flight.arrivalCityShort}</p>
             </div>
