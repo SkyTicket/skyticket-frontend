@@ -29,8 +29,8 @@ function HomepageForm() {
 
   return (
     <>
-      <div className="border border-black rounded-lg">
-        <div className="flex flex-col gap-4 p-4">
+      <div className="w-full h-full flex flex-col justify-between rounded-lg">
+        <div className="flex flex-col gap-4 p-6 justify-around h-full">
           <p className="font-bold">
             Pilih Jadwal Penerbangan spesial di{" "}
             <span className="text-purple-600">Tiketku!</span>

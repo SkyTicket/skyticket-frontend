@@ -6,8 +6,9 @@ import FilterItem from "../components/Fragments/Filter/FilterItem";
 import FilterModal from "../components/Fragments/Filter/FilterModals";
 import FlightInfo from "../components/Fragments/FlightInfo";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
+import Accordion from "../components/Fragments/detailpage/accordion";
 
-const TicketListPage = ({  data }) => {
+const TicketListPage = ({ data }) => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const handleFilterSelect = (filter) => {
@@ -18,7 +19,7 @@ const TicketListPage = ({  data }) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 3500);
+    }, 1000);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -45,80 +46,75 @@ const TicketListPage = ({  data }) => {
       {isFilterModalOpen && <FilterModal onFilterSelect={handleFilterSelect} />}
 
       {/* Body */}
-      <div className=" grid md:grid-cols-[300px,1fr] gap-10 mt-6">
-        <aside>
-          <div className="bg-white rounded-lg shadow-lg p-3">
-            <div className="mb-2">
-              <h3 className="text-lg font-medium pt-2 pl-4">Filter</h3>
-            </div>
+      <div className="flex justify-center">
+        <div className="grid md:grid-cols-[300px,1fr] gap-10 mt-6 ">
+          <aside>
+            <div className="bg-white rounded-lg shadow-lg p-3">
+              <div className="mb-2">
+                <h3 className="text-lg font-medium pt-2 pl-4">Filter</h3>
+              </div>
 
-            {/* Daftar Filter */}
-            <div className="divide-y">
-              <FilterItem
-                icon={
-                  <img
-                    src="/src/assets/icons/fi_box.svg"
-                    alt="Transit Icon"
-                    className="w-5 h-5"
-                  />
-                }
-                label="Transit"
-              />
-              <FilterItem
-                icon={
-                  <img
-                    src="/src/assets/icons/fi_heart.svg"
-                    alt="Fasilitas Icon"
-                    className="w-5 h-5"
-                  />
-                }
-                label="Fasilitas"
-              />
-              <FilterItem
-                icon={
-                  <img
-                    src="/src/assets/icons/fi_dollar-sign.svg"
-                    alt="Harga Icon"
-                    className="w-5 h-5"
-                  />
-                }
-                label="Harga"
-              />
+              {/* Daftar Filter */}
+              <div className="divide-y">
+                <FilterItem
+                  icon={
+                    <img
+                      src="/src/assets/icons/fi_box.svg"
+                      alt="Transit Icon"
+                      className="w-5 h-5"
+                    />
+                  }
+                  label="Transit"
+                />
+                <FilterItem
+                  icon={
+                    <img
+                      src="/src/assets/icons/fi_heart.svg"
+                      alt="Fasilitas Icon"
+                      className="w-5 h-5"
+                    />
+                  }
+                  label="Fasilitas"
+                />
+                <FilterItem
+                  icon={
+                    <img
+                      src="/src/assets/icons/fi_dollar-sign.svg"
+                      alt="Harga Icon"
+                      className="w-5 h-5"
+                    />
+                  }
+                  label="Harga"
+                />
+              </div>
             </div>
+          </aside>
+
+          {/* Loading bar */}
+          <div className="w-[60vw] flex justify-center">
+            {isLoading ? (
+              <div className="flex flex-col items-center">
+                <LoadingAnimation />
+                <img src=""></img>
+              </div>
+            ) : data ? (
+              <Accordion data={data} />
+            ) : (
+              <div className="flex flex-col items-center">
+                <img
+                  src="/src/assets/icons/notfound.svg"
+                  alt="Data Not Found"
+                  className="w-64 h-64"
+                />
+                <p className="text-black text-lg mt-4">
+                  Maaf, pencarian Anda tidak ditemukan
+                </p>
+                <p className="text-[#7126B5] text-lg mt-4">
+                  Coba cari perjalanan lainya!
+                </p>
+              </div>
+            )}
           </div>
-        </aside>
-
-        {/* Loading bar */}
-        <div>
-          {isLoading ? (
-            <div className="flex flex-col items-center">
-              <LoadingAnimation />
-              <img src=""></img>
-            </div>
-          ) : data ? (
-            <div>
-              {" "}
-              {data.map((item, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg shadow-md">
-                  <p>{item}</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col items-center">
-              <img
-                src="/src/assets/icons/notfound.svg"
-                alt="Data Not Found"
-                className="w-64 h-64"
-              />
-              <p className="text-black text-lg mt-4">
-                Maaf, pencarian Anda tidak ditemukan
-              </p>
-              <p className="text-[#7126B5] text-lg mt-4">
-                Coba cari perjalanan lainya!
-              </p>
-            </div>
-          )}
         </div>
       </div>
     </div>

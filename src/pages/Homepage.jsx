@@ -1,5 +1,6 @@
 import Button from "../components/Elements/Button/Button";
 import Card from "../components/Fragments/Card/Card";
+import HomepageForm from "../components/Fragments/homepageform/homepageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 
@@ -34,15 +35,8 @@ const HomePage = () => {
       </section>
 
       <section className="mx-4 flex relative justify-center -mt-[50px]">
-        <div className="flex items-center justify-center text-center bg-white max-w-[1068px] sm:max-w-[80%] h-[298px] p-8 rounded-xl shadow-lg">
-          <div>
-            <p className="text-2xl font-bold text-gray-800">Placeholder Card</p>
-            <p className="mt-4 text-gray-600">
-              This is a placeholder card that overlaps the banner. You can use
-              this card to display additional information or content relevant to
-              your page.
-            </p>
-          </div>
+        <div className="flex items-center justify-center bg-white max-w-[1068px] sm:max-w-[80%] h-[298px] rounded-xl shadow-lg">
+          <HomepageForm />
         </div>
       </section>
 
