@@ -12,6 +12,7 @@ import Passengers from "./passengers";
 import DatePicker from "../../elements/homepageForm/date";
 import Destination from "./destination";
 import Kelas from "./kelas";
+import SeatIcon from "./seatIcon";
 
 function HomepageForm() {
   const [isArrival, setIsArrival] = useState(false);
@@ -33,7 +34,7 @@ function HomepageForm() {
         <div className="flex flex-col gap-4 p-6 justify-around h-full">
           <p className="font-bold">
             Pilih Jadwal Penerbangan spesial di{" "}
-            <span className="text-purple-600">Tiketku!</span>
+            <span className="text-purple-600">SkyTicket!</span>
           </p>
 
           <div className="flex gap-4 items-center justify-between">
@@ -71,32 +72,32 @@ function HomepageForm() {
                   <p className="text-gray-500 cursor-default select-none">
                     Departure
                   </p>
-                  <DatePicker />
+                  <DatePicker disable={false} />
                 </div>
                 <div>
                   <p className="text-gray-500 cursor-default select-none">
                     Arrival
                   </p>
-                  <DatePicker />
+                  <DatePicker disable={isArrival ? false : true} />
                 </div>
               </div>
             </div>
 
             <FontAwesomeIcon
-              icon={isArrival ? faToggleOff : faToggleOn}
+              icon={isArrival ? faToggleOn : faToggleOff}
               className="w-6 h-6 cursor-pointer"
               onClick={() => setIsArrival(!isArrival)}
             />
 
             <div className="flex items-center gap-6">
               <div className="text-gray-500 flex items-center gap-1">
-                <FontAwesomeIcon icon={faCalendar} className="w-4 h-4" />
+                <SeatIcon />
                 <p className="cursor-default select-none">To</p>
               </div>
               <div className="flex gap-[32px]">
                 <div>
                   <p className="text-gray-500 cursor-default select-none">
-                    Passangers
+                    Passengers
                   </p>
                   <Passengers />
                 </div>
