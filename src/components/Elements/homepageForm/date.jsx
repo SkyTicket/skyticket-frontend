@@ -12,6 +12,7 @@ const DatePicker = () => {
       displayFormat="DD/MM/YYYY"
       primaryColor={"purple"}
       placeholder="Pilih Tanggal"
+      containerClassName="block"
       toggleClassName="hidden"
       inputClassName="border-b border-gray-500 w-36 pb-2 cursor-pointer focus:outline-none focus:border-slate-400 placeholder-gray-300"
       readOnly={true}

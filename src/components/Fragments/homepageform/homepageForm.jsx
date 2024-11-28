@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlaneDeparture,
@@ -5,6 +6,7 @@ import {
   faCalendar,
   faToggleOn,
   faRepeat,
+  faToggleOff,
 } from "@fortawesome/free-solid-svg-icons";
 import Passengers from "./passengers";
 import DatePicker from "../../elements/homepageForm/date";
@@ -12,6 +14,19 @@ import Destination from "./Destination";
 import Kelas from "./kelas";
 
 function HomepageForm() {
+  const [isArrival, setIsArrival] = useState(false);
+  const [fromValue, setFromValue] = useState("");
+  const [toValue, setToValue] = useState("");
+  const [isRotated, setIsRotated] = useState(false);
+
+  const handleRotate = () => {
+    setIsRotated((prev) => !prev);
+    setFromValue((prevFrom) => {
+      setToValue(prevFrom);
+      return toValue;
+    });
+  };
+
   return (
     <>
       <div className="border border-black rounded-lg">
@@ -25,20 +40,23 @@ function HomepageForm() {
             <div className="flex gap-6 items-center">
               <div className="flex gap-1 items-center text-gray-500">
                 <FontAwesomeIcon icon={faPlaneDeparture} className="w-4 h-4" />
-                <p>From</p>
+                <p className="cursor-default select-none">From</p>
               </div>
-              <Destination />
+              <Destination value={fromValue} onChange={setFromValue} />
             </div>
             <FontAwesomeIcon
               icon={faRepeat}
-              className="w-4 h-4 cursor-pointer"
+              className={`w-4 h-4 cursor-pointer bg-black text-white p-1 rounded-lg transition-transform duration-300 ${
+                isRotated ? "rotate-180" : ""
+              }`}
+              onClick={handleRotate}
             />
             <div className="flex gap-6 items-center">
               <div className="flex gap-1 items-center text-gray-500">
                 <FontAwesomeIcon icon={faPlaneArrival} className="w-4 h-4" />
-                <p>To</p>
+                <p className="cursor-default select-none">To</p>
               </div>
-              <Destination />
+              <Destination value={toValue} onChange={setToValue} />
             </div>
           </div>
 
@@ -46,37 +64,46 @@ function HomepageForm() {
             <div className="flex items-center gap-6">
               <div className="text-gray-500 flex items-center gap-1">
                 <FontAwesomeIcon icon={faCalendar} className="w-4 h-4" />
-                <p>Date</p>
+                <p className="cursor-default select-none">Date</p>
               </div>
               <div className="flex gap-[32px]">
                 <div>
-                  <p className="text-gray-500">Departure</p>
+                  <p className="text-gray-500 cursor-default select-none">
+                    Departure
+                  </p>
                   <DatePicker />
                 </div>
                 <div>
-                  <p className="text-gray-500">Arrival</p>
+                  <p className="text-gray-500 cursor-default select-none">
+                    Arrival
+                  </p>
                   <DatePicker />
                 </div>
               </div>
             </div>
 
             <FontAwesomeIcon
-              icon={faToggleOn}
-              className="w-4 h-4 cursor-pointer"
+              icon={isArrival ? faToggleOff : faToggleOn}
+              className="w-6 h-6 cursor-pointer"
+              onClick={() => setIsArrival(!isArrival)}
             />
 
             <div className="flex items-center gap-6">
               <div className="text-gray-500 flex items-center gap-1">
                 <FontAwesomeIcon icon={faCalendar} className="w-4 h-4" />
-                <p>To</p>
+                <p className="cursor-default select-none">To</p>
               </div>
               <div className="flex gap-[32px]">
                 <div>
-                  <p className="text-gray-500">Passangers</p>
+                  <p className="text-gray-500 cursor-default select-none">
+                    Passangers
+                  </p>
                   <Passengers />
                 </div>
                 <div>
-                  <p className="text-gray-500">Seat Class</p>
+                  <p className="text-gray-500 cursor-default select-none">
+                    Seat Class
+                  </p>
                   <Kelas />
                 </div>
               </div>

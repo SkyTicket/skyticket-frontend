@@ -20,7 +20,7 @@ function Kelas() {
       {showSetClass && (
         <>
           <Backdrop />
-          <SetClass close={() => setShowSetKelas(false)} setSeat={setSeats} />
+          <SetClass close={() => setShowSetClass(false)} setSeat={setSeats} />
         </>
       )}
     </>
