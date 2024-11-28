@@ -1,27 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "../components/Elements/Button/Button";
-import Input from "../components/Elements/Button/Input";
-import DateItem from "../components/Fragments/Date/DateItem";
-import FilterItem from "../components/Fragments/Filter/FilterItem";
-import FlightInfo from "../components/Fragments/FlightInfo";
-import DateSeparator from "../components/Fragments/Date/DateSeparator";
-import React from "react";
 import FilterButton from "../components/Elements/Button/FilterButton";
+import DateList from "../components/Elements/Date/DateList";
+import FilterItem from "../components/Fragments/Filter/FilterItem";
 import FilterModal from "../components/Fragments/Filter/FilterModals";
+import FlightInfo from "../components/Fragments/FlightInfo";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
 
-const TicketListPage = () => {
-  const dates = [
-    { day: "Selasa", date: "01/03/2023", isActive: false },
-    { day: "Rabu", date: "02/03/2023", isActive: true },
-    { day: "Kamis", date: "03/03/2023", isActive: false },
-    { day: "Jumat", date: "04/03/2023", isActive: false },
-    { day: "Sabtu", date: "05/03/2023", isActive: false },
-    { day: "Minggu", date: "06/03/2023", isActive: false },
-    { day: "Senin", date: "07/03/2023", isActive: false },
-    { day: "Selasa", date: "07/03/2023", isActive: false },
-  ];
-
+const TicketListPage = ({ image }) => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const handleFilterSelect = (filter) => {
@@ -33,38 +19,33 @@ const TicketListPage = () => {
     <div className=" max-w-7xl mx-auto px-4 py-6">
       <p className="text-2xl font-semibold py-6">Pilih Penerbangan</p>
       <div className="flex flex-row items-center justify-between gap-4">
-        <div className="w-full flex items-center justify-between bg-purple-500 text-white rounded-xl px-4 py-2">
+        <div className="w-full flex items-center justify-between bg-[#A06ECE] text-white rounded-xl px-4 py-2">
           <FlightInfo />
         </div>
-        <Button className="w-1/6 h-14 rounded-xl font-semibold bg-green-500 hover:bg-green-400">
+        <Button className="w-1/3 h-14 rounded-xl font-semibold bg-[#73CA5C] hover:bg-white  hover:text-[#73CA5C] hover:border-2 border-[#73CA5C]">
           Ubah Pencarian
         </Button>
       </div>
       <div className="flex justify-end mb-6 "></div>
 
       {/* Date */}
-      <div className=" flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
-        {dates.map((item, index) => (
-          <React.Fragment key={index}>
-            <DateItem {...item} />
-            {index < dates.length - 1 && <DateSeparator />}
-          </React.Fragment>
-        ))}
-      </div>
+      <DateList />
 
       {/* Filter Modals */}
-      <div className="flex justify-end mb-4">
+      <div className="flex pt-7 justify-end mb-4">
         <FilterButton onClick={() => setIsFilterModalOpen(true)} />
       </div>
       {isFilterModalOpen && <FilterModal onFilterSelect={handleFilterSelect} />}
 
       {/* Body */}
-      <div className="grid md:grid-cols-[300px,1fr] gap-6 mt-6">
+      <div className=" grid md:grid-cols-[300px,1fr] gap-10 mt-6">
         <aside>
           <div className="bg-white rounded-lg shadow-lg p-3">
-            <div className="mb-1">
-              <h3 className="text-lg font-medium pt-3 ml-4">Filter</h3>
+            <div className="mb-2">
+              <h3 className="text-lg font-medium pt-2 pl-4">Filter</h3>
             </div>
+
+            {/* Daftar Filter */}
             <div className="divide-y">
               <FilterItem
                 icon={
@@ -80,7 +61,7 @@ const TicketListPage = () => {
                 icon={
                   <img
                     src="/src/assets/icons/fi_heart.svg"
-                    alt="Transit Icon"
+                    alt="Fasilitas Icon"
                     className="w-5 h-5"
                   />
                 }
@@ -90,7 +71,7 @@ const TicketListPage = () => {
                 icon={
                   <img
                     src="/src/assets/icons/fi_dollar-sign.svg"
-                    alt="Transit Icon"
+                    alt="Harga Icon"
                     className="w-5 h-5"
                   />
                 }
@@ -99,8 +80,39 @@ const TicketListPage = () => {
             </div>
           </div>
         </aside>
+
         {/* Loading bar */}
-        <LoadingAnimation />
+        <div>
+          {isLoading ? (
+            <div className="flex flex-col items-center">
+              <LoadingAnimation />
+              <p className="text-black text-lg mt-4">Loading...</p>
+            </div>
+          ) : data ? (
+            <div>
+              {" "}
+              {data.map((item, index) => (
+                <div key={index} className="bg-white p-4 rounded-lg shadow-md">
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <img
+                src="/src/assets/icons/notfound.svg"
+                alt="Data Not Found"
+                className="w-64 h-64"
+              />
+              <p className="text-black text-lg mt-4">
+                Maaf, pencarian Anda tidak ditemukan
+              </p>
+              <p className="text-[#7126B5] text-lg mt-4">
+                Coba cari perjalanan lainya!
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
