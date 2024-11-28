@@ -2,7 +2,7 @@ import { useState } from "react";
 import Backdrop from "../../elements/search/backdrop";
 import SetDestination from "../../elements/homepageForm/setDestination";
 
-function Destinasi() {
+function Destination() {
   const [showSetDestination, setShowSetDestination] = useState(false);
   const [destination, setDestination] = useState("");
 
@@ -30,4 +30,4 @@ function Destinasi() {
   );
 }
 
-export default Destinasi;
+export default Destination;

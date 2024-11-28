@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Backdrop from "../../elements/search/backdrop";
-import SetKelas from "../../elements/homepageForm/setKelas";
+import SetClass from "../../Elements/homepageForm/setClass";
 
 function Kelas() {
-  const [showSetKelas, setShowSetKelas] = useState(false);
+  const [showSetClass, setShowSetClass] = useState(false);
   const [seat, setSeats] = useState("");
 
   return (
@@ -11,16 +11,16 @@ function Kelas() {
       <input
         type="text"
         value={seat == "" ? "" : seat}
-        onClick={() => setShowSetKelas(true)}
+        onClick={() => setShowSetClass(true)}
         className="border-b border-gray-500 w-36 pb-2 cursor-pointer focus:outline-none focus:border-slate-400 placeholder-gray-300"
         placeholder="Select Class"
         readOnly
       />
 
-      {showSetKelas && (
+      {showSetClass && (
         <>
           <Backdrop />
-          <SetKelas close={() => setShowSetKelas(false)} setSeat={setSeats} />
+          <SetClass close={() => setShowSetKelas(false)} setSeat={setSeats} />
         </>
       )}
     </>

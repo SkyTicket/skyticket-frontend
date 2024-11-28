@@ -6,10 +6,10 @@ import {
   faToggleOn,
   faRepeat,
 } from "@fortawesome/free-solid-svg-icons";
-import Destinasi from "./destinasi";
-import Kelas from "./kelas";
 import Passengers from "./passengers";
 import DatePicker from "../../elements/homepageForm/date";
+import Destination from "./Destination";
+import Kelas from "./kelas";
 
 function HomepageForm() {
   return (
@@ -27,7 +27,7 @@ function HomepageForm() {
                 <FontAwesomeIcon icon={faPlaneDeparture} className="w-4 h-4" />
                 <p>From</p>
               </div>
-              <Destinasi />
+              <Destination />
             </div>
             <FontAwesomeIcon
               icon={faRepeat}
@@ -38,7 +38,7 @@ function HomepageForm() {
                 <FontAwesomeIcon icon={faPlaneArrival} className="w-4 h-4" />
                 <p>To</p>
               </div>
-              <Destinasi />
+              <Destination />
             </div>
           </div>
 
