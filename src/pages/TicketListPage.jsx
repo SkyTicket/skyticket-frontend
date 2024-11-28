@@ -91,7 +91,7 @@ const TicketListPage = ({ data }) => {
           </aside>
 
           {/* Loading bar */}
-          <div>
+          <div className="w-[60vw] flex justify-center">
             {isLoading ? (
               <div className="flex flex-col items-center">
                 <LoadingAnimation />
