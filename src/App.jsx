@@ -91,15 +91,13 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/order-ticket" element={<PageOrder />} />
         <Route path="/ticket-list" element={<TicketListPage />} />
         <Route
           path="/ticket-list/data"
           element={<TicketListPage data={flights} />}
         />
         <Route path="*" element={<TicketListPageNotFound />} />
-      </Routes>
-      <Routes>
-        <Route path="/order-ticket" element={<PageOrder />} />
       </Routes>
     </Router>
   );
