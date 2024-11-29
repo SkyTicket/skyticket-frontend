@@ -12,9 +12,9 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
         onClick={onclickHandler}
       >
         <div className="flex justify-between w-full items-center border-t border-gray-400 pt-2 md:pt-0 md:border-0">
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center text-black ">
             <img src={flight.airLineLogo} alt="logo" className="h-6" />
-            <div className="flex flex-col">
+            <div className="flex flex-co l">
               <p>Jet Air - Economy</p>
               <div className="block md:hidden w-6">
                 <BaggageIcon />
@@ -27,7 +27,7 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
           />
         </div>
         <div className="flex justify-between w-full">
-          <div className="flex text-left w-4/6 gap-2 items-center">
+          <div className="flex text-left w-4/6 gap-2 items-center text-black">
             <div className="w-11">
               <p className="font-bold">{flight.departureTime}</p>
               <p className="font-semibold">{flight.departureCityShort}</p>

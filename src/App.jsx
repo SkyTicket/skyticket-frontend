@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import TicketListPage from "./pages/TicketListPage";
 import TicketListPageNotFound from "./pages/TicketListNotFound";
 import HomePage from "./pages/Homepage";
+import PageOrder from "./pages/PageOrder";
+
 function App() {
   const flights = [
     {
@@ -89,6 +91,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/order-ticket" element={<PageOrder />} />
         <Route path="/ticket-list" element={<TicketListPage />} />
         <Route
           path="/ticket-list/data"
