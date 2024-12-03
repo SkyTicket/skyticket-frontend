@@ -2,7 +2,7 @@ function DetFlight({ flight }) {
   return (
     <>
       <div className="flex gap-8 c-bottom-border pb-4 justify-between">
-        <div className="text-left">
+        <div className="text-left text-black">
           <p className="font-bold">{flight.departureTime}</p>
           <p>{flight.departureDate}</p>
           <p className="font-semibold">{flight.departure}</p>
@@ -12,7 +12,7 @@ function DetFlight({ flight }) {
         </p>
       </div>
 
-      <div className="flex gap-4 c-bottom-border pb-4 items-center">
+      <div className="flex gap-4 c-bottom-border pb-4 items-center text-black">
         <div>
           <img src={flight.airLineLogo} alt="logo" className="h-6" />
         </div>
@@ -30,7 +30,7 @@ function DetFlight({ flight }) {
         </div>
       </div>
 
-      <div className="flex justify-between relative">
+      <div className="flex justify-between relative text-black">
         <div className="text-left">
           <p className="font-bold">{flight.arrivalTime}</p>
           <p>{flight.arrivalDate}</p>

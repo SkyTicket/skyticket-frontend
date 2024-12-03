@@ -6,7 +6,7 @@ const FilterItem = ({ icon, label, hasDropdown = true }) => {
         <span>{label}</span>
       </div>
       {hasDropdown && (
-        <div className="text-slate-500 hover:text-black">
+        <div className="text-black hover:text-black">
           <svg
             className="w-4 h-4"
             fill="none"
