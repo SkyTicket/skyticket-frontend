@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import BaggageIcon from "./baggageicon";
+import { useNavigate } from "react-router-dom";
 
 function AccordionBox({ onclickHandler, flight, isOpen }) {
+  const navigate = useNavigate();
   return (
     <>
       <div
@@ -52,7 +54,7 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
             <div className="text-purple-700 font-bold text-primary">
               {flight.price}
             </div>
-            <button className="hidden md:block bg-purple-700 text-white px-7 py-1 rounded-lg">
+            <button className="hidden md:block bg-purple-700 text-white px-7 py-1 rounded-lg" onClick={() => navigate("/order-ticket") }>
               Pilih
             </button>
           </div>

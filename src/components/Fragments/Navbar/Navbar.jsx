@@ -4,7 +4,7 @@ import Button from "../../Elements/Button/Button";
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-lg p-4">
+    <nav className="bg-white shadow-lg">
       <div className="mx-auto w-[90%] max-w-[1440px]">
         <div className="relative flex items-center justify-between h-auto gap-8 flex-col sm:flex-row">
           <div className="flex flex-1 items-center gap-8 flex-col sm:flex-row">
