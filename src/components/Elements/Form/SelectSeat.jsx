@@ -17,7 +17,7 @@ const SelectSeat = () => {
     const rightColumns = ["D", "E", "F"];
 
     // Predefined unavailable seats
-    const unavailableSeats = new Set(["A1", "B1"]);
+    const unavailableSeats = new Set([]);
 
     // Special seats (P1, P2)
     const specialSeats = {};
@@ -63,12 +63,12 @@ const SelectSeat = () => {
         if (unavailableSeats.has(seatId)) return "bg-gray-300";
         if (specialSeats[seatId]) return "bg-purple-600";
 
-        // Get current passenger's seat
+        
         const currentPassengerSeat = methods.getValues(
             `passengers.${currentPassengerIndex}.selected_seat`
         );
 
-        // Check if seat is selected by any passenger
+        
         const allSelectedSeats = getAllSelectedSeats();
         if (seatId === currentPassengerSeat) return "bg-purple-600";
         if (allSelectedSeats.includes(seatId)) return "bg-red-500";
@@ -100,7 +100,7 @@ const SelectSeat = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div /> {/* Middle spacer */}
+                            <div /> 
                             <div className="col-span-3 grid grid-cols-3">
                                 {rightColumns.map((col) => (
                                     <div
@@ -113,10 +113,10 @@ const SelectSeat = () => {
                             </div>
                         </div>
 
-                        {/* Seat grid */}
+                        
                         {rows.map((row) => (
                             <div key={row} className="grid grid-cols-7 gap-2">
-                                {/* Left seats */}
+                                
                                 <div className="col-span-3 grid grid-cols-3 gap-2">
                                     {leftColumns.map((col) => {
                                         const seatId = `${col}${row}`;
@@ -145,12 +145,12 @@ const SelectSeat = () => {
                                     })}
                                 </div>
 
-                                {/* Row number */}
+                                
                                 <div className="flex items-center justify-center font-semibold">
                                     {row}
                                 </div>
 
-                                {/* Right seats */}
+                                
                                 <div className="col-span-3 grid grid-cols-3 gap-2">
                                     {rightColumns.map((col) => {
                                         const seatId = `${col}${row}`;

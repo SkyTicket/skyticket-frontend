@@ -13,12 +13,14 @@ import DatePicker from "../../elements/homepageForm/date";
 import Destination from "./destination";
 import Kelas from "./kelas";
 import SeatIcon from "./seatIcon";
+import { useNavigate } from "react-router-dom";
 
 function HomepageForm() {
   const [isArrival, setIsArrival] = useState(false);
   const [fromValue, setFromValue] = useState("");
   const [toValue, setToValue] = useState("");
   const [isRotated, setIsRotated] = useState(false);
+  const navigate = useNavigate();
 
   const handleRotate = () => {
     setIsRotated((prev) => !prev);
@@ -114,6 +116,7 @@ function HomepageForm() {
         <button
           type="submit"
           className="font-bold text-white bg-purple-700 w-full py-3 rounded-t-none"
+          onClick={()=> navigate("/ticket-list/data")}
         >
           Cari Penerbangan
         </button>
