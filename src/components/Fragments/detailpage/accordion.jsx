@@ -22,11 +22,11 @@ function Accordion({ data }) {
   };
 
   return (
-    <div className="md:w-[55vw] md:m-0 w-[90vw] m-[5vw] max-w-2xl mx-auto">
+    <div className="m-[5vw] mx-auto w-[90vw] max-w-2xl md:m-0 md:w-[55vw]">
       {data.map((data) => (
         <div
           key={data.id}
-          className={`border-2 rounded-lg mb-4 shadow-lg overflow-hidden ${
+          className={`mb-4 overflow-hidden rounded-lg border-2 shadow-lg ${
             openAccordion === data.id ? "border-purple-400" : "border-gray-300"
           }`}
         >
@@ -45,12 +45,12 @@ function Accordion({ data }) {
 
           {!isMobile && (
             <div
-              className={`accordion-content p-4 pt-0 hidden md:block ${
-                openAccordion === data.id ? "open" : "closed"
+              className={`hidden max-h-0 overflow-hidden p-4 pt-0 transition-[max-height,padding] duration-300 ease-out md:block ${
+                openAccordion === data.id ? "max-h-[500px]" : "p-0"
               }`}
             >
-              <div className="m-6 flex gap-2 flex-col">
-                <h3 className="text-purple-800 font-bold text-left">
+              <div className="m-6 flex flex-col gap-2">
+                <h3 className="text-left font-bold text-purple-800">
                   Detail Penerbangan
                 </h3>
               </div>
