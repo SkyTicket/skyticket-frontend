@@ -1,5 +1,5 @@
 import React from "react";
-import "/public/css/loaderAnimation.css";
+import "../../Styles/styles.css"
 
 const ProgressBar = () => {
   return (
