@@ -26,35 +26,39 @@ const TicketListPage = ({ data }) => {
 
   return (
     <>
-      <Navbar/>
-      <div className=" max-w-7xl mx-auto px-4 py-6">
-        <p className="text-2xl font-semibold py-6 text-black">Pilih Penerbangan</p>
+      <Navbar />
+      <div className="mx-auto max-w-7xl px-4 py-6">
+        <p className="py-6 text-2xl font-semibold text-black">
+          Pilih Penerbangan
+        </p>
         <div className="flex flex-row items-center justify-between gap-4">
-          <div className="w-full flex items-center justify-between bg-[#A06ECE] text-white rounded-xl px-4 py-2">
+          <div className="flex w-full items-center justify-between rounded-xl bg-[#A06ECE] px-4 py-2 text-white">
             <FlightInfo />
           </div>
-          <Button className="w-1/3 h-14 rounded-xl font-semibold bg-[#73CA5C] hover:bg-white  hover:text-[#73CA5C] hover:border-2 border-[#73CA5C]">
+          <Button className="h-14 w-1/3 rounded-xl border-[#73CA5C] bg-[#73CA5C] font-semibold hover:border-2 hover:bg-white hover:text-[#73CA5C]">
             Ubah Pencarian
           </Button>
         </div>
-        <div className="flex justify-end mb-6 "></div>
+        <div className="mb-6 flex justify-end"></div>
 
         {/* Date */}
         <DateList />
 
         {/* Filter Modals */}
-        <div className="flex pt-7 justify-end mb-4">
+        <div className="mb-4 flex justify-end pt-7">
           <FilterButton onClick={() => setIsFilterModalOpen(true)} />
         </div>
-        {isFilterModalOpen && <FilterModal onFilterSelect={handleFilterSelect} />}
+        {isFilterModalOpen && (
+          <FilterModal onFilterSelect={handleFilterSelect} />
+        )}
 
         {/* Body */}
         <div className="flex justify-center">
-          <div className="grid md:grid-cols-[300px,1fr] gap-10 mt-6 ">
-            <aside>
-              <div className="bg-white rounded-lg shadow-lg p-3">
+          <div className="mt-6 flex w-full justify-between">
+            <aside className="w-[300px] text-black">
+              <div className="rounded-lg bg-white p-3 shadow-lg">
                 <div className="mb-2">
-                  <h3 className="text-lg font-medium pt-2 pl-4">Filter</h3>
+                  <h3 className="pl-4 pt-2 text-lg font-medium">Filter</h3>
                 </div>
 
                 {/* Daftar Filter */}
@@ -63,38 +67,38 @@ const TicketListPage = ({ data }) => {
                     label="Transit"
                     icon={
                       <img
-                      src="/src/assets/icons/fi_box.svg"
-                      alt="Transit Icon"
-                      className="w-5 h-5"
+                        src="/src/assets/icons/fi_box.svg"
+                        alt="Transit Icon"
+                        className="h-5 w-5"
                       />
                     }
-                    />
+                  />
                   <FilterItem
                     icon={
                       <img
-                      src="/src/assets/icons/fi_heart.svg"
-                      alt="Fasilitas Icon"
-                      className="w-5 h-5"
+                        src="/src/assets/icons/fi_heart.svg"
+                        alt="Fasilitas Icon"
+                        className="h-5 w-5"
                       />
                     }
                     label="Fasilitas"
-                    />
+                  />
                   <FilterItem
                     icon={
                       <img
-                      src="/src/assets/icons/fi_dollar-sign.svg"
-                      alt="Harga Icon"
-                      className="w-5 h-5"
+                        src="/src/assets/icons/fi_dollar-sign.svg"
+                        alt="Harga Icon"
+                        className="h-5 w-5"
                       />
                     }
                     label="Harga"
-                    />
+                  />
                 </div>
               </div>
             </aside>
 
             {/* Loading bar */}
-            <div className="w-[60vw] flex justify-center">
+            <div className="flex min-w-[70%] justify-center">
               {isLoading ? (
                 <div className="flex flex-col items-center">
                   <LoadingAnimation />
@@ -107,12 +111,12 @@ const TicketListPage = ({ data }) => {
                   <img
                     src="/src/assets/icons/notfound.svg"
                     alt="Data Not Found"
-                    className="w-64 h-64"
-                    />
-                  <p className="text-black text-lg mt-4">
+                    className="h-64 w-64"
+                  />
+                  <p className="mt-4 text-lg text-black">
                     Maaf, pencarian Anda tidak ditemukan
                   </p>
-                  <p className="text-[#7126B5] text-lg mt-4">
+                  <p className="mt-4 text-lg text-[#7126B5]">
                     Coba cari perjalanan lainya!
                   </p>
                 </div>

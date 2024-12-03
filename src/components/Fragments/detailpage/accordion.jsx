@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DetFlight from "../../elements/detailPage/detailFlight";
-import AccordionBox from "../../Elements/detailPage/accordionBox";
-import "./accordion.css";
+import AccordionBox from "../../elements/detailPage/accordionBox";
 
 function Accordion({ data }) {
   const [openAccordion, setOpenAccordion] = useState(null);
@@ -22,7 +21,7 @@ function Accordion({ data }) {
   };
 
   return (
-    <div className="m-[5vw] mx-auto w-[90vw] max-w-2xl md:m-0 md:w-[55vw]">
+    <div className="m-[5vw] mx-auto w-[90vw] max-w-4xl md:m-0 md:w-[70vw]">
       {data.map((data) => (
         <div
           key={data.id}
