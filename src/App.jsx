@@ -3,6 +3,7 @@ import TicketListPage from "./pages/TicketListPage";
 import TicketListPageNotFound from "./pages/TicketListNotFound";
 import HomePage from "./pages/Homepage";
 import PageOrder from "./pages/PageOrder";
+import AccountPage from "./pages/AccountPage";
 
 function App() {
   const flights = [
@@ -98,6 +99,7 @@ function App() {
           element={<TicketListPage data={flights} />}
         />
         <Route path="*" element={<TicketListPageNotFound />} />
+        <Route path="/account" element={<AccountPage />} />
       </Routes>
     </Router>
   );
