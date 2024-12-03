@@ -1,5 +1,5 @@
 import NavbarLogin from "../components/Fragments/Navbar/NavbarLogin";
-import HeaderLogin from "../components/Fragments/Headers/Header";
+import HeaderLogin from "../components/Fragments/Header/Header";
 import AccountMenu from "../components/Fragments/AccountMenu/AccountMenu";
 
 function AccountPage() {

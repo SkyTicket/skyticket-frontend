@@ -1,5 +1,3 @@
-import IconEdit from "./Editicon";
-import GearIcon from "./GearIcon";
 import OutIcon from "./OutIcon";
 
 function AccountMenu() {
@@ -7,15 +5,15 @@ function AccountMenu() {
     <div className="flex w-[40%] flex-col items-center gap-2 bg-white p-4">
       <div className="flex w-full flex-col gap-2">
         <div className="flex items-center gap-5 border-b border-gray-300 pb-3">
-          <IconEdit />
+        <img alt="Edit Icon" src="/src/assets/icons/edit.svg" />
           <p className="text-black">Ubah Profil</p>
         </div>
         <div className="flex items-center gap-5 border-b border-gray-300 pb-3">
-          <GearIcon />
+        <img alt="Setting Icon" src="/src/assets/icons/setting.svg" />
           <p className="text-black">Pengaturan Akun</p>
         </div>
         <div className="flex items-center gap-5 border-b border-gray-300 pb-3">
-          <OutIcon />
+        <img alt="Logout Icon" src="/src/assets/icons/logout.svg" />
           <p className="text-black">Keluar</p>
         </div>
       </div>

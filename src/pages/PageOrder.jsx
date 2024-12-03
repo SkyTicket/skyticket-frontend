@@ -7,7 +7,7 @@ import Progress from "../components/Elements/Header/Progress";
 import SelectSeat from "../components/Elements/Form/SelectSeat";
 import CustomerForm from "../components/Elements/Form/CustomerForm";
 import DetailFlight from "../components/Fragments/DetailFlight";
-import DetFlight from "../components/elements/detailPage/detailFlight";
+import DetFlight from "../components/Elements/Accordion/DetailFlight";
 
 const PageOrder = () => {
     const navigate = useNavigate();

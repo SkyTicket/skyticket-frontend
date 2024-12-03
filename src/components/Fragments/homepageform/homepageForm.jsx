@@ -8,11 +8,10 @@ import {
   faRepeat,
   faToggleOff,
 } from "@fortawesome/free-solid-svg-icons";
-import Passengers from "./passengers";
-import DatePicker from "../../elements/homepageForm/date";
-import Destination from "./destination";
-import Kelas from "./kelas";
-import SeatIcon from "./seatIcon";
+import Passengers from "./Passengers";
+import DatePicker from "../../Elements/Input/SetDate";
+import Class from "./Class"
+import Destination from "./Destination";
 import { useNavigate } from "react-router-dom";
 
 function HomepageForm() {
@@ -93,7 +92,7 @@ function HomepageForm() {
 
             <div className="flex items-center gap-6">
               <div className="text-gray-500 flex items-center gap-1">
-                <SeatIcon />
+              <img alt="Seat Icon" src="/src/assets/icons/seat.svg" className="w-auto" />
                 <p className="cursor-default select-none">To</p>
               </div>
               <div className="flex gap-[32px]">
@@ -107,7 +106,7 @@ function HomepageForm() {
                   <p className="text-gray-500 cursor-default select-none">
                     Seat Class
                   </p>
-                  <Kelas />
+                  <Class />
                 </div>
               </div>
             </div>

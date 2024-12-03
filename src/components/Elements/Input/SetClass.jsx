@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import BoxSearch from "../search/boxSearch";
+import BoxSearch from "../Search/BoxSearch";
 
 function SetClass({ close, setSeat }) {
   const [openClass, setOpenClass] = useState(null);

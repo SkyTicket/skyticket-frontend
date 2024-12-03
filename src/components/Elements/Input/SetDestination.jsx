@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import Box from "../search/box";
+import Box from "../Search/Box";
 
 function SetDestination({ close, setCity }) {
   const [openDestination, setOpenDestination] = useState(null);

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SetPassenger from "../../elements/homepageForm/setPassengers";
-import Backdrop from "../../elements/search/backdrop";
+import SetPassenger from "../../Elements/Input/SetPassengers";
+import Backdrop from "../../Elements/Search/Backdrop";
 
 function Passengers() {
   const [showSetPassenger, setShowSetPassenger] = useState(false);

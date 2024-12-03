@@ -1,5 +1,5 @@
-import LoginIcon from "../../../assets/login.svg";
-import SearchIcon from "../../../assets/search.svg";
+import LoginIcon from "../../../assets/icons/login.svg";
+import SearchIcon from "../../../assets/icons/search.svg";
 
 const buttonIcon = {
   login: <img src={LoginIcon} alt="Login Icon" className="w-5 h-5" />,

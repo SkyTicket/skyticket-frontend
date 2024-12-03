@@ -6,7 +6,7 @@ import FilterItem from "../components/Fragments/Filter/FilterItem";
 import FilterModal from "../components/Fragments/Filter/FilterModals";
 import FlightInfo from "../components/Elements/Header/FlightInfo";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
-import Accordion from "../components/Fragments/detailpage/accordion";
+import Accordion from "../components/Fragments/DetailPage/Accordion";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 
 const TicketListPage = ({ data }) => {

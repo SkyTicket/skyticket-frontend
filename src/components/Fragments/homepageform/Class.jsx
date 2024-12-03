@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Backdrop from "../../elements/search/backdrop";
-import SetClass from "../../Elements/homepageForm/setClass";
+import Backdrop from "../../Elements/Search/Backdrop";
+import SetClass from "../../Elements/Input/SetClass";
 
-function Kelas() {
+function Class() {
   const [showSetClass, setShowSetClass] = useState(false);
   const [seat, setSeats] = useState("");
 
@@ -27,4 +27,4 @@ function Kelas() {
   );
 }
 
-export default Kelas;
+export default Class;

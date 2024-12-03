@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import BaggageIcon from "./baggageicon";
+import BaggageIcon from "./BaggageIcon";
 import { useNavigate } from "react-router-dom";
 
 function AccordionBox({ onclickHandler, flight, isOpen }) {

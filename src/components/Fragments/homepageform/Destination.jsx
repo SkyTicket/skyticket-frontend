@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Backdrop from "../../elements/search/backdrop";
-import SetDestination from "../../elements/homepageForm/setDestination";
+import Backdrop from "../../Elements/Search/Backdrop";
+import SetDestination from "../../Elements/Input/SetDestination";
 
 function Destination({ value, onChange }) {
   const [showSetDestination, setShowSetDestination] = useState(false);
