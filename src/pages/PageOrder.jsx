@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useForm, FormProvider, useFieldArray } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import PassengerForm from "../components/Elements/Form/PassengerForm";
-import Progress from "../components/Fragments/Progress";
-import SelectSeat from "../components/Fragments/SelectSeat";
+import Navbar from "../components/Fragments/Navbar/Navbar";
+import Progress from "../components/Elements/Header/Progress";
+import SelectSeat from "../components/Elements/Form/SelectSeat";
 import CustomerForm from "../components/Elements/Form/CustomerForm";
 import DetailFlight from "../components/Fragments/DetailFlight";
+import DetFlight from "../components/elements/detailPage/detailFlight";
 
 const PageOrder = () => {
     const navigate = useNavigate();
@@ -34,8 +36,8 @@ const PageOrder = () => {
 
     return (
         <>
-            {/* <Navbar /> */}
-            <Progress />
+            <Navbar/>
+            <Progress className="" />
             <FormProvider {...methods}>
                 <div className="max-w-7xl mx-auto p-4">
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DetFlight from "../../elements/detailPage/detailFlight";
-import AccordionBox from "../../elements/detailPage/accordionBox";
+import AccordionBox from "../../Elements/detailPage/accordionBox";
 import "./accordion.css";
 
 function Accordion({ data }) {
