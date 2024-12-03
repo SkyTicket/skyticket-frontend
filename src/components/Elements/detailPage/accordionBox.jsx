@@ -6,37 +6,39 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
   return (
     <>
       <div
-        className={`flex flex-col-reverse md:flex-col justify-between items-center px-4 py-3 gap-2 bg-white cursor-pointer ${
-          isOpen === flight.id ? "c-bottom-border-2" : ""
+        className={`flex cursor-pointer flex-col-reverse items-center justify-between gap-2 bg-white px-4 py-3 md:flex-col ${
+          isOpen === flight.id
+            ? "relative z-[1] before:absolute before:bottom-0 before:left-[5%] before:h-[1px] before:w-[90%] before:border-b-2 before:border-gray-400 before:content-['']"
+            : ""
         }`}
         onClick={onclickHandler}
       >
-        <div className="flex justify-between w-full items-center border-t border-gray-400 pt-2 md:pt-0 md:border-0">
-          <div className="flex gap-2 items-center text-black ">
+        <div className="flex w-full items-center justify-between border-t border-gray-400 pt-2 md:border-0 md:pt-0">
+          <div className="flex items-center gap-2 text-black">
             <img src={flight.airLineLogo} alt="logo" className="h-6" />
             <div className="flex flex-col">
               <p>Jet Air - Economy</p>
-              <div className="block md:hidden w-6">
+              <div className="block w-6 md:hidden">
                 <BaggageIcon />
               </div>
             </div>
           </div>
           <FontAwesomeIcon
             icon={isOpen === flight.id ? faChevronUp : faChevronDown}
-            className="h-3 border-2 rounded-full p-1"
+            className="h-3 rounded-full border-2 p-1 text-black"
           />
         </div>
-        <div className="flex justify-between w-full">
-          <div className="flex text-left w-4/6 gap-2 items-center text-black">
+        <div className="flex w-full justify-between">
+          <div className="flex w-4/6 items-center gap-2 text-left text-black">
             <div className="w-11">
               <p className="font-bold">{flight.departureTime}</p>
               <p className="font-semibold">{flight.departureCityShort}</p>
             </div>
-            <div className="flex flex-col text-center w-1/2 text-gray-400">
+            <div className="flex w-1/2 flex-col text-center text-gray-400">
               <p className="font-bold">{flight.duration}</p>
               <div className="flex items-center">
-                <div className="bg-gray-300 w-full h-0.5" />
-                <div className="border-t border-r border-gray-300 w-1 h-1 rotate-45 -translate-x-1" />
+                <div className="h-0.5 w-full bg-gray-300" />
+                <div className="h-1 w-1 -translate-x-1 rotate-45 border-r border-t border-gray-300" />
               </div>
               <p className="font-semibold">direct</p>
             </div>
@@ -49,10 +51,10 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
             </div>
           </div>
           <div className="text-right">
-            <div className="text-purple-700 font-bold text-primary">
+            <div className="text-primary font-bold text-purple-700">
               {flight.price}
             </div>
-            <button className="hidden md:block bg-purple-700 text-white px-7 py-1 rounded-lg">
+            <button className="hidden rounded-lg bg-purple-700 px-7 py-1 text-white md:block">
               Pilih
             </button>
           </div>
