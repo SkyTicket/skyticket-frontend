@@ -12,7 +12,7 @@ function Class() {
         type="text"
         value={seat == "" ? "" : seat}
         onClick={() => setShowSetClass(true)}
-        className="bg-white border-b border-gray-500 w-36 pb-2 cursor-pointer focus:outline-none focus:border-slate-400 placeholder-gray-300"
+        className="w-36 cursor-pointer border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none"
         placeholder="Select Class"
         readOnly
       />

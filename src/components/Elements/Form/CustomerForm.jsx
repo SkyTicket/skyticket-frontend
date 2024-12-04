@@ -1,54 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import InputForm from "./InputForm";
 
 const CustomerForm = () => {
-    return (
-        <div className="">
-            <h3 className="text-lg font-semibold mb-4 bg-black text-white px-4 py-2 rounded-t-xl">
-                Data Diri Pemesan
-            </h3>
-            <InputForm
-                name="name"
-                label="Full Name"
-                placeholder="Enter your first name"
-                validation={{
-                    required: "First name is required",
-                }}
-            />
-            <InputForm
-                name="last_name"
-                label="Family Name"
-                placeholder="Enter your last name"
-                validation={{}}
-            />
-            <InputForm
-                name="phone_number"
-                label="Phone Number"
-                placeholder="Ex: 081234567890"
-                validation={{
-                    required: "Phone number is required",
-                    pattern: {
-                        value: /^[0-9]+$/,
-                        message: "Invalid phone number",
-                    },
-                }}
-            />
+  const [isActive, setIsActive] = useState(false);
 
-            <InputForm
-                name="email"
-                label="Email"
-                type="email"
-                placeholder="Ex: email@example.com"
-                validation={{
-                    required: "Email is required",
-                    pattern: {
-                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                        message: "Invalid email address",
-                    },
-                }}
+  const handleToggle = () => {
+    setIsActive(!isActive);
+  };
+
+  return (
+    <div className="">
+      <h3 className="mb-4 rounded-t-xl bg-[#3C3C3C] px-4 py-2 text-lg font-medium text-white">
+        Data Diri Pemesan
+      </h3>
+      <InputForm
+        name="name"
+        label="Nama Lengkap"
+        placeholder="Masukkan nama lengkap Anda"
+        validation={{
+          required: "Nama Lengkap Wajib Diisi",
+        }}
+      />
+
+      <div className="mb-4 flex justify-between">
+        <span className="text-black">Punya Nama Keluarga</span>
+        <span className="text-purple-600">
+          <div
+            className={`flex h-8 w-14 cursor-pointer items-center rounded-full p-1 transition-all ${
+              isActive ? "bg-[#4B1979]" : "bg-gray-300"
+            }`}
+            onClick={handleToggle}
+          >
+            <div
+              className={`h-6 w-6 transform rounded-full bg-white shadow-md transition-transform ${
+                isActive ? "translate-x-6" : "translate-x-0"
+              }`}
             />
-        </div>
-    );
+          </div>
+        </span>
+      </div>
+
+      <InputForm
+        name="last_name"
+        label="Nama Keluarga"
+        placeholder="Masukkan nama keluarga Anda"
+        validation={{}}
+      />
+      <InputForm
+        name="phone_number"
+        label="Nomor Telepon"
+        placeholder="Ex: 081234567890"
+        validation={{
+          required: "Phone number is required",
+          pattern: {
+            value: /^[0-9]+$/,
+            message: "Invalid phone number",
+          },
+        }}
+      />
+
+      <InputForm
+        name="email"
+        label="Email"
+        type="email"
+        placeholder="Ex: email@example.com"
+        validation={{
+          required: "Email is required",
+          pattern: {
+            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Invalid email address",
+          },
+        }}
+      />
+    </div>
+  );
 };
 
 export default CustomerForm;

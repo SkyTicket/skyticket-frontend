@@ -16,7 +16,7 @@ const DatePicker = ({ disable }) => {
       toggleClassName="hidden"
       inputClassName={`${
         disable ? "cursor-not-allowed" : "cursor-pointer"
-      } bg-white border-b border-gray-500 w-36 pb-2 focus:outline-none focus:border-slate-400 placeholder-gray-300`}
+      } text-black bg-white font-medium border-b border-gray-500 w-36 py-2 focus:outline-none focus:border-slate-400 placeholder-gray-300`}
       readOnly={true}
       useRange={false}
       asSingle={true}

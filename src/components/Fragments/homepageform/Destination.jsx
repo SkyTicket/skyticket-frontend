@@ -16,7 +16,7 @@ function Destination({ value, onChange }) {
         type="text"
         value={value || ""}
         onClick={() => setShowSetDestination(true)}
-        className="bg-white border-b border-gray-500 w-80 pb-2 cursor-pointer focus:outline-none focus:border-slate-400 placeholder-gray-300"
+        className="w-80 cursor-pointer border-b border-gray-500 bg-white py-2 text-lg font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none"
         placeholder="Select City"
         readOnly
       />

@@ -1,14 +1,14 @@
 const FilterItem = ({ icon, label, hasDropdown = true }) => {
   return (
-    <div className=" flex items-center justify-between p-4 hover:bg-gray-50 cursor-pointer">
-      <div className=" flex items-center gap-3">
+    <div className="flex cursor-pointer items-center justify-between p-4 hover:bg-gray-50">
+      <div className="flex items-center gap-3">
         {icon}
         <span>{label}</span>
       </div>
       {hasDropdown && (
         <div className="text-black hover:text-black">
           <svg
-            className="w-4 h-4"
+            className="h-4 w-4"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
