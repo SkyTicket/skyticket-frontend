@@ -4,10 +4,10 @@ import Button from "../../Elements/Button/Button";
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-lg py-4">
+    <nav className="bg-white py-4 shadow-lg">
       <div className="mx-auto w-[90%] max-w-[1440px]">
-        <div className="relative flex items-center justify-between h-auto gap-8 flex-col sm:flex-row">
-          <div className="flex flex-1 items-center gap-8 flex-col sm:flex-row">
+        <div className="relative flex h-auto flex-col items-center justify-between gap-8 sm:flex-row">
+          <div className="flex flex-1 flex-col items-center gap-8 sm:flex-row">
             <Logo />
             <div className="w-full sm:block">
               <SearchBar />

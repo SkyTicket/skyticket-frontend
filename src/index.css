@@ -61,7 +61,7 @@ button:hover {
 
 button:focus,
 button:focus-visible {
-  outline: 4px solid #D0B7E6;
+  outline: 4px solid #d0b7e6;
 }
 
 @media (prefers-color-scheme: light) {

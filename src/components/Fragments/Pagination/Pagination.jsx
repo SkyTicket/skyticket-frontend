@@ -29,8 +29,8 @@ const Pagination = () => {
             disabled={currentPage === 1}
             className={`flex h-10 min-w-[40px] items-center justify-center rounded-lg border px-2 text-base font-semibold ${
               currentPage === 1
-                ? "bg-gray-200 border-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-white border-gray-300 text-[#7126B5] hover:bg-purple-100 hover:text-[#7126B5]"
+                ? "cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500"
+                : "border-gray-300 bg-white text-[#7126B5] hover:bg-purple-100 hover:text-[#7126B5]"
             }`}
           >
             <svg
@@ -65,7 +65,7 @@ const Pagination = () => {
                 {page}
               </button>
             </li>
-          )
+          ),
         )}
 
         <li>
@@ -74,8 +74,8 @@ const Pagination = () => {
             disabled={currentPage === totalPages}
             className={`flex h-10 min-w-[40px] items-center justify-center rounded-lg border px-2 text-base font-medium ${
               currentPage === totalPages
-                ? "bg-gray-200 border-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-white border-gray-300 text-[#7126B5] hover:bg-purple-100 hover:text-[#7126B5]"
+                ? "cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500"
+                : "border-gray-300 bg-white text-[#7126B5] hover:bg-purple-100 hover:text-[#7126B5]"
             }`}
           >
             <svg

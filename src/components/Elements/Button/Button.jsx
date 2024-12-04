@@ -2,8 +2,8 @@ import LoginIcon from "../../../assets/icons/login.svg";
 import SearchIcon from "../../../assets/icons/search.svg";
 
 const buttonIcon = {
-  login: <img src={LoginIcon} alt="Login Icon" className="w-5 h-5" />,
-  search: <img src={SearchIcon} alt="Search Icon" className="w-5 h-5" />,
+  login: <img src={LoginIcon} alt="Login Icon" className="h-5 w-5" />,
+  search: <img src={SearchIcon} alt="Search Icon" className="h-5 w-5" />,
 };
 
 const Button = ({
@@ -44,4 +44,4 @@ const Button = ({
   );
 };
 
-export default Button
+export default Button;
