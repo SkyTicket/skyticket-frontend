@@ -1,4 +1,3 @@
-import OutIcon from "./OutIcon";
 
 function AccountMenu() {
   return (
