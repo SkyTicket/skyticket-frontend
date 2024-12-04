@@ -35,7 +35,11 @@ const TicketListPage = ({ data }) => {
           <div className="flex w-full items-center justify-between rounded-xl bg-[#A06ECE] px-4 py-2 text-white">
             <FlightInfo />
           </div>
-          <Button className="h-14 w-1/3 rounded-xl border-[#73CA5C] bg-[#73CA5C] font-semibold hover:border-2 hover:bg-white hover:text-[#73CA5C]">
+          <Button
+            color="green"
+            className="h-14 w-1/3 rounded-xl font-semibold"
+            type=""
+          >
             Ubah Pencarian
           </Button>
         </div>
