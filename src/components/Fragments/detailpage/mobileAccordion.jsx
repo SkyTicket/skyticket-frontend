@@ -14,13 +14,13 @@ function MobileAccordion() {
 
   return (
     <>
-      <div className="flex font-bold gap-2 px-8 py-2 items-center">
+      <div className="flex items-center gap-2 px-8 py-2 font-bold">
         <p className="text-purple-600">{flight.departureCity}</p>
         <FontAwesomeIcon icon={faArrowRight} className="" />
         <p className="text-purple-600">{flight.arrivalCity}</p>
         <p>({flight.duration})</p>
       </div>
-      <div className="c-width border-2 rounded-lg p-4">
+      <div className="c-width rounded-lg border-2 p-4">
         <DetFlight flight={flight} />
       </div>
     </>

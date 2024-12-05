@@ -8,19 +8,19 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
       {/* Container modal */}
-      <div className="bg-white rounded-lg shadow-lg w-80 divide-y-2">
+      <div className="w-80 divide-y-2 rounded-lg bg-white shadow-lg">
         {/* Header */}
-        <div className="flex justify-between items-center bg-white text-white rounded-t-lg px-4 py-4">
+        <div className="flex items-center justify-between rounded-t-lg bg-white px-4 py-4 text-white">
           <button
             onClick={onClose}
-            className="text-black text-lg font-bold ml-auto"
+            className="ml-auto text-lg font-bold text-black"
           >
             <img
               src="/src/assets/icons/close.svg"
               alt="Close"
-              className="w-3 h-4"
+              className="h-4 w-3"
             />
           </button>
         </div>
@@ -37,21 +37,20 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
           ].map((filter) => (
             <li
               key={filter.value}
-              className={`flex justify-between items-center px-4 py-3 cursor-pointer 
-                    ${
-                      selectedFilter === filter.value
-                        ? "bg-purple-600 text-white"
-                        : "hover:bg-purple-600 hover:text-white text-black"
-                    }`}
+              className={`flex cursor-pointer items-center justify-between px-4 py-3 ${
+                selectedFilter === filter.value
+                  ? "bg-purple-600 text-white"
+                  : "text-black hover:bg-purple-600 hover:text-white"
+              }`}
               onClick={() => handleSelectFilter(filter.value)}
             >
               <span className="text-sm font-medium">{filter.label}</span>
               {selectedFilter === filter.value && (
-                <span className="text-green-500 font-bold">
+                <span className="font-bold text-green-500">
                   <img
                     src="/src/assets/icons/checklist.svg"
                     alt="checlist"
-                    className="w-6 h-6"
+                    className="h-6 w-6"
                   />
                 </span>
               )}
@@ -59,17 +58,17 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
           ))}
         </ul>
 
-        <div className="p-4 flex justify-end">
+        <div className="flex justify-end p-4">
           <button
             onClick={() => {
               onFilterSubmit(selectedFilter);
               onClose();
             }}
             disabled={!selectedFilter}
-            className={`px-6 py-2 rounded-lg font-semibold ${
+            className={`rounded-lg px-6 py-2 font-semibold ${
               selectedFilter
                 ? "bg-purple-800 text-white hover:bg-purple-700"
-                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "cursor-not-allowed bg-gray-300 text-gray-500"
             }`}
           >
             Pilih

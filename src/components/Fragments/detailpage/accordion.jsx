@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import DetFlight from "../../elements/detailPage/detailFlight";
-import AccordionBox from "../../elements/detailPage/accordionBox";
+import DetFlight from "../../Elements/Accordion/DetailFlight";
+import AccordionBox from "../../Elements/Accordion/AccordionBox";
 
 function Accordion({ data }) {
   const [openAccordion, setOpenAccordion] = useState(null);

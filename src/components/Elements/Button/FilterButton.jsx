@@ -1,7 +1,7 @@
 const FilterButton = ({ onClick }) => {
   return (
     <button
-      className="flex items-center font-semibold border-2 bg-white border-purple-500 text-purple-600 rounded-full px-4 py-2 hover:bg-purple-100 transition"
+      className="flex items-center rounded-full border-2 border-purple-500 bg-white px-4 py-2 font-semibold text-purple-600 transition hover:bg-purple-100"
       onClick={onClick}
     >
       <img

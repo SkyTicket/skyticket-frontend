@@ -14,24 +14,20 @@ const Date = () => {
     { day: "Selasa", date: "07/03/2023", isActive: false },
   ]);
 
-
   const handleSelect = (selectedIndex) => {
     setDates((prevDates) =>
       prevDates.map((item, index) => ({
         ...item,
         isActive: index === selectedIndex,
-      }))
+      })),
     );
   };
 
   return (
-    <div className="flex gap-7 overflow-x-auto pb-4 scrollbar-hide">
+    <div className="scrollbar-hide flex gap-7 overflow-x-auto pb-4">
       {dates.map((item, index) => (
         <React.Fragment key={index}>
-          <DateItem
-            {...item}
-            onClick={() => handleSelect(index)}
-          />
+          <DateItem {...item} onClick={() => handleSelect(index)} />
           {index < dates.length - 1 && <DateSeparator />}
         </React.Fragment>
       ))}

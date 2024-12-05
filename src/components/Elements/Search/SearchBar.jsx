@@ -1,12 +1,12 @@
 const SearchBar = () => {
   return (
-    <div className="relative w-full lg:min-w-[444px] md:max-w-[360px] bg-[#EEEEEE] rounded-2xl">
+    <div className="relative w-full rounded-2xl bg-[#EEEEEE] md:max-w-[360px] lg:min-w-[444px]">
       <input
-        className="rounded-2xl w-full bg-transparent h-12 placeholder:bg-[#EEEEEE] placeholder text-slate-700 text-sm px-6 py-3 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+        className="h-12 w-full rounded-2xl bg-transparent px-6 py-3 text-sm text-slate-700 shadow-sm transition duration-300 placeholder:bg-[#EEEEEE] hover:border-slate-300 focus:border-slate-400 focus:shadow focus:outline-none"
         placeholder="Cari di sini ..."
         type="text"
       />
-      <span className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-500">
+      <span className="absolute right-6 top-1/2 -translate-y-1/2 transform text-gray-500">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

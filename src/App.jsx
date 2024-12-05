@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import TicketListPage from "./pages/TicketListPage";
 import TicketListPageNotFound from "./pages/TicketListNotFound";
-import HomePage from "./pages/Homepage";
+import HomePage from "./pages/HomePage";
 import PageOrder from "./pages/PageOrder";
 import AccountPage from "./pages/AccountPage";
 

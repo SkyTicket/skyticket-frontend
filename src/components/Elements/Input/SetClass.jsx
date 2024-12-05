@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import BoxSearch from "../search/boxSearch";
+import BoxSearch from "../Search/BoxSearch";
 
 function SetClass({ close, setSeat }) {
   const [openClass, setOpenClass] = useState(null);
@@ -26,22 +26,22 @@ function SetClass({ close, setSeat }) {
         {classType.map((type, index) => (
           <div
             key={index}
-            className={`flex w-full justify-between border-b-2 py-1 items-center px-4 cursor-pointer ${
-              openClass === index ? "bg-purple-800" : ""
+            className={`text-black flex w-full justify-between border-b-2 py-1 items-center px-4 cursor-pointer ${
+              openClass === index ? "bg-[#4B1979]" : ""
             }`}
             onClick={() => toggleClass(index)}
           >
             <div className={`flex flex-col `}>
               <div
-                className={`text-left font-bold ${
+                className={`text-left font-medium ${
                   openClass === index ? "text-white" : ""
                 }`}
               >
                 {type}
               </div>
               <div
-                className={`text-left font-semibold ${
-                  openClass === index ? "text-white" : "text-purple-700"
+                className={`text-left font-medium ${
+                  openClass === index ? "text-white" : "text-[#7126B5]"
                 }`}
               >
                 IDR {price[index]}

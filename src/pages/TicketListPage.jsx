@@ -6,7 +6,7 @@ import FilterItem from "../components/Fragments/Filter/FilterItem";
 import FilterModal from "../components/Fragments/Filter/FilterModals";
 import FlightInfo from "../components/Elements/Header/FlightInfo";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
-import Accordion from "../components/Fragments/detailpage/accordion";
+import Accordion from "../components/Fragments/DetailPage/Accordion";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 
 const TicketListPage = ({ data }) => {
@@ -35,7 +35,11 @@ const TicketListPage = ({ data }) => {
           <div className="flex w-full items-center justify-between rounded-xl bg-[#A06ECE] px-4 py-2 text-white">
             <FlightInfo />
           </div>
-          <Button className="h-14 w-1/3 rounded-xl border-[#73CA5C] bg-[#73CA5C] font-semibold hover:border-2 hover:bg-white hover:text-[#73CA5C]">
+          <Button
+            color="green"
+            className="h-14 w-1/3 rounded-xl font-semibold"
+            type=""
+          >
             Ubah Pencarian
           </Button>
         </div>

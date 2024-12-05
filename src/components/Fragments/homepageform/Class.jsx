@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Backdrop from "../../elements/search/backdrop";
-import SetClass from "../../Elements/homepageForm/setClass";
+import Backdrop from "../../Elements/Search/Backdrop";
+import SetClass from "../../Elements/Input/SetClass";
 
-function Kelas() {
+function Class() {
   const [showSetClass, setShowSetClass] = useState(false);
   const [seat, setSeats] = useState("");
 
@@ -12,7 +12,7 @@ function Kelas() {
         type="text"
         value={seat == "" ? "" : seat}
         onClick={() => setShowSetClass(true)}
-        className="bg-white border-b border-gray-500 w-36 pb-2 cursor-pointer focus:outline-none focus:border-slate-400 placeholder-gray-300"
+        className="w-36 cursor-pointer border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none"
         placeholder="Select Class"
         readOnly
       />
@@ -27,4 +27,4 @@ function Kelas() {
   );
 }
 
-export default Kelas;
+export default Class;
