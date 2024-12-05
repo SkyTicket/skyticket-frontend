@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm, FormProvider, useFieldArray } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import PassengerForm from "../components/Elements/Form/PassengerForm";
+import PassengerForm from "../components/Fragments/Form/PassengerForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Progress from "../components/Elements/Header/Progress";
-import SelectSeat from "../components/Elements/Form/SelectSeat";
-import CustomerForm from "../components/Elements/Form/CustomerForm";
+import SelectSeat from "../components/Fragments/Form/SelectSeat";
+import CustomerForm from "../components/Fragments/Form/CustomerForm";
 import DetailFlight from "../components/Fragments/DetailFlight";
 
 const PageOrder = () => {
