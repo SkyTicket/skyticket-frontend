@@ -1,6 +1,7 @@
 import SearchBar from "../../Elements/Search/SearchBar";
 import Logo from "../../Elements/Logo/Logo";
 import Button from "../../Elements/Button/Button";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -14,7 +15,9 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex items-center">
-            <Button type="login" />
+            <Link to="/login">
+              <Button type="login" />
+            </Link>
           </div>
         </div>
       </div>
