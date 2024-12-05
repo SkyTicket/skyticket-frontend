@@ -4,7 +4,7 @@ const FlightInfo = () => {
       {/* Button back */}
       <button className="rounded-lg bg-[#A06ECE] px-4 py-2 text-purple-600">
         <img
-          src="/src/assets/icons/fi_arrow-left.svg"
+          src="/src/assets/icons/arrow-left.svg"
           alt="Back"
           className="h-5 w-5 hover:cursor-pointer"
         />
