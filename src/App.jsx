@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import ResetPasswordPage from "./pages/ResetPaswordPage";
 import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";
 import NotFoundPage from "./pages/404";
+import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
   const flights = [
@@ -107,6 +108,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/reset-password/request" element={<ResetPasswordRequestPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/notification" element={<NotificationsPage />} />
       </Routes>
     </Router>
   );
