@@ -2,6 +2,7 @@ import Logo from "../../Elements/Logo/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
 import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
 const NavbarLogin = ({ isActive }) => {
   return (
@@ -14,14 +15,18 @@ const NavbarLogin = ({ isActive }) => {
               icon={faListUl}
               className={`h-6 w-6 cursor-pointer ${isActive == "list" ? "text-purple-500" : "text-black"}`}
             />
-            <FontAwesomeIcon
-              icon={faBell}
-              className={`h-6 w-6 cursor-pointer ${isActive == "bell" ? "text-purple-500" : "text-black"}`}
-            />
-            <FontAwesomeIcon
-              icon={faUser}
-              className={`h-6 w-6 cursor-pointer ${isActive == "user" ? "text-purple-500" : "text-black"}`}
-            />
+            <Link to="/notification">
+              <FontAwesomeIcon
+                icon={faBell}
+                className={`h-6 w-6 cursor-pointer ${isActive == "bell" ? "text-purple-500" : "text-black"}`}
+              />
+            </Link>
+            <Link to="/account">
+              <FontAwesomeIcon
+                icon={faUser}
+                className={`h-6 w-6 cursor-pointer ${isActive == "user" ? "text-purple-500" : "text-black"}`}
+              />
+            </Link>
           </div>
         </div>
       </div>
