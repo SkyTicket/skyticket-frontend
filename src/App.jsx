@@ -5,6 +5,8 @@ import HomePage from "./pages/HomePage";
 import PageOrder from "./pages/PageOrder";
 import AccountPage from "./pages/AccountPage";
 import LoginPage from "./pages/LoginPage";
+import OtpPage from "./pages/OtpPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   const flights = [
@@ -102,6 +104,8 @@ function App() {
         <Route path="*" element={<TicketListPageNotFound />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} /> 
+        <Route path="/otp" element={<OtpPage />} />
       </Routes>
     </Router>
   );

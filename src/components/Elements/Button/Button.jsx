@@ -6,8 +6,16 @@ const buttonIcon = {
   search: <img src={SearchIcon} alt="Search Icon" className="h-5 w-5" />,
 };
 
-const Button = ({ type = "login", children = "Masuk", color = "purple", onAction, width, height, className }) => {
-  const baseStyles = `flex h-12 items-center justify-center gap-2 py-2 px-4 text-sm text-center shadow-lg focus:outline-none focus:ring transition-colors duration-300`;
+const Button = ({
+  type = "login",
+  children = "Masuk",
+  color = "purple",
+  onClick,
+  width,
+  height,
+  className,
+}) => {
+  const baseStyles = `flex h-12 items-center justify-center gap-2 text-center shadow-lg focus:outline-none focus:ring transition-colors duration-300`;
 
   const colorStyles = {
     purple: `bg-[#7126B5] text-white hover:bg-purple-600 active:bg-[#4B1979] active:ring-2 active:ring-purple-400`,
@@ -25,7 +33,7 @@ const Button = ({ type = "login", children = "Masuk", color = "purple", onAction
   return (
     <button
       type="button"
-      onClick={onAction}
+      onClick={onClick}
       className={`${baseStyles} ${colorStyles[color]} ${widthStyles[width]} ${height} ${className}`}
     >
       {buttonIcon[type] && (
