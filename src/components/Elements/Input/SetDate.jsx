@@ -1,18 +1,25 @@
 import { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 
-const DatePicker = ({ disable }) => {
+const DatePicker = ({ disable, change }) => {
   const [value, setValue] = useState({
     startDate: null,
     endDate: null,
   });
 
+  const handleChange = (newValue) => {
+    const date = newValue.startDate;
+    const formattedDate = date.toISOString().split("T")[0];
+    change(formattedDate);
+    setValue(newValue);
+  };
+
   return (
     <Datepicker
-      displayFormat="DD/MM/YYYY"
       primaryColor={"purple"}
       placeholder="Pilih Tanggal"
       containerClassName="block"
+      popoverDirection="down"
       toggleClassName="hidden"
       inputClassName={`${
         disable ? "cursor-not-allowed" : "cursor-pointer"
@@ -21,7 +28,7 @@ const DatePicker = ({ disable }) => {
       useRange={false}
       asSingle={true}
       value={disable ? "" : value}
-      onChange={(newValue) => setValue(newValue)}
+      onChange={handleChange}
       disabled={disable}
     />
   );

@@ -1,28 +1,73 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+
 import Button from "../components/Elements/Button/Button";
-import FilterButton from "../components/Elements/Button/FilterButton";
-import DateList from "../components/Elements/Date/DateList";
-import FilterItem from "../components/Fragments/Filter/FilterItem";
-import FilterModal from "../components/Fragments/Filter/FilterModals";
-import FlightInfo from "../components/Elements/Header/FlightInfo";
-import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
-import Accordion from "../components/Fragments/DetailPage/Accordion";
 import Navbar from "../components/Fragments/Navbar/Navbar";
+import DateList from "../components/Elements/Date/DateList";
+import Accordion from "../components/Fragments/DetailPage/Accordion";
+import FilterItem from "../components/Fragments/Filter/FilterItem";
+import FlightInfo from "../components/Elements/Header/FlightInfo";
+import FilterModal from "../components/Fragments/Filter/FilterModals";
+import FilterButton from "../components/Elements/Button/FilterButton";
+import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
+import SetClass from "../components/Elements/Input/SetClass";
 
 const TicketListPage = ({ data }) => {
+  const location = useLocation();
+  const [filters, setFilters] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [flightsData, setFlightsData] = useState(null);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setFilters(location.state?.filters || {});
+  }, [location.state?.filters]);
+
   const handleFilterSelect = (filter) => {
     console.log("Filter selected:", filter);
     setIsFilterModalOpen(false);
   };
 
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 3500);
+  //   return () => clearTimeout(timeout);
+  // }, []);
+
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 3500);
-    return () => clearTimeout(timeout);
-  }, []);
+    setIsLoading(true);
+    const fetchData = async () => {
+      if (Object.keys(filters).length > 0) {
+        try {
+          const response = await axios.get(
+            "http://34.101.158.185/api/v1/flights",
+            {
+              params: {
+                departure_airport: filters.depCity?.input_value,
+                arrival_airport: filters.arrCity?.input_value,
+                flight_departure_date: filters.depDate,
+                returning_flight_departure_date: filters.arrDate,
+                is_round_trip: filters.isArrival,
+                total_adult_passengers: filters.totalPassengers[0],
+                total_child_passengers: filters.totalPassengers[1],
+                total_infant_passengers: filters.totalPassengers[2],
+                seat_class_type: filters.seatClass,
+              },
+            },
+          );
+          setFlightsData(response.data.flights);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+    console.log(flightsData);
+    fetchData();
+  }, [filters]);
 
   return (
     <>
@@ -108,8 +153,8 @@ const TicketListPage = ({ data }) => {
                   <LoadingAnimation />
                   <img src=""></img>
                 </div>
-              ) : data ? (
-                <Accordion data={data} />
+              ) : flightsData ? (
+                <Accordion data={flightsData} />
               ) : (
                 <div className="flex flex-col items-center">
                   <img
@@ -121,7 +166,7 @@ const TicketListPage = ({ data }) => {
                     Maaf, pencarian Anda tidak ditemukan
                   </p>
                   <p className="mt-4 text-lg text-[#7126B5]">
-                    Coba cari perjalanan lainya!
+                    Coba cari perjalanan lainnya!
                   </p>
                 </div>
               )}
