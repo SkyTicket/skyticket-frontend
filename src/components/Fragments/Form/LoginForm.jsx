@@ -60,7 +60,7 @@ const LoginForm = () => {
         <div className="mb-1 flex items-center justify-between">
           <label className="text-sm font-medium text-gray-700">Password</label>
           <Link
-            to="/reset-password"
+            to="/reset-password/request"
             className="text-sm text-[#7126B5] hover:text-purple-600"
           >
             Lupa Kata Sandi
