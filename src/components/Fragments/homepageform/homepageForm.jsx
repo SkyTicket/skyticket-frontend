@@ -24,7 +24,7 @@ function HomepageForm() {
     depCity: {},
     arrCity: {},
     depDate: "",
-    arrDate: "",
+    arrDate: null,
     isArrival: false,
     totalPassengers: [],
     seatClass: "",
@@ -57,24 +57,32 @@ function HomepageForm() {
       });
       navigate("/ticket-list", { state: { filters } });
     } catch (error) {
-      const err = error.response.data.messages;
-      toast.error((t) => (
-        <div
-          className={`${
-            t.visible ? "animate-enter" : "animate-leave"
-          } pointer-events-auto flex w-full max-w-md bg-white`}
-        >
-          <span className="flex flex-col gap-2 text-sm">
-            {err.line_1}
-            {err.line_2}
-          </span>
-          <FontAwesomeIcon
-            icon={faXmark}
-            className="h-6 w-6 cursor-pointer text-[#151515]"
-            onClick={() => toast.dismiss(t.id)}
-          />
-        </div>
-      ));
+      if (error.response.status === 404) {
+        navigate("/ticket-list", {
+          state: { filters },
+        });
+      } else {
+        const err = error.response.data.messages;
+        if (err) {
+          toast.error((t) => (
+            <div
+              className={`${
+                t.visible ? "animate-enter" : "animate-leave"
+              } pointer-events-auto flex w-full max-w-md bg-white`}
+            >
+              <span className="flex flex-col gap-2 text-sm">
+                {err.line_1}
+                {err.line_2}
+              </span>
+              <FontAwesomeIcon
+                icon={faXmark}
+                className="h-6 w-6 cursor-pointer text-[#151515]"
+                onClick={() => toast.dismiss(t.id)}
+              />
+            </div>
+          ));
+        }
+      }
     }
   };
 

@@ -29,13 +29,6 @@ const TicketListPage = ({ data }) => {
     setIsFilterModalOpen(false);
   };
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 3500);
-  //   return () => clearTimeout(timeout);
-  // }, []);
-
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
@@ -58,14 +51,13 @@ const TicketListPage = ({ data }) => {
             },
           );
           setFlightsData(response.data.flights);
-        } catch (error) {
-          console.error("Error fetching data:", error);
+        } catch (err) {
         } finally {
           setIsLoading(false);
         }
       }
     };
-    console.log(flightsData);
+
     fetchData();
   }, [filters]);
 
