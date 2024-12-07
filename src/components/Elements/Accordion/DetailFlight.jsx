@@ -23,9 +23,12 @@ function DetFlight({ flight }) {
           </div>
           <div>
             <p className="font-bold">Informasi:</p>
-            <p>Baggage {flight.baggage}</p>
+            <p>Baggage 20 kg</p>
+            <p>Cabin baggage 7 kg</p>
+            <p>In Flight Entertainment</p>
+            {/* <p>Baggage {flight.baggage}</p> // digunakan lagi kalau dari BE sudah ada datanya
             <p>Cabin baggage {flight.cabin}</p>
-            <p>{flight.entertainment}</p>
+            <p>{flight.entertainment}</p> */}
           </div>
         </div>
       </div>

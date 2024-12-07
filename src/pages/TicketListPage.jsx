@@ -11,11 +11,12 @@ import FlightInfo from "../components/Elements/Header/FlightInfo";
 import FilterModal from "../components/Fragments/Filter/FilterModals";
 import FilterButton from "../components/Elements/Button/FilterButton";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
-import SetClass from "../components/Elements/Input/SetClass";
+import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
 
 const TicketListPage = ({ data }) => {
   const location = useLocation();
   const [filters, setFilters] = useState({});
+  const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [flightsData, setFlightsData] = useState(null);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -51,7 +52,8 @@ const TicketListPage = ({ data }) => {
             },
           );
           setFlightsData(response.data.flights);
-        } catch (err) {
+        } catch (error) {
+          setErrors(error.response);
         } finally {
           setIsLoading(false);
         }
@@ -147,20 +149,18 @@ const TicketListPage = ({ data }) => {
                 </div>
               ) : flightsData ? (
                 <Accordion data={flightsData} />
+              ) : errors.status == 404 ? (
+                <NoDataFound
+                  svg={"notfound"}
+                  alt={"Data Not Found"}
+                  text={"pencarian Anda tidak ditemukan"}
+                />
               ) : (
-                <div className="flex flex-col items-center">
-                  <img
-                    src="/src/assets/icons/notfound.svg"
-                    alt="Data Not Found"
-                    className="h-64 w-64"
-                  />
-                  <p className="mt-4 text-lg text-black">
-                    Maaf, pencarian Anda tidak ditemukan
-                  </p>
-                  <p className="mt-4 text-lg text-[#7126B5]">
-                    Coba cari perjalanan lainnya!
-                  </p>
-                </div>
+                <NoDataFound
+                  svg={"ticketSoldOut"}
+                  alt={"Ticket Sold Out"}
+                  text={"Ticket terjual habis!"}
+                />
               )}
             </div>
           </div>

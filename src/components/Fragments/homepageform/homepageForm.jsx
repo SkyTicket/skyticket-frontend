@@ -56,6 +56,7 @@ function HomepageForm() {
         },
       });
       navigate("/ticket-list", { state: { filters } });
+      // console.log(response);
     } catch (error) {
       if (error.response.status === 404) {
         navigate("/ticket-list", {
@@ -85,10 +86,6 @@ function HomepageForm() {
       }
     }
   };
-
-  // const handleSubmit = () => {
-  //   navigate("/ticket-list", { state: { filters } });
-  // };
 
   return (
     <>
