@@ -29,8 +29,8 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
             </div>
           </div>
           <FontAwesomeIcon
-            icon={isOpen === flight.flight_id ? faChevronUp : faChevronDown}
-            className="h-3 rounded-full border-2 p-1 text-black"
+            icon={faChevronDown}
+            className={`h-3 rounded-full border-2 p-1 text-black transition-all duration-300 ease-out ${isOpen === flight.flight_id ? "-rotate-180" : ""}`}
           />
         </div>
         <div className="flex w-full justify-between">
@@ -59,9 +59,9 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
               />
             </div>
           </div>
-          <div className="text-right">
+          <div className="flex flex-col items-end">
             <div className="text-primary font-bold text-purple-700">
-              {flight.price}
+              {flight.seat_class_price.formatted}
             </div>
             <button
               className="hidden rounded-lg bg-purple-700 px-7 py-1 text-white md:block"
