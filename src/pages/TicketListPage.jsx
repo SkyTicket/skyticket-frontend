@@ -110,7 +110,7 @@ const TicketListPage = ({ data }) => {
                     label="Transit"
                     icon={
                       <img
-                        src="/src/assets/icons/fi_box.svg"
+                        src="/src/assets/icons/box.svg"
                         alt="Transit Icon"
                         className="h-5 w-5"
                       />
@@ -119,8 +119,8 @@ const TicketListPage = ({ data }) => {
                   <FilterItem
                     icon={
                       <img
-                        src="/src/assets/icons/fi_heart.svg"
-                        alt="Fasilitas Icon"
+                        src="/src/assets/icons/heart.svg"
+                        alt="Facility Icon"
                         className="h-5 w-5"
                       />
                     }
@@ -129,8 +129,8 @@ const TicketListPage = ({ data }) => {
                   <FilterItem
                     icon={
                       <img
-                        src="/src/assets/icons/fi_dollar-sign.svg"
-                        alt="Harga Icon"
+                        src="/src/assets/icons/dollar-sign.svg"
+                        alt="Price Icon"
                         className="h-5 w-5"
                       />
                     }
