@@ -42,47 +42,6 @@ const ResetPasswordForm = () => {
     <form onSubmit={handleSubmit} className="w-full max-w-md">
       <h2 className="mb-6 text-2xl font-bold text-black">Reset Password</h2>
 
-      {/* Old Password */}
-      <label style={{ position: "relative", display: "block" }}>
-        Masukkan password lama
-        <Input
-          type={showOldPassword ? "text" : "password"}
-          value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)}
-          placeholder="********"
-          error={errors.oldPassword}
-        />
-        <div
-          onClick={() => setShowOldPassword(!showOldPassword)}
-          style={{
-            position: "absolute",
-            right: "10px",
-            top: "50%",
-            transform: "translateY(-0%)",
-            cursor: "pointer",
-            color: "#8A8A8A",
-          }}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              setShowOldPassword(!showOldPassword);
-            }
-          }}
-        >
-          {showOldPassword ? (
-            <FontAwesomeIcon icon={faEye} />
-          ) : (
-            <FontAwesomeIcon icon={faEyeSlash} />
-          )}
-        </div>
-        {errors.oldPassword && (
-          <p style={{ marginTop: "8px", fontSize: "12px", color: "red" }}>
-            {errors.oldPassword}
-          </p>
-        )}
-      </label>
-
       {/* New Password */}
       <label style={{ position: "relative", display: "block" }}>
         Masukkan password baru
