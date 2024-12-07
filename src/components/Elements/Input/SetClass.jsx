@@ -26,12 +26,12 @@ function SetClass({ close, setSeat }) {
         {classType.map((type, index) => (
           <div
             key={index}
-            className={`text-black flex w-full justify-between border-b-2 py-1 items-center px-4 cursor-pointer ${
+            className={`flex w-full cursor-pointer items-center justify-between border-b-2 px-4 py-1 text-black ${
               openClass === index ? "bg-[#4B1979]" : ""
             }`}
             onClick={() => toggleClass(index)}
           >
-            <div className={`flex flex-col `}>
+            <div className={`flex flex-col`}>
               <div
                 className={`text-left font-medium ${
                   openClass === index ? "text-white" : ""
@@ -47,10 +47,14 @@ function SetClass({ close, setSeat }) {
                 IDR {price[index]}
               </div>
             </div>
-            <FontAwesomeIcon
-              icon={faCircleCheck}
-              className="text-green-600 w-5 h-5"
-            />
+            {openClass === index ? (
+              <FontAwesomeIcon
+                icon={faCircleCheck}
+                className="h-5 w-5 text-green-600"
+              />
+            ) : (
+              ""
+            )}
           </div>
         ))}
       </div>

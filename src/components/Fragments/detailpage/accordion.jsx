@@ -7,6 +7,7 @@ function Accordion({ data }) {
   const [openAccordion, setOpenAccordion] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
+  const listData = data.flights_data;
 
   useEffect(() => {
     const updateScreen = () => setIsMobile(window.innerWidth < 500);
@@ -22,11 +23,13 @@ function Accordion({ data }) {
 
   return (
     <div className="m-[5vw] mx-auto w-[90vw] max-w-4xl md:m-0 md:w-[70vw]">
-      {data.map((data) => (
+      {listData.map((data) => (
         <div
-          key={data.id}
+          key={data.flight_id}
           className={`mb-4 overflow-hidden rounded-lg border-2 shadow-lg ${
-            openAccordion === data.id ? "border-purple-400" : "border-gray-300"
+            openAccordion === data.flight_id
+              ? "border-purple-400"
+              : "border-gray-300"
           }`}
         >
           <AccordionBox
@@ -36,7 +39,7 @@ function Accordion({ data }) {
                     navigate("/detailPenerbangan", {
                       state: { flight: data },
                     })
-                : () => clickHandler(data.id)
+                : () => clickHandler(data.flight_id)
             }
             flight={data}
             isOpen={openAccordion}
@@ -44,8 +47,10 @@ function Accordion({ data }) {
 
           {!isMobile && (
             <div
-              className={`hidden max-h-0 overflow-hidden p-4 pt-0 transition-[max-height,padding] duration-300 ease-out md:block ${
-                openAccordion === data.id ? "max-h-[500px]" : "p-0"
+              className={`block overflow-hidden pt-0 transition-all duration-500 ease-out ${
+                openAccordion === data.flight_id
+                  ? "max-h-[500px] p-6"
+                  : "max-h-0 p-0"
               }`}
             >
               <div className="m-6 flex flex-col gap-2">
@@ -53,7 +58,7 @@ function Accordion({ data }) {
                   Detail Penerbangan
                 </h3>
               </div>
-              <DetFlight flight={data} />
+              <DetFlight flight={data.flight_details} />
             </div>
           )}
         </div>
