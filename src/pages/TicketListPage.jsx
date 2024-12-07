@@ -1,28 +1,67 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+
 import Button from "../components/Elements/Button/Button";
-import FilterButton from "../components/Elements/Button/FilterButton";
-import DateList from "../components/Elements/Date/DateList";
-import FilterItem from "../components/Fragments/Filter/FilterItem";
-import FilterModal from "../components/Fragments/Filter/FilterModals";
-import FlightInfo from "../components/Elements/Header/FlightInfo";
-import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
-import Accordion from "../components/Fragments/DetailPage/Accordion";
 import Navbar from "../components/Fragments/Navbar/Navbar";
+import DateList from "../components/Elements/Date/DateList";
+import Accordion from "../components/Fragments/DetailPage/Accordion";
+import FilterItem from "../components/Fragments/Filter/FilterItem";
+import FlightInfo from "../components/Elements/Header/FlightInfo";
+import FilterModal from "../components/Fragments/Filter/FilterModals";
+import FilterButton from "../components/Elements/Button/FilterButton";
+import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
+import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
 
 const TicketListPage = ({ data }) => {
+  const location = useLocation();
+  const [filters, setFilters] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [flightsData, setFlightsData] = useState(null);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setFilters(location.state?.filters || {});
+  }, [location.state?.filters]);
+
   const handleFilterSelect = (filter) => {
     console.log("Filter selected:", filter);
     setIsFilterModalOpen(false);
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 3500);
-    return () => clearTimeout(timeout);
-  }, []);
+    setIsLoading(true);
+    const fetchData = async () => {
+      if (Object.keys(filters).length > 0) {
+        try {
+          const response = await axios.get(
+            "http://34.101.158.185/api/v1/flights",
+            {
+              params: {
+                departure_airport: filters.depCity?.input_value,
+                arrival_airport: filters.arrCity?.input_value,
+                flight_departure_date: filters.depDate,
+                returning_flight_departure_date: filters.arrDate,
+                is_round_trip: filters.isArrival,
+                total_adult_passengers: filters.totalPassengers[0],
+                total_child_passengers: filters.totalPassengers[1],
+                total_infant_passengers: filters.totalPassengers[2],
+                seat_class_type: filters.seatClass,
+              },
+            },
+          );
+          setFlightsData(response.data.flights);
+        } catch (error) {
+          setErrors(error.response);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+  }, [filters]);
 
   return (
     <>
@@ -108,22 +147,20 @@ const TicketListPage = ({ data }) => {
                   <LoadingAnimation />
                   <img src=""></img>
                 </div>
-              ) : data ? (
-                <Accordion data={data} />
+              ) : flightsData ? (
+                <Accordion data={flightsData} />
+              ) : errors.status == 404 ? (
+                <NoDataFound
+                  svg={"notfound"}
+                  alt={"Data Not Found"}
+                  text={"pencarian Anda tidak ditemukan"}
+                />
               ) : (
-                <div className="flex flex-col items-center">
-                  <img
-                    src="/src/assets/icons/notfound.svg"
-                    alt="Data Not Found"
-                    className="h-64 w-64"
-                  />
-                  <p className="mt-4 text-lg text-black">
-                    Maaf, pencarian Anda tidak ditemukan
-                  </p>
-                  <p className="mt-4 text-lg text-[#7126B5]">
-                    Coba cari perjalanan lainya!
-                  </p>
-                </div>
+                <NoDataFound
+                  svg={"ticketSoldOut"}
+                  alt={"Ticket Sold Out"}
+                  text={"Ticket terjual habis!"}
+                />
               )}
             </div>
           </div>

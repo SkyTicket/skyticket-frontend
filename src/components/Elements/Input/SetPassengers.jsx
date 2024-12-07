@@ -43,28 +43,31 @@ function SetPassenger({ close, setFields }) {
             className="flex w-full justify-between border-b-2 py-2"
           >
             <div className="flex gap-2">
-              <FontAwesomeIcon icon={icons[index]} className="w-5 h-5 text-[#3C3C3C]" />
+              <FontAwesomeIcon
+                icon={icons[index]}
+                className="h-5 w-5 text-[#3C3C3C]"
+              />
               <div className="text-left">
                 <p className="font-bold text-[#151515]">{category[index]}</p>
-                <p className="text-gray-400 text-xs">({descriptions[index]})</p>
+                <p className="text-xs text-gray-400">({descriptions[index]})</p>
               </div>
             </div>
             <div className="flex items-center justify-center space-x-2">
               <FontAwesomeIcon
                 icon={faMinus}
                 onClick={() => decrement(index)}
-                className="p-2 rounded-md border border-[#7126B5] text-[#7126B5] cursor-pointer"
+                className="cursor-pointer rounded-md border border-[#7126B5] p-2 text-[#7126B5]"
               />
               <input
                 type="text"
                 value={count}
                 readOnly
-                className="w-[60px] h-[34px] text-center border-2 border-gray-300 bg-white text-[#151515] rounded-md"
+                className="h-[34px] w-[60px] rounded-md border-2 border-gray-300 bg-white text-center text-[#151515]"
               />
               <FontAwesomeIcon
                 icon={faPlus}
                 onClick={() => increment(index)}
-                className="p-2 rounded-md border border-[#7126B5] text-[#7126B5] cursor-pointer"
+                className="cursor-pointer rounded-md border border-[#7126B5] p-2 text-[#7126B5]"
               />
             </div>
           </div>

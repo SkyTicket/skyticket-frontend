@@ -2,15 +2,20 @@ import { useState } from "react";
 import Backdrop from "../../Elements/Search/Backdrop";
 import SetClass from "../../Elements/Input/SetClass";
 
-function Class() {
+function Class({ change }) {
   const [showSetClass, setShowSetClass] = useState(false);
   const [seat, setSeats] = useState("");
+
+  const handleSetSeats = (newSeat) => {
+    setSeats(newSeat);
+    change(newSeat);
+  };
 
   return (
     <>
       <input
         type="text"
-        value={seat == "" ? "" : seat}
+        value={seat}
         onClick={() => setShowSetClass(true)}
         className="w-36 cursor-pointer border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none"
         placeholder="Select Class"
@@ -20,7 +25,10 @@ function Class() {
       {showSetClass && (
         <>
           <Backdrop />
-          <SetClass close={() => setShowSetClass(false)} setSeat={setSeats} />
+          <SetClass
+            close={() => setShowSetClass(false)}
+            setSeat={handleSetSeats}
+          />
         </>
       )}
     </>
