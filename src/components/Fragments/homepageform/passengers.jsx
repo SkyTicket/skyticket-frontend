@@ -2,10 +2,15 @@ import { useState } from "react";
 import SetPassenger from "../../Elements/Input/SetPassengers";
 import Backdrop from "../../Elements/Search/Backdrop";
 
-function Passengers() {
+function Passengers({ change }) {
   const [showSetPassenger, setShowSetPassenger] = useState(false);
   const [fields, setFields] = useState([0, 0, 0]);
   const totalPassengers = fields[0] + fields[1] + fields[2];
+
+  const handleSetFields = (newFields) => {
+    setFields(newFields);
+    change(newFields);
+  };
 
   return (
     <>
@@ -23,7 +28,7 @@ function Passengers() {
           <Backdrop />
           <SetPassenger
             close={() => setShowSetPassenger(false)}
-            setFields={setFields}
+            setFields={handleSetFields}
           />
         </>
       )}

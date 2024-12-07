@@ -5,7 +5,7 @@ function Box({ children, size }) {
         <div
           className={`${
             size === "96" ? "w-96" : size === "1/2" ? "w-1/2" : ""
-          } absolute flex flex-col items-end rounded-xl bg-white`}
+          } absolute top-[20vh] flex flex-col items-end rounded-xl bg-white`}
         >
           {children}
         </div>
