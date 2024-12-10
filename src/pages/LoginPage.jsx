@@ -1,9 +1,18 @@
+import React from "react";
+import { Navigate } from "react-router-dom";
 import DynamicBanner from "../components/Elements/Banner/DynamicBanner";
 import SkyTicketBanner from "../assets/images/skyticket-banner.png";
 import Logo from "../components/Elements/Logo/Logo";
 import LoginForm from "../components/Fragments/Form/LoginForm";
+import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
+  const { isLoggedIn } = useAuth();
+
+  if (isLoggedIn) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="flex h-screen">
       <div className="relative h-full w-1/2">
