@@ -12,6 +12,7 @@ import ResetPasswordPage from "./pages/ResetPaswordPage";
 import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";
 import NotFoundPage from "./pages/404";
 import NotificationsPage from "./pages/NotificationsPage";
+import OrderHistory from "./pages/OrderHistory";
 function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/ticket-list" element={<TicketListPage />} />
+        <Route path="/history" element={<OrderHistory />} />
         <Route path="/order-ticket" element={<PageOrder />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/account" element={<AccountPage />} />
