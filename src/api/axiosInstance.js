@@ -2,10 +2,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URI,
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 10000,
 });
 
 axiosInstance.interceptors.request.use(
@@ -18,7 +19,7 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;

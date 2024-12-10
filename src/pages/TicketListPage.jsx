@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Button from "../components/Elements/Button/Button";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import DateList from "../components/Elements/Date/DateList";
 import Accordion from "../components/Fragments/DetailPage/Accordion";
 import FilterItem from "../components/Fragments/Filter/FilterItem";
-import FlightInfo from "../components/Elements/Header/FlightInfo";
 import FilterModal from "../components/Fragments/Filter/FilterModals";
 import FilterButton from "../components/Elements/Button/FilterButton";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
 import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
 
-const TicketListPage = ({ data }) => {
+const TicketListPage = () => {
   const location = useLocation();
   const [filters, setFilters] = useState({});
   const [errors, setErrors] = useState({});
@@ -71,10 +71,13 @@ const TicketListPage = ({ data }) => {
           Pilih Penerbangan
         </p>
         <div className="flex flex-row items-center justify-between gap-4">
-          <div className="flex w-full items-center justify-between rounded-xl bg-[#A06ECE] px-4 py-2 text-white">
-            <FlightInfo />
-          </div>
-
+          <Link
+            to="/"
+            className="flex h-14 w-full items-center gap-4 rounded-xl bg-[#A06ECE] px-4 py-3 text-white"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} className="text-white" />
+            <p className="text-white">JKT → MLB - 2 Penumpang - Economy</p>
+          </Link>
           <Button
             color="green"
             className="h-14 w-1/3 rounded-xl font-semibold"

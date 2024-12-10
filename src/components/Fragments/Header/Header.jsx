@@ -19,7 +19,7 @@ function HeaderLogin({
         <div className="flex gap-6">
           <Link
             to="/"
-            className="flex w-full items-center gap-2 rounded-xl bg-[#A06ECE] px-4 py-3 text-white"
+            className="flex w-full items-center gap-4 rounded-xl bg-[#A06ECE] px-4 py-3 mx-4 my-2 text-white"
           >
             <FontAwesomeIcon icon={faArrowLeft} className="text-white" />
             <p className="text-white">{buttonText}</p>

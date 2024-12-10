@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import { Toaster } from "react-hot-toast";
 import HomePage from "./pages/HomePage";
 import PageOrder from "./pages/PageOrder";
 import LoginPage from "./pages/LoginPage";
@@ -12,25 +12,42 @@ import ResetPasswordPage from "./pages/ResetPaswordPage";
 import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";
 import NotFoundPage from "./pages/404";
 import NotificationsPage from "./pages/NotificationsPage";
+import ProtectedRoute from "./components/Fragments/ProtectedRoute";
+
 function App() {
   return (
-    <Router>
+    <>
+      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/account" element={<AccountPage />} />
-        <Route path="/ticket-list" element={<TicketListPage />} />
-        <Route path="/order-ticket" element={<PageOrder />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/account" element={<AccountPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} /> 
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/otp" element={<OtpPage />} />
         <Route path="/reset-password/request" element={<ResetPasswordRequestPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/ticket-list" element={<TicketListPage />} />
+        <Route path="*" element={<TicketListPageNotFound />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="/notification" element={<NotificationsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <AccountPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/order-ticket"
+          element={
+            <ProtectedRoute>
+              <PageOrder />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </Router>
+    </>
   );
 }
 
