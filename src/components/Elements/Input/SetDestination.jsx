@@ -75,7 +75,7 @@ function SetDestination({ close, setCity }) {
           </p>
           <p className="font-medium text-red-500">Hapus</p>
         </div>
-        <div className="max-h-[210px] overflow-scroll">
+        <div className="max-h-[210px]">
           {airport.map((air, index) => (
             <div
               key={index}

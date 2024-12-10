@@ -9,12 +9,7 @@ import useLogin from "../../../hooks/useLogin";
 
 const LoginForm = () => {
   const { login } = useLogin();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setFocus,
-  } = useForm();
+  const { register, handleSubmit, formState: { errors }, setFocus } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

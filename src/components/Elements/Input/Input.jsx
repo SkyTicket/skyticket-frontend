@@ -1,9 +1,9 @@
 import { forwardRef } from "react";
 
 const Input = forwardRef(
-  ({ label, type, id, value, onChange, placeholder, name, error }, ref) => {
+  ({ label, type, id, name, value, onChange, placeholder, error }, ref) => {
     return (
-      <div className="mb-4">
+      <div className="relative mb-9">
         <label className="mb-1 block text-sm text-black">{label}</label>
         <input
           ref={ref}
@@ -17,7 +17,9 @@ const Input = forwardRef(
             error ? "border-red-500" : "border-gray-300"
           }`}
         />
-        {error?.message && <p className="mt-1 text-sm text-red-500">{error.message}</p>}
+        {error?.message && (
+          <p className="absolute mt-1 text-sm text-red-500">{error.message}</p>
+        )}
       </div>
     );
   },
