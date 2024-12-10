@@ -34,8 +34,11 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="relative mx-4 -mt-[50px] flex justify-center">
-        <div className="flex h-[298px] max-w-[1068px] items-center justify-center rounded-xl bg-white shadow-lg sm:max-w-[80%]">
+      <section className="relative mx-4 -mt-[50px] flex flex-col items-center">
+        <p className="mb-2 block w-full text-2xl font-bold text-black md:hidden">
+          Hei! Mau kemana?
+        </p>
+        <div className="flex max-w-[1068px] flex-col items-center justify-center rounded-xl bg-white shadow-lg sm:max-w-[80%] md:h-[298px]">
           <HomepageForm />
         </div>
       </section>
