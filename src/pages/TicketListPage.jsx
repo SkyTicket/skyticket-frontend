@@ -36,7 +36,7 @@ const TicketListPage = ({ data }) => {
       if (Object.keys(filters).length > 0) {
         try {
           const response = await axios.get(
-            "http://34.101.158.185/api/v1/flights",
+            "http://34.101.115.143:3000/api/v1/flights",
             {
               params: {
                 departure_airport: filters.depCity?.input_value,
