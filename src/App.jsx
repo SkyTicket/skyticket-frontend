@@ -13,7 +13,8 @@ import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";
 import NotFoundPage from "./pages/404";
 import NotificationsPage from "./pages/NotificationsPage";
 import ProtectedRoute from "./components/Fragments/ProtectedRoute";
-
+import OrderHistory from "./pages/OrderHistory";
+import { AuthProvider } from "./contexts/AuthContext";
 function App() {
   return (
     <>
@@ -21,23 +22,13 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/ticket-list" element={<TicketListPage />} />
+        <Route path="/order-ticket" element={<PageOrder />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/otp" element={<OtpPage />} />
         <Route path="/reset-password/request" element={<ResetPasswordRequestPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/ticket-list" element={<TicketListPage />} />
-        <Route path="*" element={<TicketListPageNotFound />} />
-        <Route path="/account" element={<AccountPage />} />
-        <Route path="/notification" element={<NotificationsPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route
-          path="/account"
-          element={
-            <ProtectedRoute>
-              <AccountPage />
-            </ProtectedRoute>
-          }
-        />
         <Route
           path="/order-ticket"
           element={
@@ -46,6 +37,29 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route 
+        path="/history" 
+        element={
+            <ProtectedRoute>
+              <OrderHistory />
+            </ProtectedRoute>
+          } 
+        />
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <AccountPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route 
+        path="/notification" 
+        element={
+            <ProtectedRoute>
+              <NotificationsPage/> 
+            </ProtectedRoute>
+          } />
       </Routes>
     </>
   );
