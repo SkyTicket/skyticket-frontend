@@ -1,10 +1,10 @@
-import axios from "axios";
 import debounce from "lodash.debounce";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import Box from "../Search/Box";
+import { fetchAirports } from "../../../services/airportsService";
 
 function SetDestination({ close, setCity }) {
   const [openDestination, setOpenDestination] = useState(null);
@@ -17,23 +17,16 @@ function SetDestination({ close, setCity }) {
   }, 300);
 
   useEffect(() => {
-    const fetchAirports = async () => {
+    const fetchAndSetAirports = async () => {
       try {
-        const response = await axios.get(
-          `http://34.101.115.143:3000/api/v1/airports`,
-          {
-            params: {
-              airport: searchQuery,
-            },
-          },
-        );
-        setAirports(response.data.airports);
+        const airportData = await fetchAirports(searchQuery);
+        setAirports(airportData);
       } catch (err) {
         setError(err.message);
       }
     };
 
-    fetchAirports();
+    fetchAndSetAirports();
   }, [searchQuery]);
 
   const toggleDestination = (id) => {

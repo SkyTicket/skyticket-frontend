@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
@@ -17,6 +16,7 @@ import Class from "./Class";
 import Passengers from "./Passengers";
 import DatePicker from "../../Elements/Input/SetDate";
 import Destination from "./Destination";
+import { fetchFlights } from "../../../services/flightsService";
 
 function HomepageForm() {
   const navigate = useNavigate();
@@ -42,51 +42,26 @@ function HomepageForm() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.get(
-        "http://34.101.115.143:3000/api/v1/flights",
-        {
-          params: {
-            departure_airport: filters.depCity.input_value,
-            arrival_airport: filters.arrCity.input_value,
-            flight_departure_date: filters.depDate,
-            returning_flight_departure_date: filters.arrDate,
-            is_round_trip: filters.isArrival,
-            total_adult_passengers: filters.totalPassengers[0],
-            total_child_passengers: filters.totalPassengers[1],
-            total_infant_passengers: filters.totalPassengers[2],
-            seat_class_type: filters.seatClass,
-          },
-        },
-      );
+      const response = await fetchFlights(filters);
       navigate("/ticket-list", { state: { filters } });
-      // console.log(response);
     } catch (error) {
-      if (error.response.status === 404) {
-        navigate("/ticket-list", {
-          state: { filters },
-        });
-      } else {
-        const err = error.response.data.messages;
-        if (err) {
-          toast.error((t) => (
-            <div
-              className={`${
-                t.visible ? "animate-enter" : "animate-leave"
-              } pointer-events-auto flex w-full max-w-md bg-white`}
-            >
-              <span className="flex flex-col gap-2 text-sm">
-                {err.line_1}
-                {err.line_2}
-              </span>
-              <FontAwesomeIcon
-                icon={faXmark}
-                className="h-6 w-6 cursor-pointer text-[#151515]"
-                onClick={() => toast.dismiss(t.id)}
-              />
-            </div>
-          ));
-        }
-      }
+      toast.error((t) => (
+        <div
+          className={`${
+            t.visible ? "animate-enter" : "animate-leave"
+          } pointer-events-auto flex w-full max-w-md bg-white`}
+        >
+          <span className="flex flex-col gap-2 text-sm">
+            {error.response.messages.line_1}
+            {error.response.messages.line_2}
+          </span>
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="h-6 w-6 cursor-pointer text-[#151515]"
+            onClick={() => toast.dismiss(t.id)}
+          />
+        </div>
+      ));
     }
   };
 
