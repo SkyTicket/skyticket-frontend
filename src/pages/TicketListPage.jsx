@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import Button from "../components/Elements/Button/Button";
@@ -74,12 +74,18 @@ const TicketListPage = ({ data }) => {
           <div className="flex w-full items-center justify-between rounded-xl bg-[#A06ECE] px-4 py-2 text-white">
             <FlightInfo />
           </div>
+
           <Button
             color="green"
             className="h-14 w-1/3 rounded-xl font-semibold"
             type=""
           >
-            Ubah Pencarian
+            <Link
+              to="/"
+              className=" text-white text-center"
+            >
+              Ubah Pencarian
+            </Link>
           </Button>
         </div>
         <div className="mb-6 flex justify-end"></div>

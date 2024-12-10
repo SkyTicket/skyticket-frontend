@@ -6,29 +6,39 @@ import Button from "../../Elements/Button/Button";
 import { Link } from "react-router-dom";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
 
-    if (!email) {
+    if (!loginData.email) {
       newErrors.email = "Email tidak boleh kosong";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    } else if (!/\S+@\S+\.\S+/.test(loginData.email)) {
       newErrors.email = "Format email tidak valid";
     }
 
-    if (!password) {
+    if (!loginData.password) {
       newErrors.password = "Password tidak boleh kosong";
     }
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log("Login berhasil:", { email, password });
+      console.log("Login berhasil:", loginData);
     }
   };
 
@@ -39,8 +49,9 @@ const LoginForm = () => {
       <Input
         label="Email/No Telepon"
         type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        name="email"
+        value={loginData.email}
+        onChange={handleChange}
         placeholder="Contoh: johndoe@gmail.com"
         error={errors.email}
       />
@@ -48,17 +59,19 @@ const LoginForm = () => {
       <div className="mb-6">
         <div className="mb-1 flex items-center justify-between">
           <label className="text-sm font-medium text-gray-700">Password</label>
-          <Link to="/reset-password">
-            <a href="#" className="text-sm text-[#7126B5] hover:text-purple-600">
-              Lupa Kata Sandi
-            </a>
+          <Link
+            to="/reset-password/request"
+            className="text-sm text-[#7126B5] hover:text-purple-600"
+          >
+            Lupa Kata Sandi
           </Link>
         </div>
         <div className="relative">
           <Input
             type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={loginData.password}
+            onChange={handleChange}
             placeholder="Masukkan password"
             error={errors.password}
           />
@@ -88,10 +101,11 @@ const LoginForm = () => {
 
       <p className="mt-10 text-center text-sm text-black">
         Belum punya akun?{" "}
-        <Link to="/register">
-          <a href="#" className="font-bold text-[#7126B5] hover:text-purple-600">
-            Daftar di sini
-          </a>
+        <Link
+          to="/register"
+          className="font-bold text-[#7126B5] hover:text-purple-600"
+        >
+          Daftar di sini
         </Link>
       </p>
     </form>
