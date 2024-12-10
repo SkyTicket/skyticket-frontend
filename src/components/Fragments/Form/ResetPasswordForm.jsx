@@ -5,11 +5,9 @@ import Button from "../../Elements/Button/Button";
 import Input from "../../Elements/Input/Input";
 
 const ResetPasswordForm = () => {
-  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -17,24 +15,23 @@ const ResetPasswordForm = () => {
     e.preventDefault();
     const newErrors = {};
 
-    if (!oldPassword) {
-      newErrors.oldPassword = "Password lama tidak boleh kosong";
+    if (newPassword.length < 8) {
+      newErrors.newPassword = "Password harus minimal 8 karakter";
     }
 
-    if (!newPassword) {
-      newErrors.newPassword = "Password baru tidak boleh kosong";
-    } else if (newPassword.length < 6) {
-      newErrors.newPassword = "Password baru harus minimal 6 karakter";
-    }
-
-    if (confirmPassword !== newPassword) {
+    if (!confirmPassword) {
+      newErrors.confirmPassword = "Konfirmasi password harus diisi";
+    } else if (confirmPassword !== newPassword) {
       newErrors.confirmPassword = "Konfirmasi password tidak sesuai";
     }
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log("Password berhasil diubah:", { oldPassword, newPassword });
+      console.log("Password berhasil diubah:", {
+        newPassword,
+        confirmPassword,
+      });
     }
   };
 
@@ -43,20 +40,23 @@ const ResetPasswordForm = () => {
       <h2 className="mb-6 text-2xl font-bold text-black">Reset Password</h2>
 
       {/* New Password */}
-      <label style={{ position: "relative", display: "block" }}>
+      <label className="relative block text-black dark:text-white">
+        {" "}
         Masukkan password baru
-        <Input
-          type={showNewPassword ? "text" : "password"}
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="********"
-          error={errors.newPassword}
-        />
+        <div className="relative">
+          <Input
+            type={showNewPassword ? "text" : "password"}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            placeholder="********"
+            error={errors.newPassword}
+          />
+        </div>
         <div
           onClick={() => setShowNewPassword(!showNewPassword)}
           style={{
             position: "absolute",
-            right: "10px",
+            right: "1em",
             top: "50%",
             transform: "translateY(-0%)",
             cursor: "pointer",
@@ -76,28 +76,26 @@ const ResetPasswordForm = () => {
             <FontAwesomeIcon icon={faEyeSlash} />
           )}
         </div>
-        {errors.newPassword && (
-          <p style={{ marginTop: "8px", fontSize: "12px", color: "red" }}>
-            {errors.newPassword}
-          </p>
-        )}
       </label>
 
       {/* Confirm Password */}
-      <label style={{ position: "relative", display: "block" }}>
+      <label className="relative block text-black dark:text-white">
+        {" "}
         Konfirmasi Password Baru
-        <Input
-          type={showConfirmPassword ? "text" : "password"}
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="********"
-          error={errors.confirmPassword}
-        />
+        <div className="relative">
+          <Input
+            type={showConfirmPassword ? "text" : "password"}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="********"
+            error={errors.confirmPassword}
+          />
+        </div>
         <div
           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           style={{
             position: "absolute",
-            right: "10px",
+            right: "1em",
             top: "50%",
             transform: "translateY(-0%)",
             cursor: "pointer",
@@ -117,14 +115,16 @@ const ResetPasswordForm = () => {
             <FontAwesomeIcon icon={faEyeSlash} />
           )}
         </div>
-        {errors.confirmPassword && (
-          <p style={{ marginTop: "8px", fontSize: "12px", color: "red" }}>
-            {errors.confirmPassword}
-          </p>
-        )}
       </label>
 
-      <Button type="submit" className="w-full rounded-2xl font-medium">
+      <Button
+        type="submit"
+        onClick={handleSubmit}
+        disabled={Object.keys(errors).length > 8}
+        className={`w-full rounded-2xl font-medium ${
+          Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-purple-500"
+        }`}
+      >
         Simpan
       </Button>
     </form>
