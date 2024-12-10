@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import { useLocation, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Button from "../components/Elements/Button/Button";
@@ -36,7 +36,7 @@ const TicketListPage = () => {
       if (Object.keys(filters).length > 0) {
         try {
           const response = await axios.get(
-            "http://34.101.158.185/api/v1/flights",
+            "http://34.101.115.143:3000/api/v1/flights",
             {
               params: {
                 departure_airport: filters.depCity?.input_value,
@@ -83,7 +83,12 @@ const TicketListPage = () => {
             className="h-14 w-1/3 rounded-xl font-semibold"
             type=""
           >
-            Ubah Pencarian
+            <Link
+              to="/"
+              className=" text-white text-center"
+            >
+              Ubah Pencarian
+            </Link>
           </Button>
         </div>
         <div className="mb-6 flex justify-end"></div>

@@ -8,6 +8,10 @@ import RegisterPage from "./pages/RegisterPage";
 import AccountPage from "./pages/AccountPage";
 import TicketListPage from "./pages/TicketListPage";
 import TicketListPageNotFound from "./pages/TicketListNotFound";
+import ResetPasswordPage from "./pages/ResetPaswordPage";
+import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";
+import NotFoundPage from "./pages/404";
+import NotificationsPage from "./pages/NotificationsPage";
 import ProtectedRoute from "./components/Fragments/ProtectedRoute";
 
 function App() {
@@ -19,8 +23,13 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/otp" element={<OtpPage />} />
+        <Route path="/reset-password/request" element={<ResetPasswordRequestPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/ticket-list" element={<TicketListPage />} />
         <Route path="*" element={<TicketListPageNotFound />} />
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/notification" element={<NotificationsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route
           path="/account"
           element={

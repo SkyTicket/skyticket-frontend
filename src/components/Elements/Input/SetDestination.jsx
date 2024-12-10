@@ -20,7 +20,7 @@ function SetDestination({ close, setCity }) {
     const fetchAirports = async () => {
       try {
         const response = await axios.get(
-          `http://34.101.158.185/api/v1/airports`,
+          `http://34.101.115.143:3000/api/v1/airports`,
           {
             params: {
               airport: searchQuery,
