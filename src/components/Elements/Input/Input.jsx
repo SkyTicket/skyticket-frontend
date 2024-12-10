@@ -1,6 +1,6 @@
 const Input = ({ label, type, value, onChange, placeholder, name, error }) => {
   return (
-    <div className="mb-4">
+    <div className="mb-9 relative">
       <label className="mb-1 block text-sm text-black">{label}</label>
       <input
         type={type}
@@ -12,7 +12,7 @@ const Input = ({ label, type, value, onChange, placeholder, name, error }) => {
           error ? "border-red-500" : "border-gray-300"
         }`}
       />
-      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+      {error && <p className="mt-1 text-sm text-red-500 absolute">{error}</p>}
     </div>
   );
 };

@@ -27,7 +27,7 @@ function HeaderLogin({
           {rightButtonIcon && (
             <button
               onClick={rightButtonAction}
-              className="flex items-center gap-1 rounded-full border border-[#A06ECE] px-6 py-0 text-[#A06ECE]"
+              className="flex items-center gap-3 rounded-full border border-[#7533b2] bg-transparent px-6 py-0 text-[#A06ECE] hover:bg-[#f6edff] dark:border"
             >
               <FontAwesomeIcon icon={rightButtonIcon} />
               {rightButtonText && <span>{rightButtonText}</span>}
@@ -36,7 +36,7 @@ function HeaderLogin({
           {searchButtonIcon && (
             <button
               onClick={searchButtonAction}
-              className="flex items-center px-0 justify-center rounded-full border-none bg-transparent p-1 text-[#A06ECE] hover:border-none hover:outline-none focus:outline-none focus:ring-0"
+              className="flex items-center justify-center rounded-full border-none bg-transparent p-1 px-0 text-[#A06ECE] hover:border-none hover:outline-none focus:outline-none focus:ring-0"
               style={{
                 outline: "none",
                 border: "none",
