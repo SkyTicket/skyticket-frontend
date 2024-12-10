@@ -25,14 +25,18 @@ const Navbar = ({ showSearchBar = true }) => {
 
           {isLoggedIn ? (
             <div className="flex items-center gap-6">
-              <FontAwesomeIcon
-                icon={faListUl}
-                className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
-              />
-              <FontAwesomeIcon
-                icon={faBell}
-                className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
-              />
+              <Link to="/history">
+                <FontAwesomeIcon
+                  icon={faListUl}
+                  className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
+                  />
+              </Link>
+              <Link to="/notification">
+                <FontAwesomeIcon
+                  icon={faBell}
+                  className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
+                  />
+              </Link>
               <Link to="/account">
                 <FontAwesomeIcon
                   icon={faUser}
