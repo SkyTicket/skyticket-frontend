@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { userService } from '../services/user.service';
+import { useState, useEffect } from "react";
+import { userService } from "../services/user.service";
 
 export const useUser = () => {
   const [user, setUser] = useState();
@@ -32,6 +32,9 @@ export const useUser = () => {
     user,
     loading,
     error,
-    refreshUser
+    setUser,
+    setError,
+    setLoading,
+    refreshUser,
   };
 };
