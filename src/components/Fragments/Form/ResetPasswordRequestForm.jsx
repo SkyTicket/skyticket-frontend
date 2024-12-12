@@ -1,43 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Input from "../../Elements/Input/Input";
 import Button from "../../Elements/Button/Button";
 
 const ResetPasswordRequestForm = () => {
-  const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = {};
-
-    if (!email) {
-      newErrors.email = "Email tidak boleh kosong";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = "Format email tidak valid";
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log("Reset password email dikirim ke:", email);
-    }
+  const onSubmit = (data) => {
+    console.log("Reset password email dikirim ke:", data.email);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
       <h2 className="mb-6 text-2xl font-bold text-black">Reset Password Request</h2>
 
       <Input
         label="Email"
         type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
         placeholder="Masukkan email Anda"
-        error={errors.email}
+        error={errors.email?.message}
+        {...register("email", {
+          required: "Email tidak boleh kosong",
+          validate: {
+            notEmpty: (value) => value.trim() !== "" || "Email tidak boleh kosong",
+            validFormat: (value) =>
+              /\S+@\S+\.\S+/.test(value) || "Format email tidak valid",
+          },
+        })}
       />
 
-      <Button onClick={handleSubmit} type="submit" className="w-full rounded-2xl font-medium">
+      <Button onClick={handleSubmit(onSubmit)} type="submit" className="w-full rounded-2xl font-medium">
         Kirim
       </Button>
 

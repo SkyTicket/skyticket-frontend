@@ -1,55 +1,46 @@
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../Elements/Button/Button";
 import Input from "../../Elements/Input/Input";
 
 const ResetPasswordForm = () => {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = {};
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-    if (newPassword.length < 8) {
-      newErrors.newPassword = "Password harus minimal 8 karakter";
-    }
-
-    if (!confirmPassword) {
-      newErrors.confirmPassword = "Konfirmasi password harus diisi";
-    } else if (confirmPassword !== newPassword) {
-      newErrors.confirmPassword = "Konfirmasi password tidak sesuai";
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log("Password berhasil diubah:", {
-        newPassword,
-        confirmPassword,
-      });
-    }
+  const onSubmit = (data) => {
+    console.log("Password berhasil diubah:", data);
   };
 
+  const newPassword = watch("newPassword");
+
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
       <h2 className="mb-6 text-2xl font-bold text-black">Reset Password</h2>
 
       {/* New Password */}
       <label className="relative block text-black dark:text-white">
-        {" "}
         Masukkan password baru
         <div className="relative">
           <Input
             type={showNewPassword ? "text" : "password"}
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
             placeholder="********"
-            error={errors.newPassword}
+            {...register("newPassword", {
+              required: "Password harus diisi",
+              minLength: {
+                value: 8,
+                message: "Password harus minimal 8 karakter",
+              },
+            })}
+            error={errors.newPassword?.message}
           />
         </div>
         <div
@@ -80,15 +71,17 @@ const ResetPasswordForm = () => {
 
       {/* Confirm Password */}
       <label className="relative block text-black dark:text-white">
-        {" "}
         Konfirmasi Password Baru
         <div className="relative">
           <Input
             type={showConfirmPassword ? "text" : "password"}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="********"
-            error={errors.confirmPassword}
+            {...register("confirmPassword", {
+              required: "Konfirmasi password harus diisi",
+              validate: (value) =>
+                value === newPassword || "Konfirmasi password tidak sesuai",
+            })}
+            error={errors.confirmPassword?.message}
           />
         </div>
         <div
@@ -119,8 +112,7 @@ const ResetPasswordForm = () => {
 
       <Button
         type="submit"
-        onClick={handleSubmit}
-        disabled={Object.keys(errors).length > 8}
+        disabled={Object.keys(errors).length > 0}
         className={`w-full rounded-2xl font-medium ${
           Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-purple-500"
         }`}
