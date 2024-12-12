@@ -37,7 +37,7 @@ const ResetPasswordRequestForm = () => {
         error={errors.email}
       />
 
-      <Button type="submit" className="w-full rounded-2xl font-medium">
+      <Button onClick={handleSubmit} type="submit" className="w-full rounded-2xl font-medium">
         Kirim
       </Button>
 

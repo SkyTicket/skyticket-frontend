@@ -7,7 +7,7 @@ const buttonIcon = {
 };
 
 const Button = ({
-  type = "login",
+  type = "submit",
   children = "Masuk",
   color = "purple",
   onClick,
@@ -20,7 +20,6 @@ const Button = ({
   const colorStyles = {
     purple: `bg-[#7126B5] text-white hover:bg-purple-600 active:bg-[#4B1979] active:ring-2 active:ring-purple-400`,
     gray: `bg-gray-600 text-white hover:bg-gray-500 active:bg-gray-700 active:ring-2 active:ring-gray-400`,
-    blue: `bg-blue-600 text-white hover:bg-blue-500 active:bg-blue-700 active:ring-2 active:ring-blue-400`,
     green: `bg-[#73CA5C] text-white hover:border-2 hover:bg-white hover:text-[#73CA5C]`,
   };
 
@@ -32,7 +31,7 @@ const Button = ({
 
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       className={`${baseStyles} ${colorStyles[color]} ${widthStyles[width]} ${height} ${className}`}
     >
