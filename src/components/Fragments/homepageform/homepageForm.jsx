@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faUser,
   faXmark,
   faRepeat,
   faCalendar,
@@ -65,6 +66,13 @@ function HomepageForm() {
     }
   };
 
+  const handleToggle = () => {
+    setFilters((prev) => ({
+      ...prev,
+      isArrival: !prev.isArrival,
+    }));
+  };
+
   return (
     <>
       <div>
@@ -118,83 +126,96 @@ function HomepageForm() {
           </div>
 
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 md:gap-6">
               <div className="flex items-center gap-3 text-gray-500">
-                <FontAwesomeIcon icon={faCalendar} className="size-6" />
-                <p className="hidden cursor-default select-none md:block">
+                <FontAwesomeIcon
+                  icon={faCalendar}
+                  className="size-6 text-[#6b7280]"
+                />
+                <p className="hidden w-[45px] cursor-default select-none md:block">
                   Date
                 </p>
               </div>
-              <div className="flex gap-[32px]">
-                <div>
-                  <p className="cursor-default select-none text-gray-500">
-                    Departure
-                  </p>
-                  <DatePicker
-                    disable={false}
-                    change={(newDepDate) =>
-                      setFilters((prev) => ({ ...prev, depDate: newDepDate }))
-                    }
-                  />
-                </div>
-                <div>
-                  <p className="cursor-default select-none text-gray-500">
-                    Return
-                  </p>
-                  <DatePicker
-                    disable={filters.isArrival ? false : true}
-                    change={(newArrDate) =>
-                      setFilters((prev) => ({ ...prev, arrDate: newArrDate }))
-                    }
-                  />
-                </div>
+              <div className="mr-3 md:mr-0">
+                <p className="cursor-default select-none text-gray-500">
+                  Departure
+                </p>
+                <DatePicker
+                  disable={false}
+                  change={(newDepDate) =>
+                    setFilters((prev) => ({ ...prev, depDate: newDepDate }))
+                  }
+                />
+              </div>
+              <FontAwesomeIcon
+                icon={faCalendar}
+                className="block size-6 text-[#6b7280] md:hidden"
+              />
+              <div>
+                <p className="cursor-default select-none text-gray-500">
+                  Return
+                </p>
+                <DatePicker
+                  disable={filters.isArrival ? false : true}
+                  change={(newArrDate) =>
+                    setFilters((prev) => ({ ...prev, arrDate: newArrDate }))
+                  }
+                />
               </div>
             </div>
 
-            <FontAwesomeIcon
-              icon={filters.isArrival ? faToggleOn : faToggleOff}
-              className="-order-1 h-[40px] w-6 cursor-pointer text-[#4B1979] md:order-none"
-              onClick={() =>
-                setFilters((prev) => ({ ...prev, isArrival: !prev.isArrival }))
-              }
-            />
+            <div className="-order-1 flex w-full items-center justify-between md:order-none md:w-auto">
+              <p className="block text-black md:hidden">Pulang-Pergi?</p>
+              <FontAwesomeIcon
+                icon={filters.isArrival ? faToggleOn : faToggleOff}
+                className="h-14 w-9 cursor-pointer text-[#4B1979] md:h-10 md:w-6"
+                onClick={handleToggle}
+              />
+            </div>
 
-            <div className="flex items-center gap-6">
-              <div className="flex w-5 items-center gap-3 text-gray-500 md:w-auto">
+            <div className="flex items-center gap-3 md:gap-6">
+              <div className="hidden w-[45px] items-center gap-3 text-gray-500 md:flex md:w-auto">
                 <img
                   alt="Seat Icon"
                   src="/src/assets/icons/seat.svg"
                   className="size-6"
                 />
-                <p className="hidden cursor-default select-none md:block">To</p>
+                <p className="cursor-default select-none">To</p>
               </div>
-              <div className="flex gap-[32px]">
-                <div>
-                  <p className="cursor-default select-none text-gray-500">
-                    Passengers
-                  </p>
-                  <Passengers
-                    change={(newPassenger) =>
-                      setFilters((prev) => ({
-                        ...prev,
-                        totalPassengers: newPassenger,
-                      }))
-                    }
-                  />
-                </div>
-                <div>
-                  <p className="cursor-default select-none text-gray-500">
-                    Seat Class
-                  </p>
-                  <Class
-                    change={(newSeat) =>
-                      setFilters((prev) => ({
-                        ...prev,
-                        seatClass: newSeat,
-                      }))
-                    }
-                  />
-                </div>
+              <FontAwesomeIcon
+                icon={faUser}
+                className="block size-6 text-[#6b7280] md:hidden"
+              />
+              <div className="mr-3 md:mr-0">
+                <p className="cursor-default select-none text-gray-500">
+                  Passengers
+                </p>
+                <Passengers
+                  change={(newPassenger) =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      totalPassengers: newPassenger,
+                    }))
+                  }
+                />
+              </div>
+              <img
+                alt="Seat Icon"
+                src="/src/assets/icons/seat.svg"
+                className="block size-7 md:hidden"
+              />
+              <div>
+                <p className="cursor-default select-none text-gray-500">
+                  Seat Class
+                </p>
+                <Class
+                  change={(newSeat) =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      seatClass: newSeat,
+                    }))
+                  }
+                />
               </div>
             </div>
           </div>
