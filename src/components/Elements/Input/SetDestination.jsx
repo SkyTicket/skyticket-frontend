@@ -68,8 +68,8 @@ function SetDestination({ close, setCity }) {
           </p>
           <p className="font-medium text-red-500">Hapus</p>
         </div>
-        <div className="max-h-[210px]">
-          {airport.map((air, index) => (
+        <div className="max-h-[210px] overflow-scroll">
+          {airport?.map((air, index) => (
             <div
               key={index}
               className={`flex w-full cursor-pointer items-center justify-between border-b-2 pt-2 text-[#151515]`}

@@ -1,34 +1,36 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import OtpPage from "./pages/OtpPage";
 import HomePage from "./pages/HomePage";
 import PageOrder from "./pages/PageOrder";
 import LoginPage from "./pages/LoginPage";
-import OtpPage from "./pages/OtpPage";
-import RegisterPage from "./pages/RegisterPage";
 import AccountPage from "./pages/AccountPage";
+import RegisterPage from "./pages/RegisterPage";
+import NotFoundPage from "./pages/404";
+import OrderHistory from "./pages/OrderHistory";
+import ProtectedRoute from "./components/Fragments/ProtectedRoute";
 import TicketListPage from "./pages/TicketListPage";
-import TicketListPageNotFound from "./pages/TicketListNotFound";
+import NotificationsPage from "./pages/NotificationsPage";
 import ResetPasswordPage from "./pages/ResetPaswordPage";
 import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";
-import NotFoundPage from "./pages/404";
-import NotificationsPage from "./pages/NotificationsPage";
-import ProtectedRoute from "./components/Fragments/ProtectedRoute";
-import OrderHistory from "./pages/OrderHistory";
-import { AuthProvider } from "./contexts/AuthContext";
+
 function App() {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/otp" element={<OtpPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/ticket-list" element={<TicketListPage />} />
         <Route path="/order-ticket" element={<PageOrder />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/otp" element={<OtpPage />} />
-        <Route path="/reset-password/request" element={<ResetPasswordRequestPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route
+          path="/reset-password/request"
+          element={<ResetPasswordRequestPage />}
+        />
+        <Route path="*" element={<NotFoundPage />} />
         <Route
           path="/order-ticket"
           element={
@@ -37,13 +39,13 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route 
-        path="/history" 
-        element={
+        <Route
+          path="/history"
+          element={
             <ProtectedRoute>
               <OrderHistory />
             </ProtectedRoute>
-          } 
+          }
         />
         <Route
           path="/account"
@@ -53,13 +55,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route 
-        path="/notification" 
-        element={
+        <Route
+          path="/notification"
+          element={
             <ProtectedRoute>
-              <NotificationsPage/> 
+              <NotificationsPage />
             </ProtectedRoute>
-          } />
+          }
+        />
       </Routes>
     </>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+
 import { fetchFlights } from "../services/flightsService";
 import Button from "../components/Elements/Button/Button";
 import Navbar from "../components/Fragments/Navbar/Navbar";
