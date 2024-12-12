@@ -17,7 +17,7 @@ function Class({ change }) {
         type="text"
         value={seat}
         onClick={() => setShowSetClass(true)}
-        className="w-36 cursor-pointer border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none"
+        className="w-28 cursor-pointer border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none md:w-[150px]"
         placeholder="Select Class"
         readOnly
       />
