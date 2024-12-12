@@ -19,8 +19,8 @@ function SetDestination({ close, setCity }) {
   useEffect(() => {
     const fetchAndSetAirports = async () => {
       try {
-        const airportData = await fetchAirports(searchQuery);
-        setAirports(airportData);
+        const response = await fetchAirports(searchQuery);
+        setAirports(response);
       } catch (err) {
         setError(err.message);
       }
