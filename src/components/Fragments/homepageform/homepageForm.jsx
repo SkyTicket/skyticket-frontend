@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faUser,
   faXmark,
   faRepeat,
   faCalendar,
@@ -17,6 +17,7 @@ import Class from "./Class";
 import Passengers from "./Passengers";
 import DatePicker from "../../Elements/Input/SetDate";
 import Destination from "./Destination";
+import { fetchFlights } from "../../../services/flightsService";
 
 function HomepageForm() {
   const navigate = useNavigate();
@@ -42,52 +43,34 @@ function HomepageForm() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.get(
-        "http://34.101.115.143:3000/api/v1/flights",
-        {
-          params: {
-            departure_airport: filters.depCity.input_value,
-            arrival_airport: filters.arrCity.input_value,
-            flight_departure_date: filters.depDate,
-            returning_flight_departure_date: filters.arrDate,
-            is_round_trip: filters.isArrival,
-            total_adult_passengers: filters.totalPassengers[0],
-            total_child_passengers: filters.totalPassengers[1],
-            total_infant_passengers: filters.totalPassengers[2],
-            seat_class_type: filters.seatClass,
-          },
-        },
-      );
+      const response = await fetchFlights(filters);
       navigate("/ticket-list", { state: { filters } });
-      // console.log(response);
     } catch (error) {
-      if (error.response.status === 404) {
-        navigate("/ticket-list", {
-          state: { filters },
-        });
-      } else {
-        const err = error.response.data.messages;
-        if (err) {
-          toast.error((t) => (
-            <div
-              className={`${
-                t.visible ? "animate-enter" : "animate-leave"
-              } pointer-events-auto flex w-full max-w-md bg-white`}
-            >
-              <span className="flex flex-col gap-2 text-sm">
-                {err.line_1}
-                {err.line_2}
-              </span>
-              <FontAwesomeIcon
-                icon={faXmark}
-                className="h-6 w-6 cursor-pointer text-[#151515]"
-                onClick={() => toast.dismiss(t.id)}
-              />
-            </div>
-          ));
-        }
-      }
+      toast.error((t) => (
+        <div
+          className={`${
+            t.visible ? "animate-enter" : "animate-leave"
+          } pointer-events-auto flex w-full max-w-md bg-white`}
+        >
+          <span className="flex flex-col gap-2 text-sm">
+            {error.response.messages.line_1}
+            {error.response.messages.line_2}
+          </span>
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="h-6 w-6 cursor-pointer text-[#151515]"
+            onClick={() => toast.dismiss(t.id)}
+          />
+        </div>
+      ));
     }
+  };
+
+  const handleToggle = () => {
+    setFilters((prev) => ({
+      ...prev,
+      isArrival: !prev.isArrival,
+    }));
   };
 
   return (
@@ -143,83 +126,96 @@ function HomepageForm() {
           </div>
 
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 md:gap-6">
               <div className="flex items-center gap-3 text-gray-500">
-                <FontAwesomeIcon icon={faCalendar} className="size-6" />
-                <p className="hidden cursor-default select-none md:block">
+                <FontAwesomeIcon
+                  icon={faCalendar}
+                  className="size-6 text-[#6b7280]"
+                />
+                <p className="hidden w-[45px] cursor-default select-none md:block">
                   Date
                 </p>
               </div>
-              <div className="flex gap-[32px]">
-                <div>
-                  <p className="cursor-default select-none text-gray-500">
-                    Departure
-                  </p>
-                  <DatePicker
-                    disable={false}
-                    change={(newDepDate) =>
-                      setFilters((prev) => ({ ...prev, depDate: newDepDate }))
-                    }
-                  />
-                </div>
-                <div>
-                  <p className="cursor-default select-none text-gray-500">
-                    Return
-                  </p>
-                  <DatePicker
-                    disable={filters.isArrival ? false : true}
-                    change={(newArrDate) =>
-                      setFilters((prev) => ({ ...prev, arrDate: newArrDate }))
-                    }
-                  />
-                </div>
+              <div className="mr-3 md:mr-0">
+                <p className="cursor-default select-none text-gray-500">
+                  Departure
+                </p>
+                <DatePicker
+                  disable={false}
+                  change={(newDepDate) =>
+                    setFilters((prev) => ({ ...prev, depDate: newDepDate }))
+                  }
+                />
+              </div>
+              <FontAwesomeIcon
+                icon={faCalendar}
+                className="block size-6 text-[#6b7280] md:hidden"
+              />
+              <div>
+                <p className="cursor-default select-none text-gray-500">
+                  Return
+                </p>
+                <DatePicker
+                  disable={filters.isArrival ? false : true}
+                  change={(newArrDate) =>
+                    setFilters((prev) => ({ ...prev, arrDate: newArrDate }))
+                  }
+                />
               </div>
             </div>
 
-            <FontAwesomeIcon
-              icon={filters.isArrival ? faToggleOn : faToggleOff}
-              className="-order-1 h-[40px] w-6 cursor-pointer text-[#4B1979] md:order-none"
-              onClick={() =>
-                setFilters((prev) => ({ ...prev, isArrival: !prev.isArrival }))
-              }
-            />
+            <div className="-order-1 flex w-full items-center justify-between md:order-none md:w-auto">
+              <p className="block text-black md:hidden">Pulang-Pergi?</p>
+              <FontAwesomeIcon
+                icon={filters.isArrival ? faToggleOn : faToggleOff}
+                className="h-14 w-9 cursor-pointer text-[#4B1979] md:h-10 md:w-6"
+                onClick={handleToggle}
+              />
+            </div>
 
-            <div className="flex items-center gap-6">
-              <div className="flex w-5 items-center gap-3 text-gray-500 md:w-auto">
+            <div className="flex items-center gap-3 md:gap-6">
+              <div className="hidden w-[45px] items-center gap-3 text-gray-500 md:flex md:w-auto">
                 <img
                   alt="Seat Icon"
                   src="/src/assets/icons/seat.svg"
                   className="size-6"
                 />
-                <p className="hidden cursor-default select-none md:block">To</p>
+                <p className="cursor-default select-none">To</p>
               </div>
-              <div className="flex gap-[32px]">
-                <div>
-                  <p className="cursor-default select-none text-gray-500">
-                    Passengers
-                  </p>
-                  <Passengers
-                    change={(newPassenger) =>
-                      setFilters((prev) => ({
-                        ...prev,
-                        totalPassengers: newPassenger,
-                      }))
-                    }
-                  />
-                </div>
-                <div>
-                  <p className="cursor-default select-none text-gray-500">
-                    Seat Class
-                  </p>
-                  <Class
-                    change={(newSeat) =>
-                      setFilters((prev) => ({
-                        ...prev,
-                        seatClass: newSeat,
-                      }))
-                    }
-                  />
-                </div>
+              <FontAwesomeIcon
+                icon={faUser}
+                className="block size-6 text-[#6b7280] md:hidden"
+              />
+              <div className="mr-3 md:mr-0">
+                <p className="cursor-default select-none text-gray-500">
+                  Passengers
+                </p>
+                <Passengers
+                  change={(newPassenger) =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      totalPassengers: newPassenger,
+                    }))
+                  }
+                />
+              </div>
+              <img
+                alt="Seat Icon"
+                src="/src/assets/icons/seat.svg"
+                className="block size-7 md:hidden"
+              />
+              <div>
+                <p className="cursor-default select-none text-gray-500">
+                  Seat Class
+                </p>
+                <Class
+                  change={(newSeat) =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      seatClass: newSeat,
+                    }))
+                  }
+                />
               </div>
             </div>
           </div>
