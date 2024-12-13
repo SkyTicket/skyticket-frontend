@@ -13,6 +13,7 @@ const OtpForm = ({ email, onSubmit, onResendOtp }) => {
     return () => clearInterval(interval);
   }, []);
 
+
   const handleOtpChange = (e, index) => {
     const { value } = e.target;
     if (/^\d*$/.test(value)) {

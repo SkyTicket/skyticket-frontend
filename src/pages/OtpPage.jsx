@@ -2,15 +2,28 @@ import React from "react";
 import OtpForm from "../components/Fragments/Form/OtpForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import { Link } from "react-router-dom";
-
+import { verifyOtp } from "../services/auth.service";
 const OtpPage = () => {
-  const handleOtpSubmit = (otp) => {
+  const handleOtpSubmit = async (otp) => {
     alert(`Kode OTP yang dimasukkan: ${otp}`);
+    try {
+      const response = await verifyOtp(otp);
+      alert(response.message || "OTP berhasil diverifikasi.");
+      window.location.href = "/reset-password?token=" + response.token;
+    } catch (error) {
+      alert(error);
+    }
   };
 
-  const handleResendOtp = () => {
-    alert("Kode OTP telah dikirim ulang!");
+  const handleResendOtp = async () => {
+    try {
+      const message = await resendOtp(email);
+      alert(message || "Kode OTP telah dikirim ulang.");
+    } catch (error) {
+      alert(error.message || "Terjadi kesalahan.");
+    }
   };
+  
 
   return (
     <>

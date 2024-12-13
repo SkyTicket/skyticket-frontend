@@ -51,11 +51,15 @@ const requestResetPassword = async (email) => {
     const response = await axiosInstance.post("/api/v1/auth/forget-password", {
       email,
     });
+    console.log("Response sukses:", response.data);
+
     return {
       status: "Success",
       message: response.data.message,
     };
   } catch (error) {
+    console.error("Error Response:", error.response);
+
     const errorMessage = error.response?.data?.message || "Terjadi kesalahan";
     return {
       status: "Error",
@@ -63,6 +67,8 @@ const requestResetPassword = async (email) => {
     };
   }
 };
+
+
 
 const verifyOtp = async (otp) => {
   try {
@@ -93,7 +99,7 @@ const resetPassword = async (data) => {
       message: response.data.message,
     };
   } catch (error) {
-    const errorMessage = error.response?.data?.message || "Terjadi kesalahan";
+    const errorMessage = error.response?.data?.message || "Gagal reset password";
     return {
       status: "Error",
       message: errorMessage,
@@ -101,4 +107,16 @@ const resetPassword = async (data) => {
   }
 };
 
-export { Login, Logout, requestResetPassword, verifyOtp, resetPassword };
+export const resendOtp = async (email) => {
+  try {
+    const response = await axiosInstance.post("/api/v1/auth/resend-otp", {
+      email,
+    });
+    return response.data.message;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Terjadi kesalahan.");
+  }
+};
+
+
+export { Login, Logout, requestResetPassword, verifyOtp, resetPassword,  };
