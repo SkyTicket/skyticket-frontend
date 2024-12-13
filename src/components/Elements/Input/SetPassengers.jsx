@@ -35,7 +35,7 @@ function SetPassenger({ close, setFields }) {
   };
 
   return (
-    <BoxSearch save={handleSave} closeHandler={close}>
+    <BoxSearch save={handleSave} closeHandler={close} isShort={true}>
       <div className="w-full p-4 pb-0 pt-2">
         {counters.map((count, index) => (
           <div

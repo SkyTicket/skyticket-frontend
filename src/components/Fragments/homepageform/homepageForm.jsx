@@ -199,11 +199,13 @@ function HomepageForm() {
                   }
                 />
               </div>
-              <img
-                alt="Seat Icon"
-                src="/src/assets/icons/seat.svg"
-                className="block size-7 md:hidden"
-              />
+              <div className="block w-6 md:hidden">
+                <img
+                  alt="Seat Icon"
+                  src="/src/assets/icons/seat.svg"
+                  className="size-7"
+                />
+              </div>
               <div>
                 <p className="cursor-default select-none text-gray-500">
                   Seat Class
