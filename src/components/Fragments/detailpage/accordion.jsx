@@ -36,7 +36,7 @@ function Accordion({ data }) {
             onclickHandler={
               isMobile
                 ? () =>
-                    navigate("/detailPenerbangan", {
+                    navigate("/detail-ticket", {
                       state: { flight: data },
                     })
                 : () => clickHandler(data.flight_id)

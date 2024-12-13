@@ -2,7 +2,7 @@ import axiosInstance from "../api/axiosInstance";
 
 export const fetchAirports = async (searchQuery) => {
   try {
-    const response = await axiosInstance.get("/airports", {
+    const response = await axiosInstance.get("api/v1/airports", {
       params: { airport: searchQuery },
     });
     return response.data.airports;
