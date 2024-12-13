@@ -3,18 +3,28 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Input from "../../Elements/Input/Input";
 import Button from "../../Elements/Button/Button";
-
+import { requestResetPassword } from "../../../services/auth.service";
+import { useNavigate } from "react-router-dom";
 const ResetPasswordRequestForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log("Reset password email dikirim ke:", data.email);
+  const onSubmit = async (data) => {
+    console.log("Data yang dikirim:", data.email);
+    try {
+      const response = await requestResetPassword(data.email);
+      alert(response.message || "Email berhasil dikirim.");
+      navigate("/otp", { state: { email: data.email } });
+
+    } catch (error) {
+      console.error("Error saat submit:", error);
+      alert(error.message || "Terjadi kesalahan.");
+    }
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
       <h2 className="mb-6 text-2xl font-bold text-black">Reset Password Request</h2>
@@ -34,7 +44,7 @@ const ResetPasswordRequestForm = () => {
         })}
       />
 
-      <Button onClick={handleSubmit(onSubmit)} type="submit" className="w-full rounded-2xl font-medium">
+      <Button onClick={() => console.log("Button clicked")} type="submit" className="w-full rounded-2xl font-medium">
         Kirim
       </Button>
 

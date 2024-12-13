@@ -2,6 +2,7 @@ import DynamicBanner from "../components/Elements/Banner/DynamicBanner";
 import SkyTicketBanner from "../assets/images/skyticket-banner.png";
 import Logo from "../components/Elements/Logo/Logo";
 import ResetPasswordForm from "../components/Fragments/Form/ResetPasswordRequestForm";
+import ResetPasswordRequestForm from "../components/Fragments/Form/ResetPasswordRequestForm";
 
 const ResetPasswordRequestPage = () => {
   return (
@@ -15,7 +16,7 @@ const ResetPasswordRequestPage = () => {
       </div>
 
       <div className="flex w-1/2 items-center justify-center p-8">
-        <ResetPasswordForm />
+        <ResetPasswordRequestForm />
       </div>
     </div>
   );

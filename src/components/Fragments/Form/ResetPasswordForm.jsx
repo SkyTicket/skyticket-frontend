@@ -4,11 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../Elements/Button/Button";
 import Input from "../../Elements/Input/Input";
+import { useSearchParams } from "react-router-dom";
+import { resetPassword } from "../../../services/auth.service";
 
 const ResetPasswordForm = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+  
   const {
     register,
     handleSubmit,
@@ -16,8 +20,16 @@ const ResetPasswordForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Password berhasil diubah:", data);
+    try {
+      const response = await resetPassword(token, data.newPassword);
+      alert(response.message || "Password berhasil diubah.");
+      // Redirect ke halaman login
+      window.location.href = "/login";
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const newPassword = watch("newPassword");
