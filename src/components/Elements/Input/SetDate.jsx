@@ -7,15 +7,6 @@ const DatePicker = ({ disable, change }) => {
     startDate: null,
     endDate: null,
   });
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const updateScreen = () => setIsMobile(window.innerWidth < 500);
-    updateScreen();
-    window.addEventListener("resize", updateScreen);
-
-    return () => window.removeEventListener("resize", updateScreen);
-  }, []);
 
   const handleChange = (newValue) => {
     const date = newValue.startDate;

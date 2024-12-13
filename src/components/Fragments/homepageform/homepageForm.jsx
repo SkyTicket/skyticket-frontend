@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,12 +14,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Class from "./Class";
+import SetDate2 from "../../Elements/Input/SetDate2";
 import Passengers from "./Passengers";
 import DatePicker from "../../Elements/Input/SetDate";
 import Destination from "./Destination";
 import { fetchFlights } from "../../../services/flightsService";
 
 function HomepageForm() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [currentField, setCurrentField] = useState(null);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(null);
   const navigate = useNavigate();
   const [filters, setFilters] = useState({
     depCity: {},
@@ -53,8 +57,8 @@ function HomepageForm() {
           } pointer-events-auto flex w-full max-w-md bg-white`}
         >
           <span className="flex flex-col gap-2 text-sm">
-            {error.response.messages.line_1}
-            {error.response.messages.line_2}
+            {error.response?.messages?.line_1}
+            {error.response?.messages?.line_2}
           </span>
           <FontAwesomeIcon
             icon={faXmark}
@@ -66,9 +70,32 @@ function HomepageForm() {
     }
   };
 
+  useEffect(() => {
+    const updateScreen = () => setIsMobile(window.innerWidth < 500);
+    updateScreen();
+    window.addEventListener("resize", updateScreen);
+
+    return () => window.removeEventListener("resize", updateScreen);
+  }, []);
+
+  const handleClickDate = (field) => {
+    setCurrentField(field);
+    setIsCalendarOpen(true);
+  };
+
+  const handleDateSelection = (date) => {
+    setFilters((prev) => ({
+      ...prev,
+      [currentField]: date,
+    }));
+    setIsCalendarOpen(false);
+    setCurrentField(null);
+  };
+
   const handleToggle = () => {
     setFilters((prev) => ({
       ...prev,
+      arrDate: "",
       isArrival: !prev.isArrival,
     }));
   };
@@ -140,12 +167,29 @@ function HomepageForm() {
                 <p className="cursor-default select-none text-gray-500">
                   Departure
                 </p>
-                <DatePicker
-                  disable={false}
-                  change={(newDepDate) =>
-                    setFilters((prev) => ({ ...prev, depDate: newDepDate }))
-                  }
-                />
+                {isCalendarOpen && currentField === "depDate" && (
+                  <SetDate2
+                    onClose={() => setIsCalendarOpen(false)}
+                    onClick={(date) => handleDateSelection(date)}
+                  />
+                )}
+                {isMobile ? (
+                  <input
+                    type="text"
+                    placeholder="Select a date"
+                    readOnly
+                    value={filters.depDate || ""}
+                    className="w-[30vw] border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none"
+                    onClick={() => handleClickDate("depDate")}
+                  />
+                ) : (
+                  <DatePicker
+                    disable={false}
+                    change={(newDepDate) =>
+                      setFilters((prev) => ({ ...prev, depDate: newDepDate }))
+                    }
+                  />
+                )}
               </div>
               <FontAwesomeIcon
                 icon={faCalendar}
@@ -155,12 +199,32 @@ function HomepageForm() {
                 <p className="cursor-default select-none text-gray-500">
                   Return
                 </p>
-                <DatePicker
-                  disable={filters.isArrival ? false : true}
-                  change={(newArrDate) =>
-                    setFilters((prev) => ({ ...prev, arrDate: newArrDate }))
-                  }
-                />
+                {isCalendarOpen && currentField === "arrDate" && (
+                  <SetDate2
+                    onClose={() => setIsCalendarOpen(false)}
+                    onClick={(date) => handleDateSelection(date)}
+                  />
+                )}
+                {isMobile ? (
+                  <input
+                    type="text"
+                    placeholder="Select a date"
+                    disabled={!filters.isArrival}
+                    readOnly
+                    value={filters.isArrival ? filters.arrDate : ""}
+                    className={`w-[30vw] border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none ${
+                      !filters.isArrival ? "cursor-not-allowed bg-gray-200" : ""
+                    }`}
+                    onClick={() => handleClickDate("arrDate")}
+                  />
+                ) : (
+                  <DatePicker
+                    disable={filters.isArrival ? false : true}
+                    change={(newArrDate) =>
+                      setFilters((prev) => ({ ...prev, arrDate: newArrDate }))
+                    }
+                  />
+                )}
               </div>
             </div>
 
