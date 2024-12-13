@@ -7,7 +7,7 @@ import Pagination from "../components/Fragments/Pagination/Pagination";
 const HomePage = () => {
   return (
     <>
-      <Navbar />
+      <Navbar showLoginButton={true} />
       <section className="flex pt-16 md:flex-row">
         <div className="min-h-[150px] w-1/2 bg-[#7126B5] bg-opacity-50"></div>
         <div className="min-h-[150px] w-1/2 bg-[#E2D4F0]"></div>

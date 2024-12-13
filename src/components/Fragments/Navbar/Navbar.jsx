@@ -7,7 +7,7 @@ import SearchBar from "../../Elements/Search/SearchBar";
 import Logo from "../../Elements/Logo/Logo";
 import Button from "../../Elements/Button/Button";
 
-const Navbar = ({ showSearchBar = true }) => {
+const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   const { isLoggedIn } = useAuth();
 
   return (
@@ -29,13 +29,13 @@ const Navbar = ({ showSearchBar = true }) => {
                 <FontAwesomeIcon
                   icon={faListUl}
                   className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
-                  />
+                />
               </Link>
               <Link to="/notification">
                 <FontAwesomeIcon
                   icon={faBell}
                   className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
-                  />
+                />
               </Link>
               <Link to="/account">
                 <FontAwesomeIcon
@@ -45,11 +45,13 @@ const Navbar = ({ showSearchBar = true }) => {
               </Link>
             </div>
           ) : (
-            <div className="flex items-center">
-              <Link to="/login">
-                <Button type="login" className="px-4 py-2" />
-              </Link>
-            </div>
+            showLoginButton && (
+              <div className="flex items-center">
+                <Link to="/login">
+                  <Button type="login" className="px-4 py-2" />
+                </Link>
+              </div>
+            )
           )}
         </div>
       </div>

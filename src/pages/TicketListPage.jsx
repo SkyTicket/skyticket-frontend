@@ -54,7 +54,7 @@ const TicketListPage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar showLoginButton={true} />
       <div className="mx-auto max-w-7xl px-4 py-6">
         <p className="py-6 text-2xl font-semibold text-black">
           Pilih Penerbangan
