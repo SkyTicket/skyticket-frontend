@@ -15,7 +15,7 @@ import {
 
 import Class from "./Class";
 import SetDate2 from "../../Elements/Input/SetDate2";
-import Passengers from "./Passengers";
+import Passengers from "./passengers";
 import DatePicker from "../../Elements/Input/SetDate";
 import Destination from "./Destination";
 import { fetchFlights } from "../../../services/flightsService";
@@ -47,7 +47,28 @@ function HomepageForm() {
 
   const handleSubmit = async () => {
     try {
+      if (!filters.depCity || Object.keys(filters.depCity).length === 0) {
+        throw new Error("Please select a departure city.");
+      }
+      if (!filters.arrCity || Object.keys(filters.arrCity).length === 0) {
+        throw new Error("Please select an arrival city.");
+      }
+      if (!filters.depDate) {
+        throw new Error("Please select a departure date.");
+      }
+      if (
+        !filters.totalPassengers ||
+        filters.totalPassengers.length === 0 ||
+        filters.totalPassengers.every((passenger) => passenger === 0)
+      ) {
+        throw new Error("Please select the number of passengers.");
+      }
+      if (!filters.seatClass) {
+        throw new Error("Please select a seat class.");
+      }
+
       const response = await fetchFlights(filters);
+
       navigate("/ticket-list", { state: { filters } });
     } catch (error) {
       toast.error((t) => (
@@ -57,8 +78,10 @@ function HomepageForm() {
           } pointer-events-auto flex w-full max-w-md bg-white`}
         >
           <span className="flex flex-col gap-2 text-sm">
-            {error.response?.messages?.line_1}
-            {error.response?.messages?.line_2}
+            {error.response
+              ? `${error.response?.messages?.line_1 || "An unexpected error occurred."} 
+              ${error.response?.messages?.line_2 || ""}`
+              : error.message}
           </span>
           <FontAwesomeIcon
             icon={faXmark}
