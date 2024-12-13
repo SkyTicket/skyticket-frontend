@@ -39,7 +39,7 @@ function SetDestination({ close, setCity }) {
   };
 
   return (
-    <Box size={"1/2"}>
+    <Box size={"1/2"} isShort={false}>
       <div className="flex w-full items-center justify-between px-[22px] pb-3 pt-6">
         <div className="mr-[10px] flex w-full items-center gap-2 rounded-[4px] border border-gray-400 px-4 py-2">
           <FontAwesomeIcon
