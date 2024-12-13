@@ -46,4 +46,31 @@ const Logout = async () => {
   }
 };
 
-export { Login, Logout };
+const Register = async (data) => {
+  try {
+    const response = await axiosInstance.post("/api/v1/auth/register", data);
+
+    if (response.data.token) {
+      Cookies.set("token", response.data.token, { expires: 7 });
+      return {
+        status: "Success",
+        message: response.data.message,
+        token: response.data.token,
+      };
+    } else {
+      return {
+        status: "Error",
+        message: response.data.message,
+      };
+    }
+  } catch (error) {
+    const errorMessage =
+      error.response?.data?.message || "Terjadi kesalahan saat registrasi";
+    return {
+      status: "Error",
+      message: errorMessage,
+    };
+  }
+};
+
+export { Login, Logout, Register };
