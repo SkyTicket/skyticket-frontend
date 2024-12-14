@@ -4,7 +4,7 @@ import Button from "../../Elements/Button/Button";
 
 const OtpForm = ({ email, onSubmit, onResendOtp }) => {
   const [otp, setOtp] = useState(Array(6).fill(""));
-  const [timer, setTimer] = useState(6);
+  const [timer, setTimer] = useState(60);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,12 +32,12 @@ const OtpForm = ({ email, onSubmit, onResendOtp }) => {
 
   return (
     <>
-      <div className="flex flex-col items-center">
-        <p className="mb-11 pt-6 text-center text-[#151515]">
+      <div className="flex w-full max-w-sm flex-col items-center px-4 sm:px-6 md:max-w-md">
+        <p className="mb-11 pt-6 text-center text-sm text-[#151515] md:text-base">
           Ketik 6 digit kode yang dikirimkan ke&nbsp;
           <span className="font-bold">{email}</span>
         </p>
-        <div className="mb-6 flex gap-4">
+        <div className="mb-6 flex gap-2 sm:gap-4">
           {otp.map((value, index) => (
             <OtpInput
               key={index}
@@ -47,7 +47,7 @@ const OtpForm = ({ email, onSubmit, onResendOtp }) => {
             />
           ))}
         </div>
-        <p className="mb-24 text-[#151515]">
+        <p className="mb-16 text-xs text-[#151515] sm:mb-24 md:text-sm">
           {timer > 0 ? (
             <>Kirim Ulang OTP dalam {timer} detik</>
           ) : (
@@ -62,7 +62,7 @@ const OtpForm = ({ email, onSubmit, onResendOtp }) => {
         <Button
           type="submit"
           onClick={handleSubmit}
-          className="w-full px-6 py-3 font-medium"
+          className="mb-20 w-full px-6 py-3 text-sm font-medium md:text-base"
         >
           Simpan
         </Button>

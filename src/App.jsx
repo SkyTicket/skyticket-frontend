@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import OtpPage from "./pages/OtpPage";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/Homepage";
 import PageOrder from "./pages/PageOrder";
 import LoginPage from "./pages/LoginPage";
 import AccountPage from "./pages/AccountPage";
@@ -25,7 +25,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/ticket-list" element={<TicketListPage />} />
-        <Route path="/order-ticket" element={<PageOrder />} />
         <Route path="/detail-ticket" element={<MobileAccordion />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route
