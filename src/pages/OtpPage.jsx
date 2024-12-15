@@ -1,16 +1,23 @@
-import React from "react";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import OtpForm from "../components/Fragments/Form/OtpForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
-import { Link } from "react-router-dom";
 
 const OtpPage = () => {
-  const handleOtpSubmit = (otp) => {
-    alert(`Kode OTP yang dimasukkan: ${otp}`);
-  };
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
-  const handleResendOtp = () => {
-    alert("Kode OTP telah dikirim ulang!");
-  };
+  useEffect(() => {
+    const storedEmail = Cookies.get("userEmail");
+
+    if (!storedEmail) {
+      navigate("/register");
+      return;
+    }
+
+    setEmail(storedEmail);
+  }, [navigate]);
 
   return (
     <>
@@ -28,11 +35,7 @@ const OtpPage = () => {
             Masukkan OTP
           </h1>
         </div>
-        <OtpForm
-          email="j*****@gmail.com"
-          onSubmit={handleOtpSubmit}
-          onResendOtp={handleResendOtp}
-        />
+        <OtpForm email={email} />
       </div>
     </>
   );
