@@ -35,7 +35,7 @@ const HomePage = () => {
       </section>
 
       <section className="relative mx-4 -mt-[50px] flex flex-col items-center">
-        <p className="mb-2 block w-full text-2xl font-bold text-black md:hidden">
+        <p className="mb-2 block w-full cursor-default select-none text-2xl font-bold text-black md:hidden">
           Hei! Mau kemana?
         </p>
         <div className="flex max-w-[1068px] flex-col items-center justify-center rounded-xl bg-white shadow-lg sm:max-w-[80%] md:h-[298px]">

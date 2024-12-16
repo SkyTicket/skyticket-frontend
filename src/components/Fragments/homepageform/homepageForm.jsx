@@ -130,7 +130,7 @@ function HomepageForm() {
       </div>
       <div className="flex h-full w-[90vw] flex-col justify-between rounded-lg md:w-full">
         <div className="flex h-full flex-col justify-around gap-4 p-6">
-          <p className="hidden font-bold text-black md:block">
+          <p className="hidden cursor-default select-none font-bold text-black md:block">
             Pilih Jadwal Penerbangan spesial di{" "}
             <span className="text-[#7126B5]">SkyTicket!</span>
           </p>
@@ -252,7 +252,9 @@ function HomepageForm() {
             </div>
 
             <div className="-order-1 flex w-full items-center justify-between md:order-none md:w-auto">
-              <p className="block text-black md:hidden">Pulang-Pergi?</p>
+              <p className="block cursor-default select-none text-black md:hidden">
+                Pulang-Pergi?
+              </p>
               <FontAwesomeIcon
                 icon={filters.isArrival ? faToggleOn : faToggleOff}
                 className="h-14 w-9 cursor-pointer text-[#4B1979] md:h-10 md:w-6"
