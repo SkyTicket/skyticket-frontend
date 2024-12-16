@@ -4,16 +4,16 @@ import HeaderLogin from "../components/Fragments/Header/Header";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 
 const OrderHistory = () => {
-    return (
-      <div className="flex flex-col h-screen">
-        <Navbar/>
-        <HeaderLogin title="Riwayat Pemesanan" buttonText="Beranda"/>
-        <div className="flex justify-center gap-10">
-          <AccordionDummy/>
-          <DetailFlight/>
-        </div>
+  return (
+    <div className="flex h-screen flex-col">
+      <Navbar />
+      <HeaderLogin title="Riwayat Pemesanan" buttonText="Beranda" />
+      <div className="flex justify-center gap-10">
+        <AccordionDummy />
+        <DetailFlight />
       </div>
-    );
-  };
-  
-  export default OrderHistory;
+    </div>
+  );
+};
+
+export default OrderHistory;
