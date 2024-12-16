@@ -26,9 +26,7 @@ function MobileAccordion({ flight, onClose }) {
 
       <div className="h-[calc(100vh - 154px)] cursor-default select-none overflow-scroll">
         <div className="flex items-center gap-2 px-8 py-2 font-bold text-black">
-          <p className="">{flight.departure_airport}</p>
-          <FontAwesomeIcon icon={faArrowRight} className="" />
-          <p className="">{flight.arrival_airport}</p>
+          <p className="">{flight.flight_details.departure_and_arrival_city}</p>
           <p>({flight.flight_duration.formatted})</p>
         </div>
         <div className="flex w-full justify-center">
@@ -43,7 +41,7 @@ function MobileAccordion({ flight, onClose }) {
         <div className="flex w-full cursor-default select-none justify-between p-4 px-5 font-bold text-black">
           <p>Total</p>
           <p className="text-[#7126B5]">
-            {flight.seat_class_price.formatted}/pax
+            {flight.seat_class_price.total.formatted}/pax
           </p>
         </div>
         <button
