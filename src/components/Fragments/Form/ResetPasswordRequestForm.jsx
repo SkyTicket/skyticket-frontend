@@ -6,7 +6,8 @@ import Button from "../../Elements/Button/Button";
 import { requestResetPassword } from "../../../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-const ResetPasswordRequestForm = () => {
+import Logo from "../../Elements/Logo/Logo";
+const ResetPasswordRequestForm = (showLogoOnMobile = false) => {
   const {
     register,
     handleSubmit,
@@ -29,6 +30,12 @@ const ResetPasswordRequestForm = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
+      {showLogoOnMobile && (
+        <div className="mb-20 lg:hidden">
+          <Logo className="size-24" />
+        </div>
+      )}
+
       <h2 className="mb-6 text-2xl font-bold text-black">
         Reset Password Request
       </h2>
@@ -50,10 +57,11 @@ const ResetPasswordRequestForm = () => {
       />
 
       <Button
-        onClick={() => console.log("Button clicked")}
         type="submit"
-        className="w-full rounded-2xl font-medium"
-      >
+        disabled={Object.keys(errors).length > 0}
+        className={`w-full rounded-2xl font-medium ${
+          Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-purple-500"
+        }`}      >
         Kirim
       </Button>
 

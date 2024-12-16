@@ -6,13 +6,14 @@ import Button from "../../Elements/Button/Button";
 import Input from "../../Elements/Input/Input";
 import { useSearchParams } from "react-router-dom";
 import { resetPassword } from "../../../services/auth.service";
+import Logo from "../../Elements/Logo/Logo";
 
-const ResetPasswordForm = () => {
+const ResetPasswordForm = (showLogoOnMobile = false ) => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
-  
+
   const {
     register,
     handleSubmit,
@@ -25,7 +26,6 @@ const ResetPasswordForm = () => {
     try {
       const response = await resetPassword(token, data.newPassword);
       alert(response.message || "Password berhasil diubah.");
-      // Redirect ke halaman login
       window.location.href = "/login";
     } catch (error) {
       alert(error);
@@ -36,6 +36,11 @@ const ResetPasswordForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
+      {showLogoOnMobile && (
+        <div className="mb-20 lg:hidden">
+          <Logo className="size-24" />
+        </div>
+      )}
       <h2 className="mb-6 text-2xl font-bold text-black">Reset Password</h2>
 
       {/* New Password */}
