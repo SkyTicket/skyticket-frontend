@@ -10,19 +10,19 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
   };
 
   const handleSubmit = () => {
-    onFilterSubmit(selectedFilter); // Trigger filter submission
-    onClose(); // Close modal
-    navigate("/ticket-list"); // Redirect to /ticket-list after modal is closed
+    onFilterSubmit(selectedFilter); 
+    onClose();
+    navigate("/ticket-list"); 
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
       <div className="w-80 divide-y-2 rounded-lg bg-white shadow-lg">
         {/* Modal Header */}
-        <div className="flex items-center justify-between rounded-t-lg bg-white px-4 py-4">
+        <div className="flex items-center justify-between rounded-t-lg bg-white px-1 py-4">
           <button
             onClick={() => {
-              onClose(); // Close the modal when close button is clicked
+              onClose();
             }}
             className="ml-auto bg-white text-lg font-bold text-black"
           >
@@ -55,7 +55,7 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
             >
               <span className="text-sm font-medium">{filter.label}</span>
               {selectedFilter === filter.value && (
-                <span className="font-bold text-green-500">
+                <span className=" text-green-500">
                   <img
                     src="/src/assets/icons/checklist.svg"
                     alt="checklist"
