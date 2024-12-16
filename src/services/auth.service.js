@@ -46,4 +46,53 @@ const Logout = async () => {
   }
 };
 
-export { Login, Logout };
+const Register = async (data) => {
+  try {
+    const response = await axiosInstance.post("/api/v1/auth/register", data);
+
+    if (response.status === 201) {
+      Cookies.set("userEmail", data.user_email, { expires: 7 });
+    }
+
+    return {
+      status: "Success",
+      message: response.data.message,
+      email: data.user_email,
+    };
+  } catch (error) {
+    const errorMessage = error.response?.data?.message;
+    return {
+      status: "Error",
+      message: errorMessage,
+    };
+  }
+};
+
+const VerifyOtp = async (email, otpCode) => {
+  try {
+    const response = await axiosInstance.post("/api/v1/auth/verify-otp", {
+      user_email: email,
+      otp_code: otpCode,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error dari VerifyOtp:", error.response?.data);
+    throw error.response?.data || new Error("Gagal verifikasi OTP");
+  }
+};
+
+const ResendOtp = async (email) => {
+  try {
+    const response = await axiosInstance.post("/api/v1/auth/resend-otp", {
+      user_email: email,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error dari ResendOtp:", error.response?.data);
+    throw error.response?.data || new Error("Gagal mengirim ulang OTP");
+  }
+};
+
+export { Login, Logout, Register, VerifyOtp, ResendOtp };
