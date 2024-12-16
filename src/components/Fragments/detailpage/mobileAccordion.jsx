@@ -1,13 +1,11 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 import DetFlight from "../../Elements/Accordion/DetailFlight";
 
-function MobileAccordion() {
-  const location = useLocation();
-  const { flight } = location.state || {};
+function MobileAccordion({ flight, onClose }) {
   const navigate = useNavigate();
 
   if (!flight) {
@@ -15,11 +13,11 @@ function MobileAccordion() {
   }
 
   return (
-    <>
+    <div className="fixed inset-0 z-50 bg-white">
       <div className="fixed top-0 flex w-full items-center gap-4 bg-[#4B1979] p-3">
         <FontAwesomeIcon
           icon={faArrowRight}
-          onClick={() => navigate("/ticket-list")}
+          onClick={onClose}
           className="rotate-180 cursor-pointer"
         />
         <p className="cursor-default select-none">Pilihan Penerbangan</p>
@@ -28,9 +26,7 @@ function MobileAccordion() {
 
       <div className="h-[calc(100vh - 154px)] cursor-default select-none overflow-scroll">
         <div className="flex items-center gap-2 px-8 py-2 font-bold text-black">
-          <p className="">{flight.departure_airport}</p>
-          <FontAwesomeIcon icon={faArrowRight} className="" />
-          <p className="">{flight.arrival_airport}</p>
+          <p className="">{flight.flight_details.departure_and_arrival_city}</p>
           <p>({flight.flight_duration.formatted})</p>
         </div>
         <div className="flex w-full justify-center">
@@ -45,7 +41,7 @@ function MobileAccordion() {
         <div className="flex w-full cursor-default select-none justify-between p-4 px-5 font-bold text-black">
           <p>Total</p>
           <p className="text-[#7126B5]">
-            {flight.seat_class_price.formatted}/pax
+            {flight.seat_class_price.total.formatted}/pax
           </p>
         </div>
         <button
@@ -55,7 +51,7 @@ function MobileAccordion() {
           Pilih
         </button>
       </div>
-    </>
+    </div>
   );
 }
 

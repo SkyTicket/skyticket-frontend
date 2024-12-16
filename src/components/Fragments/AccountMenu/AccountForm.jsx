@@ -1,8 +1,11 @@
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
 import { useUser } from "../../../hooks/useProfile";
 import { updateUserService } from "../../../services/updateUser.service";
 
-function AccountForm() {
+function AccountForm({ onClose }) {
   const { user, setUser, setError, setLoading } = useUser();
 
   const update = async () => {
@@ -33,9 +36,16 @@ function AccountForm() {
   };
   return (
     <>
-      <div className="m-4 w-[60%] rounded border-2 border-gray-300 p-4">
+      <div className="m-auto mt-4 w-[80%] rounded border-2 border-gray-300 p-4 md:m-4 md:w-[60%]">
         <form onSubmit={handleSubmit} className="flex flex-col">
-          <p className="py-4 text-xl font-bold text-black">Ubah Data Profil</p>
+          <div className="flex justify-between py-4">
+            <p className="text-xl font-bold text-black">Ubah Data Profil</p>
+            <FontAwesomeIcon
+              icon={faXmark}
+              className="size-6 cursor-pointer text-[#151515]"
+              onClick={onClose}
+            />
+          </div>
           <p className="w-full rounded-t-xl bg-[#A06ECE] p-2 pl-4 text-base font-medium text-white">
             Data Diri
           </p>

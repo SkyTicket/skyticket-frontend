@@ -15,7 +15,7 @@ import {
 
 import Class from "./Class";
 import SetDate2 from "../../Elements/Input/SetDate2";
-import Passengers from "./Passengers";
+import Passengers from "./passengers";
 import DatePicker from "../../Elements/Input/SetDate";
 import Destination from "./Destination";
 import { fetchFlights } from "../../../services/flightsService";
@@ -47,7 +47,28 @@ function HomepageForm() {
 
   const handleSubmit = async () => {
     try {
+      if (!filters.depCity || Object.keys(filters.depCity).length === 0) {
+        throw new Error("Please select a departure city.");
+      }
+      if (!filters.arrCity || Object.keys(filters.arrCity).length === 0) {
+        throw new Error("Please select an arrival city.");
+      }
+      if (!filters.depDate) {
+        throw new Error("Please select a departure date.");
+      }
+      if (
+        !filters.totalPassengers ||
+        filters.totalPassengers.length === 0 ||
+        filters.totalPassengers.every((passenger) => passenger === 0)
+      ) {
+        throw new Error("Please select the number of passengers.");
+      }
+      if (!filters.seatClass) {
+        throw new Error("Please select a seat class.");
+      }
+
       const response = await fetchFlights(filters);
+
       navigate("/ticket-list", { state: { filters } });
     } catch (error) {
       toast.error((t) => (
@@ -57,8 +78,10 @@ function HomepageForm() {
           } pointer-events-auto flex w-full max-w-md bg-white`}
         >
           <span className="flex flex-col gap-2 text-sm">
-            {error.response?.messages?.line_1}
-            {error.response?.messages?.line_2}
+            {error.response
+              ? `${error.response?.messages?.line_1 || "An unexpected error occurred."} 
+              ${error.response?.messages?.line_2 || ""}`
+              : error.message}
           </span>
           <FontAwesomeIcon
             icon={faXmark}
@@ -107,7 +130,7 @@ function HomepageForm() {
       </div>
       <div className="flex h-full w-[90vw] flex-col justify-between rounded-lg md:w-full">
         <div className="flex h-full flex-col justify-around gap-4 p-6">
-          <p className="hidden font-bold text-black md:block">
+          <p className="hidden cursor-default select-none font-bold text-black md:block">
             Pilih Jadwal Penerbangan spesial di{" "}
             <span className="text-[#7126B5]">SkyTicket!</span>
           </p>
@@ -229,7 +252,9 @@ function HomepageForm() {
             </div>
 
             <div className="-order-1 flex w-full items-center justify-between md:order-none md:w-auto">
-              <p className="block text-black md:hidden">Pulang-Pergi?</p>
+              <p className="block cursor-default select-none text-black md:hidden">
+                Pulang-Pergi?
+              </p>
               <FontAwesomeIcon
                 icon={filters.isArrival ? faToggleOn : faToggleOff}
                 className="h-14 w-9 cursor-pointer text-[#4B1979] md:h-10 md:w-6"
