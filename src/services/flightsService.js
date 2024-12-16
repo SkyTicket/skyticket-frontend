@@ -2,7 +2,7 @@ import axiosInstance from "../api/axiosInstance";
 
 export const fetchFlights = async (filters) => {
   try {
-    const response = await axiosInstance.get("/flights", {
+    const response = await axiosInstance.get("api/v1/flights", {
       params: {
         departure_airport: filters.depCity.input_value,
         arrival_airport: filters.arrCity.input_value,

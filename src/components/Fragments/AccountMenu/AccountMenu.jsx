@@ -3,17 +3,17 @@ import useLogout from "../../../hooks/useLogout";
 
 function AccountMenu() {
   const { logout } = useLogout();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate("/")
+    navigate("/");
   };
 
   return (
-    <div className="m-4 flex w-[40%] flex-col items-center gap-2 bg-white p-4">
+    <div className="m-4 flex flex-col items-center gap-2 bg-white p-4 md:w-[40%]">
       <div className="flex w-full flex-col gap-2">
-        <div className="flex cursor-pointer items-center gap-5 border-b active:bg-gray-500 border-gray-300 pb-3">
+        <div className="flex cursor-pointer items-center gap-5 border-b border-gray-300 pb-3 active:bg-gray-500">
           <img
             alt="Edit Icon"
             src="/src/assets/icons/edit.svg"
@@ -33,7 +33,7 @@ function AccountMenu() {
 
         <div
           className="flex cursor-pointer items-center gap-5 border-b border-gray-300 pb-3"
-          onClick={handleLogout} 
+          onClick={handleLogout}
         >
           <img
             alt="Logout Icon"

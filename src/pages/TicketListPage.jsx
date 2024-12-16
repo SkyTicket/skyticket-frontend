@@ -58,7 +58,7 @@ const TicketListPage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar showLoginButton={true} />
       <div className="mx-auto max-w-7xl px-4 py-6">
         <p className="py-6 text-2xl font-semibold text-black">
           Pilih Penerbangan
@@ -98,8 +98,8 @@ const TicketListPage = () => {
         )}
 
         <div className="flex justify-center">
-          <div className="mt-6 flex w-full justify-between">
-            <aside className="w-[300px] text-black">
+          <div className="flex w-full justify-center md:mt-6 md:justify-between">
+            <aside className="hidden w-[300px] text-black md:block">
               <div className="rounded-lg bg-white p-3 shadow-lg">
                 <div className="mb-2">
                   <h3 className="pl-4 pt-2 text-lg font-medium">Filter</h3>

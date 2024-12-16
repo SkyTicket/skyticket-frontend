@@ -15,7 +15,7 @@ const Input = forwardRef(
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className={`w-full rounded-2xl border bg-white px-4 py-[14px] text-black focus:outline-none focus:ring-2 ${
+          className={`w-full rounded-2xl border h-12 bg-white px-4 py-[14px] text-black focus:outline-none focus:ring-2 ${
             error ? "border-red-500" : "border-gray-300"
           }`}
           {...props}

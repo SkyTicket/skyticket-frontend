@@ -1,13 +1,13 @@
 import Button from "../components/Elements/Button/Button";
 import Card from "../components/Fragments/Card/Card";
-import HomepageForm from "../components/Fragments/HomePageForm/HomePageForm";
+import HomepageForm from "../components/Fragments/HomePageform/HomePageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 
 const HomePage = () => {
   return (
     <>
-      <Navbar />
+      <Navbar showLoginButton={true} />
       <section className="flex pt-16 md:flex-row">
         <div className="min-h-[150px] w-1/2 bg-[#7126B5] bg-opacity-50"></div>
         <div className="min-h-[150px] w-1/2 bg-[#E2D4F0]"></div>

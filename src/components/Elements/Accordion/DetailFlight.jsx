@@ -1,7 +1,7 @@
 function DetFlight({ flight }) {
   return (
     <>
-      <div className="before:content[''] relative z-[1] flex justify-between gap-8 pb-4 before:absolute before:bottom-0 before:left-[20%] before:h-[1px] before:w-[60%] before:border-b-2 before:border-gray-400">
+      <div className="before:content[''] relative z-[1] flex justify-between gap-8 pb-4 before:absolute before:bottom-0 before:h-[1px] before:w-[100%] before:border-b-2 before:border-gray-400 md:before:left-[20%] md:before:w-[60%]">
         <div className="text-left text-black">
           <p className="font-bold">{flight.departure_time}</p>
           <p>{flight.departure_date}</p>
@@ -12,7 +12,7 @@ function DetFlight({ flight }) {
         </p>
       </div>
 
-      <div className="before:content[''] relative z-[1] flex items-center gap-4 py-4 text-black before:absolute before:bottom-0 before:left-[20%] before:h-[1px] before:w-[60%] before:border-b-2 before:border-gray-400">
+      <div className="before:content[''] relative z-[1] flex items-center gap-4 py-4 text-black before:absolute before:bottom-0 before:h-[1px] before:w-[100%] before:border-b-2 before:border-gray-400 md:before:left-[20%] md:before:w-[60%]">
         <div>
           <img src={flight.airline_logo} alt="logo" className="h-6" />
         </div>
@@ -33,7 +33,7 @@ function DetFlight({ flight }) {
         </div>
       </div>
 
-      <div className="relative flex justify-between text-black">
+      <div className="relative mt-2 flex justify-between text-black">
         <div className="text-left">
           <p className="font-bold">{flight.arrival_time}</p>
           <p>{flight.arrival_date}</p>

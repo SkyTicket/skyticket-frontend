@@ -1,55 +1,57 @@
-import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { verifyOtp, resendOtp } from "../services/auth.service";
+import Cookies from "js-cookie";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { VerifyOtp, ResendOtp } from "../services/auth.service";
 
-const useOtp = (email) => {
-  const [otp, setOtp] = useState(Array(6).fill(""));
-  const [timer, setTimer] = useState(60);
+export const useOtp = (email, onSuccess) => {
+  const [otpCode, setOtpCode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  const handleOtpChange = (e) => setOtpCode(e.target.value);
 
-  const handleOtpChange = (value, index) => {
-    if (/^\d*$/.test(value)) {
-      const newOtp = [...otp];
-      newOtp[index] = value.slice(-1);
-      setOtp(newOtp);
-    }
-  };
-
-  const verifyOtpCode = async () => {
+  const handleVerifyOtp = async (otpCode) => {
+    setIsLoading(true);
     try {
-      const response = await verifyOtp(otp.join(""));
-      if (response.status === "Success") {
-        toast.success(response.message || "OTP berhasil diverifikasi.");
-        return true;
-      } else {
-        toast.error(response.message || "OTP tidak valid.");
-        return false;
+      const response = await VerifyOtp(email, otpCode);
+      toast.success(response.message);
+
+      Cookies.remove("userEmail");
+
+      if (onSuccess) {
+        toast.success("Verifikasi berhasil! Mengarahkan ke halaman login...");
+        setTimeout(() => {
+          onSuccess();
+          navigate("/login");
+        }, 3000);
       }
     } catch (error) {
-      console.error("Error saat verifikasi OTP:", error);
-      toast.error("Terjadi kesalahan dalam proses verifikasi OTP.");
-      return false;
+      toast.error(error.message || "Gagal memverifikasi kode OTP.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const resendOtpCode = async () => {
+  const handleResendOtp = async () => {
+    const storedEmail = Cookies.get("userEmail") || email;
+
+    setIsLoading(true);
     try {
-      const response = await resendOtp(email);
-      toast.success(response.message || "Kode OTP berhasil dikirim ulang.");
-      setTimer(60);
+      const response = await ResendOtp(storedEmail);
+      toast.success(response.message || "Kode OTP telah dikirim ulang.");
     } catch (error) {
-      console.error("Error saat mengirim ulang OTP:", error);
-      toast.error("Gagal mengirim ulang kode OTP.");
+      toast.error(error.message || "Gagal mengirim ulang kode OTP.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  return { otp, timer, handleOtpChange, verifyOtpCode, resendOtpCode };
+  return {
+    otpCode,
+    isLoading,
+    handleOtpChange,
+    handleVerifyOtp,
+    handleResendOtp,
+  };
 };
-
-export default useOtp;
