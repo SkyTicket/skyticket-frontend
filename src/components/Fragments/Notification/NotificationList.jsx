@@ -18,10 +18,10 @@ const NotificationList = () => {
       date: "5 Maret, 14:04",
       isRead: false,
     },
-  ];  
+  ];
 
   return (
-    <div className="mx-auto w-3/4 pr-44">
+    <div className="mx-auto w-full px-4 md:w-3/4 md:pr-44">
       {notifications.map((notif, index) => (
         <NotificationItem key={index} {...notif} />
       ))}
