@@ -1,5 +1,5 @@
 import React from "react";
-import NotificationItem from "../../Elements/Notification/Notificationtem";
+import NotificationItem from "../../Elements/Notification/NotificationItem";
 
 const NotificationList = () => {
   const notifications = [
@@ -18,7 +18,7 @@ const NotificationList = () => {
       date: "5 Maret, 14:04",
       isRead: false,
     },
-  ];
+  ];  
 
   return (
     <div className="mx-auto w-3/4 pr-44">

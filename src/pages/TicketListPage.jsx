@@ -30,6 +30,10 @@ const TicketListPage = () => {
     setIsFilterModalOpen(false);
   };
 
+  const closeModal = () => {
+    setIsFilterModalOpen(false); 
+  };
+
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
@@ -77,15 +81,20 @@ const TicketListPage = () => {
             </Link>
           </Button>
         </div>
-        <div className="mb-6 flex justify-end"></div>
 
         <DateList />
 
+        {/* Filter Button */}
         <div className="mb-4 flex justify-end pt-7">
           <FilterButton onClick={() => setIsFilterModalOpen(true)} />
         </div>
+
+        {/* Filter Modal */}
         {isFilterModalOpen && (
-          <FilterModal onFilterSelect={handleFilterSelect} />
+          <FilterModal
+            onFilterSubmit={handleFilterSelect} 
+            onClose={closeModal} 
+          />
         )}
 
         <div className="flex justify-center">
