@@ -1,13 +1,11 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 import DetFlight from "../../Elements/Accordion/DetailFlight";
 
-function MobileAccordion() {
-  const location = useLocation();
-  const { flight } = location.state || {};
+function MobileAccordion({ flight, onClose }) {
   const navigate = useNavigate();
 
   if (!flight) {
@@ -15,11 +13,11 @@ function MobileAccordion() {
   }
 
   return (
-    <>
+    <div className="fixed inset-0 z-50 bg-white">
       <div className="fixed top-0 flex w-full items-center gap-4 bg-[#4B1979] p-3">
         <FontAwesomeIcon
           icon={faArrowRight}
-          onClick={() => navigate("/ticket-list")}
+          onClick={onClose}
           className="rotate-180 cursor-pointer"
         />
         <p className="cursor-default select-none">Pilihan Penerbangan</p>
@@ -55,7 +53,7 @@ function MobileAccordion() {
           Pilih
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
