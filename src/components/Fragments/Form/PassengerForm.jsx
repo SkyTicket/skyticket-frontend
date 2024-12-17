@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputForm from "./InputForm";
 
-const PassengerForm = ({ index }) => {
+const PassengerForm = ({ index, passenger, onChange, onRemove }) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleToggle = () => {
@@ -11,7 +11,7 @@ const PassengerForm = ({ index }) => {
   return (
     <div className="mt-4">
       <h3 className="mb-4 rounded-t-xl bg-[#3C3C3C] px-4 py-2 text-lg font-medium text-white">
-        Data Diri Penumpang {index + 1} - Adult
+        Data Diri Penumpang {index + 1}
       </h3>
 
       <InputForm

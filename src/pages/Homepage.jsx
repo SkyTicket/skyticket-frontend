@@ -1,6 +1,6 @@
 import Button from "../components/Elements/Button/Button";
 import Card from "../components/Fragments/Card/Card";
-import HomepageForm from "../components/Fragments/HomePageForm/HomePageForm";
+import HomepageForm from "../components/Fragments/homepageform/homepageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 

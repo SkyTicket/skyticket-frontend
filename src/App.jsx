@@ -25,7 +25,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/ticket-list" element={<TicketListPage />} />
-        <Route path="/order-ticket" element={<PageOrder />} />
         <Route path="/detail-ticket" element={<MobileAccordion />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route

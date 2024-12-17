@@ -44,7 +44,7 @@ const Navbar = ({ showSearchBar = true }) => {
                 />
               </Link>
             </div>
-          ) : (
+          ) :  (
             <div className="flex items-center">
               <Link to="/login">
                 <Button type="login" className="px-4 py-2" />

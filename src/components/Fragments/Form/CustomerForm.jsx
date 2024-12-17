@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import InputForm from "./InputForm";
 
-const CustomerForm = () => {
+
+const CustomerForm = ({ bookerData, onChange }) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleToggle = () => {
@@ -14,9 +15,11 @@ const CustomerForm = () => {
         Data Diri Pemesan
       </h3>
       <InputForm
-        name="name"
+        type="text"
         label="Nama Lengkap"
         placeholder="Masukkan nama lengkap Anda"
+        onChange={(e) => onChange('bookerName', e.target.value)}
+        name={bookerData.bookerName}
         validation={{
           required: "Nama Lengkap Wajib Diisi",
         }}
@@ -47,9 +50,10 @@ const CustomerForm = () => {
         validation={{}}
       />
       <InputForm
-        name="phone_number"
         label="Nomor Telepon"
         placeholder="Ex: 081234567890"
+        name={bookerData.bookerPhone}
+        onChange={(e) => onChange('bookerPhone', e.target.value)}
         validation={{
           required: "Phone number is required",
           pattern: {
@@ -60,10 +64,11 @@ const CustomerForm = () => {
       />
 
       <InputForm
-        name="email"
         label="Email"
         type="email"
         placeholder="Ex: email@example.com"
+        name={bookerData.bookerEmail}
+        onChange={(e) => onChange('bookerEmail', e.target.value)}
         validation={{
           required: "Email is required",
           pattern: {
