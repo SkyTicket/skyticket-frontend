@@ -1,6 +1,7 @@
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import BoxSearch from "../Search/BoxSearch";
 
 function SetClass({ close, setSeat, data }) {
@@ -28,7 +29,28 @@ function SetClass({ close, setSeat, data }) {
             className={`flex w-full items-center justify-between border-b-2 px-4 py-1 text-black ${
               data?.[index] ? "cursor-pointer" : "cursor-not-allowed"
             } ${openClass === index ? "bg-[#4B1979]" : ""}`}
-            onClick={data?.[index] ? () => toggleClass(index) : ""}
+            onClick={
+              data?.[index]
+                ? () => toggleClass(index)
+                : () =>
+                    toast.error((t) => (
+                      <div
+                        className={`${
+                          t.visible ? "animate-enter" : "animate-leave"
+                        } pointer-events-auto flex w-full max-w-md items-center bg-white`}
+                      >
+                        <span className="flex text-sm">
+                          Please choose your destination city, arrival city and
+                          departure date first
+                        </span>
+                        <FontAwesomeIcon
+                          icon={faXmark}
+                          className="h-6 w-6 cursor-pointer text-[#151515]"
+                          onClick={() => toast.dismiss(t.id)}
+                        />
+                      </div>
+                    ))
+            }
           >
             <div className="flex flex-col">
               <div
