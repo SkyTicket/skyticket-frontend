@@ -77,7 +77,7 @@ function HomepageForm() {
         <div
           className={`${
             t.visible ? "animate-enter" : "animate-leave"
-          } pointer-events-auto flex w-full max-w-md bg-white`}
+          } pointer-events-auto flex w-full max-w-md items-center bg-white`}
         >
           <span className="flex flex-col gap-2 text-sm">
             {error.response
