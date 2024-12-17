@@ -3,10 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import BoxSearch from "../Search/BoxSearch";
 
-function SetClass({ close, setSeat }) {
+function SetClass({ close, setSeat, data }) {
   const [openClass, setOpenClass] = useState(null);
-  const classType = ["Economy", "Premium Economy", "Business", "First Class"];
-  const price = ["4.950.000", "7.550.000", "29.220.000", "87.620.000"];
 
   const toggleClass = (id) => {
     setOpenClass(openClass === id ? null : id);
@@ -19,11 +17,11 @@ function SetClass({ close, setSeat }) {
 
   return (
     <BoxSearch
-      save={() => handleSave(classType[openClass])}
+      save={() => handleSave(data[openClass].input_value)}
       closeHandler={close}
     >
       <div className="w-full p-4 py-0">
-        {classType.map((type, index) => (
+        {data?.map((type, index) => (
           <div
             key={index}
             className={`flex w-full cursor-pointer items-center justify-between border-b-2 px-4 py-1 text-black ${
@@ -37,14 +35,14 @@ function SetClass({ close, setSeat }) {
                   openClass === index ? "text-white" : ""
                 }`}
               >
-                {type}
+                {type.seat_class_type}
               </div>
               <div
                 className={`text-left font-medium ${
                   openClass === index ? "text-white" : "text-[#7126B5]"
                 }`}
               >
-                IDR {price[index]}
+                {type.seat_class_price}
               </div>
             </div>
             {openClass === index ? (

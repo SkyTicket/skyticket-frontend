@@ -34,6 +34,8 @@ function HomepageForm() {
     totalPassengers: [],
     seatClass: "",
     isRotated: false,
+    sortBy: "lowest_price",
+    page: 1,
   });
 
   const handleRotate = () => {
@@ -306,6 +308,7 @@ function HomepageForm() {
                       seatClass: newSeat,
                     }))
                   }
+                  data={filters}
                 />
               </div>
             </div>
