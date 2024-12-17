@@ -308,6 +308,7 @@ function HomepageForm() {
                       seatClass: newSeat,
                     }))
                   }
+                  data={filters}
                 />
               </div>
             </div>

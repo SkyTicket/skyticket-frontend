@@ -41,8 +41,6 @@ const TicketListPage = () => {
             setErrors(response);
           } else {
             setFlightsData(response.flights);
-            console.log(response);
-            console.log(filters);
           }
         } catch (error) {
           setErrors(error.message);

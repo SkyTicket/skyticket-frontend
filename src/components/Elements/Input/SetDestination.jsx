@@ -37,7 +37,6 @@ function SetDestination({ close, setCity }) {
     setAirports((prevAirports) =>
       prevAirports.filter((air, index) => index !== id),
     );
-    console.log(id);
   };
 
   return (
