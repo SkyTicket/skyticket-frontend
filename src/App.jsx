@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import OtpPage from "./pages/OtpPage";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/Homepage";
 import PageOrder from "./pages/PageOrder";
 import LoginPage from "./pages/LoginPage";
 import AccountPage from "./pages/AccountPage";
@@ -10,7 +10,6 @@ import NotFoundPage from "./pages/404";
 import OrderHistory from "./pages/OrderHistory";
 import ProtectedRoute from "./components/Fragments/ProtectedRoute";
 import TicketListPage from "./pages/TicketListPage";
-import MobileAccordion from "./components/Fragments/detailpage/mobileAccordion";
 import NotificationsPage from "./pages/NotificationsPage";
 import ResetPasswordPage from "./pages/ResetPaswordPage";
 import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";

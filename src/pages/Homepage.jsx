@@ -1,13 +1,24 @@
+import { useState, useRef } from "react";
 import Button from "../components/Elements/Button/Button";
 import Card from "../components/Fragments/Card/Card";
 import HomepageForm from "../components/Fragments/homepageform/homepageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
+import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
+import useFavoriteDestination from "../hooks/useFavoriteDestination";
 
 const HomePage = () => {
+  const [page, setPage] = useState(1);
+  const [continent, setContinent] = useState("");
+  const sectionRef = useRef(null);
+  const { destinations, loading, error, totalPages } = useFavoriteDestination(
+    page,
+    continent,
+  );
+
   return (
     <>
-      <Navbar />
+      <Navbar showLoginButton={true} />
       <section className="flex pt-16 md:flex-row">
         <div className="min-h-[150px] w-1/2 bg-[#7126B5] bg-opacity-50"></div>
         <div className="min-h-[150px] w-1/2 bg-[#E2D4F0]"></div>
@@ -43,74 +54,65 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="mx-auto w-[90%] max-w-[1440px] py-8">
+      <section ref={sectionRef} className="mx-auto w-[90%] max-w-[1440px] py-8">
         <p className="mb-4 text-start font-bold text-black">
           Destinasi Favorit
         </p>
         <div className="mb-8 flex flex-wrap items-center gap-4">
           {["Semua", "Asia", "Amerika", "Australia", "Eropa", "Afrika"].map(
-            (region) => (
-              <Button type="search" key={region}>
-                {region}
-              </Button>
-            ),
+            (region) => {
+              const isActive = continent === (region === "Semua" ? "" : region);
+              return (
+                <Button
+                  type="search"
+                  key={region}
+                  onClick={() => setContinent(region === "Semua" ? "" : region)}
+                  className={`rounded-lg px-4 py-2 text-sm font-semibold ${
+                    isActive
+                      ? "bg-[#7126B5] text-white"
+                      : "bg-[#E2D4F0] text-[#3C3C3C]"
+                  }`}
+                >
+                  {region}
+                </Button>
+              );
+            },
           )}
         </div>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-5">
-          {[
-            {
-              destination: "Jakarta -> Bangkok",
-              airline: "AirAsia",
-              date: "20 - 30 Maret 2023",
-              price: "IDR 950.000",
-              image: "src/assets/images/bangkok.png",
-              label: "Limited!",
-            },
-            {
-              destination: "Jakarta -> Bangkok",
-              airline: "AirAsia",
-              date: "20 - 30 Maret 2023",
-              price: "IDR 950.000",
-              image: "src/assets/images/bangkok.png",
-              label: "Limited!",
-            },
-            {
-              destination: "Jakarta -> Sydney",
-              airline: "AirAsia",
-              date: "5 - 25 Maret 2023",
-              price: "IDR 3.650.000",
-              image: "src/assets/images/sydney.png",
-              label: "50% OFF",
-            },
-            {
-              destination: "Jakarta -> Sydney",
-              airline: "AirAsia",
-              date: "5 - 25 Maret 2023",
-              price: "IDR 3.650.000",
-              image: "src/assets/images/sydney.png",
-              label: "50% OFF",
-            },
-            {
-              destination: "Jakarta -> Bangkok",
-              airline: "AirAsia",
-              date: "20 - 30 Maret 2023",
-              price: "IDR 950.000",
-              image: "src/assets/images/bangkok.png",
-              label: "Limited!",
-            },
-          ].map((item, index) => (
-            <Card
-              key={index}
-              destination={item.destination}
-              airline={item.airline}
-              date={item.date}
-              price={item.price}
-              image={item.image}
-              label={item.label}
-            />
-          ))}
-        </div>
-        <Pagination />
+        {loading ? (
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-5">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))}
+          </div>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : destinations.length === 0 ? (
+          <p className="text-center text-lg text-[#8A8A8A]">
+            Maaf, tidak ada data yang tersedia untuk wilayah ini.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-5">
+            {destinations.map((item, index) => (
+              <Card
+                key={index}
+                destination={item.route}
+                airline={item.airline}
+                date={item.travel_date}
+                price={item.price}
+                image={item.city_image}
+                label={item.promo}
+              />
+            ))}
+          </div>
+        )}
+        {!loading && !error && destinations.length > 0 && (
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={(newPage) => setPage(newPage)}
+          />
+        )}
       </section>
     </>
   );

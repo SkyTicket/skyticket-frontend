@@ -7,7 +7,6 @@ import Box from "../Search/Box";
 import { fetchAirports } from "../../../services/airportsService";
 
 function SetDestination({ close, setCity }) {
-  const [openDestination, setOpenDestination] = useState(null);
   const [airport, setAirports] = useState([]);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,17 +28,20 @@ function SetDestination({ close, setCity }) {
     fetchAndSetAirports();
   }, [searchQuery]);
 
-  const toggleDestination = (id) => {
-    setOpenDestination(openDestination === id ? null : id);
-  };
-
   const handleSave = (x) => {
     setCity(x);
     close();
   };
 
+  const handleDelete = (id) => {
+    setAirports((prevAirports) =>
+      prevAirports.filter((air, index) => index !== id),
+    );
+    console.log(id);
+  };
+
   return (
-    <Box size={"1/2"}>
+    <Box size={"1/2"} isShort={false}>
       <div className="flex w-full items-center justify-between px-[22px] pb-3 pt-6">
         <div className="mr-[10px] flex w-full items-center gap-2 rounded-[4px] border border-gray-400 px-4 py-2">
           <FontAwesomeIcon
@@ -63,26 +65,34 @@ function SetDestination({ close, setCity }) {
       </div>
       <div className="w-full px-[26px] pb-[22px]">
         <div className="flex justify-between pb-1 pt-2">
-          <p className="text-base font-medium text-[#151515]">
+          <p className="cursor-default select-none text-base font-medium text-[#151515]">
             Pencarian Terkini
           </p>
-          <p className="font-medium text-red-500">Hapus</p>
+          <p
+            className="cursor-pointer select-none font-medium text-red-500"
+            onClick={() => setAirports([])}
+          >
+            Hapus
+          </p>
         </div>
         <div className="max-h-[210px] overflow-scroll">
           {airport?.map((air, index) => (
             <div
               key={index}
-              className={`flex w-full cursor-pointer items-center justify-between border-b-2 pt-2 text-[#151515]`}
-              onClick={() => handleSave(air)}
+              className={`flex w-full items-center justify-between border-b-2 pt-2 text-[#151515]`}
             >
-              <div className={`flex flex-col`}>
+              <div
+                className={`flex w-full cursor-pointer flex-col`}
+                onClick={() => handleSave(air)}
+              >
                 <div className={`py-1 text-left text-[#151515]`}>
                   {air.airport}
                 </div>
               </div>
               <FontAwesomeIcon
                 icon={faXmark}
-                className="size-6 text-[#8A8A8A]"
+                onClick={() => handleDelete(index)}
+                className="size-6 cursor-pointer text-[#8A8A8A]"
               />
             </div>
           ))}
@@ -91,4 +101,5 @@ function SetDestination({ close, setCity }) {
     </Box>
   );
 }
+
 export default SetDestination;

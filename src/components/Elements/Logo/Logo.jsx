@@ -6,7 +6,7 @@ const Logo = ({ size = "default", className = "", ...props }) => {
   };
 
   return (
-    <div className="flex shrink-0 items-center">
+    <div className="flex shrink-0 items-center justify-center">
       <Link to="/">
         <img
           alt="SkyTicket Logo"

@@ -5,17 +5,17 @@ import RegisterForm from "../components/Fragments/Form/RegisterForm";
 
 const RegisterPage = () => {
   return (
-    <div className="flex h-screen">
-      <div className="relative h-full w-1/2">
+    <div className="flex min-h-screen overflow-hidden lg:flex-row">
+      <div className="relative hidden w-1/2 lg:block">
         <DynamicBanner backgroundImage={SkyTicketBanner}>
-          <div className="absolute-center translate-y-[-50%]">
+          <div className="absolute-center translate-y-[-10%] px-6">
             <Logo className="size-48" />
           </div>
         </DynamicBanner>
       </div>
 
-      <div className="flex w-1/2 items-center justify-center p-8">
-        <RegisterForm />
+      <div className="flex flex-1 items-center justify-center p-4 sm:p-6 lg:w-1/2">
+        <RegisterForm showLogoOnMobile />
       </div>
     </div>
   );

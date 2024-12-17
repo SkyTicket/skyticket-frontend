@@ -1,76 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../Elements/Input/Input";
 import Button from "../../Elements/Button/Button";
-import { Link, useNavigate } from "react-router-dom";
+import Logo from "../../Elements/Logo/Logo";
+import useRegister from "../../../hooks/useRegister";
 
-const RegisterForm = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-  });
+const RegisterForm = ({ showLogoOnMobile = false }) => {
+  const { register: performRegister } = useRegister();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setFocus,
+    watch,
+  } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const passwordValue = watch("password");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = {};
+  useEffect(() => {
+    setFocus("name");
+  }, [setFocus]);
 
-    if (!formData.name) {
-      newErrors.name = "Nama tidak boleh kosong";
+  const handleRegister = async (data) => {
+    const { name, email, phone, password } = data;
+
+    setIsLoading(true);
+    const success = await performRegister(name, email, phone, password);
+
+    if (success) {
+      navigate("/otp", { state: { email } });
     }
-
-    if (!formData.email) {
-      newErrors.email = "Email tidak boleh kosong";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Format email tidak valid";
-    }
-
-    if (!formData.phone) {
-      newErrors.phone = "Nomor telepon tidak boleh kosong";
-    }
-
-    if (!formData.password) {
-      newErrors.password = "Password tidak boleh kosong";
-    }
-
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = "Konfirmasi password tidak boleh kosong";
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Password dan Konfirmasi Password tidak cocok";
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log("Registrasi berhasil:", formData);
-    }
-    navigate("/otp");
+    setIsLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md">
+    <form
+      onSubmit={handleSubmit(handleRegister)}
+      className="w-full max-w-sm px-4 sm:max-w-md md:px-8"
+    >
+      {showLogoOnMobile && (
+        <div className="mb-6 lg:hidden">
+          <Logo className="size-24" />
+        </div>
+      )}
+
       <h2 className="mb-6 text-2xl font-bold text-black">Daftar</h2>
 
       <Input
         label="Nama"
         type="text"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
+        id="name"
+        {...register("name", {
+          required: "Nama wajib diisi",
+          minLength: {
+            value: 3,
+            message: "Nama minimal 3 karakter",
+          },
+          pattern: {
+            value: /^[a-zA-Z\s]+$/,
+            message: "Nama hanya boleh berisi huruf dan spasi",
+          },
+        })}
         placeholder="Nama Lengkap"
         error={errors.name}
       />
@@ -78,9 +75,14 @@ const RegisterForm = () => {
       <Input
         label="Email"
         type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
+        id="email"
+        {...register("email", {
+          required: "Email wajib diisi",
+          pattern: {
+            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Format email tidak valid",
+          },
+        })}
         placeholder="Contoh: johndoe@gmail.com"
         error={errors.email}
       />
@@ -88,23 +90,37 @@ const RegisterForm = () => {
       <Input
         label="Nomor Telepon"
         type="text"
-        name="phone"
-        value={formData.phone}
-        onChange={handleChange}
+        id="phone"
+        {...register("phone", {
+          required: "Nomor telepon wajib diisi",
+          pattern: {
+            value: /^\d+$/,
+            message: "Nomor telepon hanya boleh berisi angka",
+          },
+          minLength: {
+            value: 10,
+            message: "Nomor telepon minimal 10 digit",
+          },
+        })}
         placeholder="+62 . . ."
         error={errors.phone}
       />
 
       <div className="mb-6">
-        <div className="mb-1 flex items-center justify-between">
-          <label className="text-sm font-medium text-gray-700">Password</label>
+        <div className="mb-2 flex items-center justify-between">
+          <label className="text-sm text-black">Password</label>
         </div>
         <div className="relative">
           <Input
             type={showPassword ? "text" : "password"}
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
+            id="password"
+            {...register("password", {
+              required: "Password wajib diisi",
+              minLength: {
+                value: 8,
+                message: "Password minimal 8 karakter",
+              },
+            })}
             placeholder="Masukkan password"
             error={errors.password}
           />
@@ -129,32 +145,33 @@ const RegisterForm = () => {
       </div>
 
       <div className="mb-6">
-        <div className="mb-1 flex items-center justify-between">
-          <label className="text-sm font-medium text-gray-700">
-            Konfirmasi Password
-          </label>
+        <div className="mb-2 flex items-center justify-between">
+          <label className="text-sm text-black">Konfirmasi Password</label>
         </div>
         <div className="relative">
           <Input
-            type={showPassword ? "text" : "password"}
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
+            type={showConfirmPassword ? "text" : "password"}
+            id="confirmPassword"
+            {...register("confirmPassword", {
+              required: "Konfirmasi password wajib diisi",
+              validate: (value) =>
+                value === passwordValue || "Password tidak cocok",
+            })}
             placeholder="Masukkan ulang password"
             error={errors.confirmPassword}
           />
           <div
-            onClick={() => setShowPassword(!showPassword)}
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             className="absolute inset-y-1 right-5 flex cursor-pointer items-center text-[#8A8A8A] hover:text-gray-500"
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
-                setShowPassword(!showPassword);
+                setShowConfirmPassword(!showConfirmPassword);
               }
             }}
           >
-            {showPassword ? (
+            {showConfirmPassword ? (
               <FontAwesomeIcon icon={faEye} className="size-6" />
             ) : (
               <FontAwesomeIcon icon={faEyeSlash} className="size-6" />
@@ -163,11 +180,15 @@ const RegisterForm = () => {
         </div>
       </div>
 
-      <Button type="submit" className="w-full rounded-2xl font-medium">
-        Daftar
+      <Button
+        type="submit"
+        className="w-full rounded-2xl font-medium"
+        disabled={isLoading}
+      >
+        {isLoading ? "Memproses..." : "Daftar"}
       </Button>
 
-      <p className="mt-10 text-center text-sm text-black">
+      <p className="mt-10 text-center text-black">
         Sudah punya akun?{" "}
         <Link
           to="/login"

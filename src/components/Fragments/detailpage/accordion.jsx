@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import DetFlight from "../../Elements/Accordion/DetailFlight";
 import AccordionBox from "../../Elements/Accordion/AccordionBox";
+import MobileAccordion from "./mobileAccordion";
 
 function Accordion({ data }) {
   const [openAccordion, setOpenAccordion] = useState(null);
+  const [showDetFlight, setShowDetFlight] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const navigate = useNavigate();
   const listData = data.flights_data;
 
   useEffect(() => {
@@ -20,6 +20,20 @@ function Accordion({ data }) {
   const clickHandler = (id) => {
     setOpenAccordion(openAccordion === id ? null : id);
   };
+
+  const mobileDetFlightHandler = () => {
+    setShowDetFlight(false);
+    setOpenAccordion(null);
+  };
+
+  if (isMobile && showDetFlight) {
+    return (
+      <MobileAccordion
+        flight={listData.find((item) => item.flight_id === openAccordion)}
+        onClose={mobileDetFlightHandler}
+      />
+    );
+  }
 
   return (
     <div className="m-[5vw] mx-auto w-[90vw] max-w-4xl md:m-0 md:w-[70vw]">
@@ -35,10 +49,10 @@ function Accordion({ data }) {
           <AccordionBox
             onclickHandler={
               isMobile
-                ? () =>
-                    navigate("/detail-ticket", {
-                      state: { flight: data },
-                    })
+                ? () => {
+                    setOpenAccordion(data.flight_id);
+                    setShowDetFlight(true);
+                  }
                 : () => clickHandler(data.flight_id)
             }
             flight={data}
