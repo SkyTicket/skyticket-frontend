@@ -19,12 +19,12 @@ const Date = () => {
       prevDates.map((item, index) => ({
         ...item,
         isActive: index === selectedIndex,
-      })),
+      }))
     );
   };
 
   return (
-    <div className="scrollbar-hide flex gap-7 overflow-x-auto pb-4">
+    <div className="scrollbar-hide flex gap-4 overflow-x-auto pb-4 md:gap-7 sm:gap-4">
       {dates.map((item, index) => (
         <React.Fragment key={index}>
           <DateItem {...item} onClick={() => handleSelect(index)} />

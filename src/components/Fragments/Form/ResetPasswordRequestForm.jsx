@@ -21,7 +21,7 @@ const ResetPasswordRequestForm = (showLogoOnMobile = false) => {
       const response = await requestResetPassword(data.email);
       toast.success(response.message || "Email berhasil dikirim.");
       setTimeout(() => {
-        navigate("/otp", { state: { email: data.email } });
+        navigate("/reset-password", { state: { email: data.email } });
       }, 3000);
     } catch (error) {
       console.error("Error saat submit:", error);

@@ -46,9 +46,24 @@ function HomepageForm() {
   };
 
   const handleSubmit = async () => {
+    if (
+      !filters.depCity.input_value ||
+      !filters.arrCity.input_value ||
+      !filters.depDate
+    ) {
+      toast.error("Please fill in all required fields!");
+      return;
+    }
     try {
       const response = await fetchFlights(filters);
-      navigate("/ticket-list", { state: { filters } });
+      navigate("/ticket-list", {
+        state: {
+          departure: filters.depCity.input_value,
+          arrival: filters.arrCity.input_value,
+          passengers: filters.totalPassengers.length || 1,
+          seatClass: filters.seatClass || "Economy",
+        },
+      });
     } catch (error) {
       toast.error((t) => (
         <div

@@ -13,6 +13,7 @@ import FilterModal from "../components/Fragments/Filter/FilterModals";
 import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
 import FilterButton from "../components/Elements/Button/FilterButton";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
+import FlightInfo from "../components/Elements/Header/FlightInfo";
 
 const TicketListPage = () => {
   const location = useLocation();
@@ -31,7 +32,7 @@ const TicketListPage = () => {
   };
 
   const closeModal = () => {
-    setIsFilterModalOpen(false); 
+    setIsFilterModalOpen(false);
   };
 
   useEffect(() => {
@@ -63,17 +64,16 @@ const TicketListPage = () => {
         <p className="py-6 text-2xl font-semibold text-black">
           Pilih Penerbangan
         </p>
-        <div className="flex flex-row items-center justify-between gap-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <Link
             to="/"
             className="flex h-14 w-full items-center gap-4 rounded-xl bg-[#A06ECE] px-4 py-3 text-white"
           >
-            <FontAwesomeIcon icon={faArrowLeft} className="text-white" />
-            <p className="text-white">JKT → MLB - 2 Penumpang - Economy</p>
+            <FlightInfo />
           </Link>
           <Button
             color="green"
-            className="h-14 w-1/3 rounded-xl font-semibold"
+            className="h-14 w-full md:w-1/3 rounded-xl font-semibold"
             type=""
           >
             <Link to="/" className="text-center text-white">
@@ -91,10 +91,7 @@ const TicketListPage = () => {
 
         {/* Filter Modal */}
         {isFilterModalOpen && (
-          <FilterModal
-            onFilterSubmit={handleFilterSelect} 
-            onClose={closeModal} 
-          />
+          <FilterModal onFilterSubmit={handleFilterSelect} onClose={closeModal} />
         )}
 
         <div className="flex justify-center">
@@ -140,15 +137,15 @@ const TicketListPage = () => {
               </div>
             </aside>
 
-            <div className="flex min-w-[70%] justify-center">
+            <div className="flex min-w-[70%] justify-center flex-col gap-4">
               {isLoading ? (
                 <div className="flex flex-col items-center">
                   <LoadingAnimation />
-                  <img src=""></img>
+                  <img src="" alt="" />
                 </div>
               ) : flightsData ? (
                 <Accordion data={flightsData} />
-              ) : errors.status == 404 ? (
+              ) : errors.status === 404 ? (
                 <NoDataFound
                   svg={"notfound"}
                   alt={"Data Not Found"}
