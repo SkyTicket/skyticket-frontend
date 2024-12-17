@@ -13,6 +13,8 @@ export const fetchFlights = async (filters) => {
         total_child_passengers: filters.totalPassengers[1],
         total_infant_passengers: filters.totalPassengers[2],
         seat_class_type: filters.seatClass,
+        sort_by: filters.sortBy,
+        page: filters.page,
       },
     });
     return response.data;

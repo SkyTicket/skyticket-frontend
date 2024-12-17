@@ -13,6 +13,7 @@ import FilterModal from "../components/Fragments/Filter/FilterModals";
 import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
 import FilterButton from "../components/Elements/Button/FilterButton";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
+import Pagination from "../components/Fragments/Pagination/Pagination";
 
 const TicketListPage = () => {
   const location = useLocation();
@@ -40,6 +41,8 @@ const TicketListPage = () => {
             setErrors(response);
           } else {
             setFlightsData(response.flights);
+            console.log(response);
+            console.log(filters);
           }
         } catch (error) {
           setErrors(error.message);
@@ -138,7 +141,16 @@ const TicketListPage = () => {
                   <img src=""></img>
                 </div>
               ) : flightsData ? (
-                <Accordion data={flightsData} />
+                <div className="flex flex-col">
+                  <Accordion data={flightsData} />
+                  <Pagination
+                    currentPage={flightsData.pagination.current_page}
+                    totalPages={1}
+                    onPageChange={(newPage) =>
+                      setFilters((prev) => ({ ...prev, page: newPage }))
+                    }
+                  />
+                </div>
               ) : errors.status == 404 ? (
                 <NoDataFound
                   svg={"notfound"}
