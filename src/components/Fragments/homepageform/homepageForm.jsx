@@ -126,7 +126,6 @@ function HomepageForm() {
             Pilih Jadwal Penerbangan spesial di{" "}
             <span className="text-[#7126B5]">SkyTicket!</span>
           </p>
-
           <div className="relative flex flex-col items-center justify-between rounded-lg border py-2 md:flex-row md:gap-4 md:border-0 md:py-0">
             <div className="relative flex items-center gap-6 pb-1 md:pb-0">
               <div className="flex items-center gap-3 text-gray-500 before:absolute before:bottom-0 before:left-[10%] before:h-[1px] before:w-[80%] before:border-b-2 before:border-gray-400 before:content-[''] md:before:border-b-0">
@@ -169,6 +168,7 @@ function HomepageForm() {
 
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="flex items-center gap-3 md:gap-6">
+              
               <div className="flex items-center gap-3 text-gray-500">
                 <FontAwesomeIcon
                   icon={faCalendar}

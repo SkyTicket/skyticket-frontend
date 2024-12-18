@@ -10,11 +10,11 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
   };
 
   const handleSubmit = () => {
-    onFilterSubmit(selectedFilter); 
+    onFilterSubmit(selectedFilter);
     onClose();
-    navigate("/ticket-list"); 
+    navigate("/ticket-list");
   };
-
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
       <div className="w-80 divide-y-2 rounded-lg bg-white shadow-lg">
@@ -55,7 +55,7 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
             >
               <span className="text-sm font-medium">{filter.label}</span>
               {selectedFilter === filter.value && (
-                <span className=" text-green-500">
+                <span className="text-green-500">
                   <img
                     src="/src/assets/icons/checklist.svg"
                     alt="checklist"

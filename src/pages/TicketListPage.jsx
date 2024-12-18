@@ -22,15 +22,24 @@ const TicketListPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [flightsData, setFlightsData] = useState(null);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [selectedFilterText, setSelectedFilterText] = useState("Termurah");
 
   useEffect(() => {
     setFilters(location.state?.filters || {});
   }, [location.state?.filters]);
 
   const handleFilterSelect = (filter) => {
-    setIsFilterModalOpen(false);
-  };
+    const filterTextMap = {
+      cheapest: "Termurah",
+      "shortest-duration": "Terpendek",
+      "first-departure": "Paling Awal",
+      "last-departure": "Paling Akhir",
+      "first-arrival": "Paling Awal",
+      "last-arrival": "Paling Akhir",
+    };
 
+    setSelectedFilterText(filterTextMap[filter]);
+  };
   const closeModal = () => {
     setIsFilterModalOpen(false);
   };
@@ -64,7 +73,7 @@ const TicketListPage = () => {
         <p className="py-6 text-2xl font-semibold text-black">
           Pilih Penerbangan
         </p>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <Link
             to="/"
             className="flex h-14 w-full items-center gap-4 rounded-xl bg-[#A06ECE] px-4 py-3 text-white"
@@ -73,7 +82,7 @@ const TicketListPage = () => {
           </Link>
           <Button
             color="green"
-            className="h-14 w-full md:w-1/3 rounded-xl font-semibold"
+            className="h-14 w-full rounded-xl font-semibold md:w-1/3"
             type=""
           >
             <Link to="/" className="text-center text-white">
@@ -86,12 +95,15 @@ const TicketListPage = () => {
 
         {/* Filter Button */}
         <div className="mb-4 flex justify-end pt-7">
-          <FilterButton onClick={() => setIsFilterModalOpen(true)} />
+          <FilterButton onClick={() => setIsFilterModalOpen(true)} text={selectedFilterText} />
         </div>
 
         {/* Filter Modal */}
         {isFilterModalOpen && (
-          <FilterModal onFilterSubmit={handleFilterSelect} onClose={closeModal} />
+          <FilterModal
+            onFilterSubmit={handleFilterSelect}
+            onClose={closeModal}
+          />
         )}
 
         <div className="flex justify-center">
@@ -137,7 +149,7 @@ const TicketListPage = () => {
               </div>
             </aside>
 
-            <div className="flex min-w-[70%] justify-center flex-col gap-4">
+            <div className="flex min-w-[70%] flex-col justify-center gap-4">
               {isLoading ? (
                 <div className="flex flex-col items-center">
                   <LoadingAnimation />
