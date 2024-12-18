@@ -12,6 +12,7 @@ import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
 import { fetchFlights } from "../services/flightsService";
+import Pagination from "../components/Fragments/Pagination/Pagination";
 
 const TicketListPage = () => {
   const location = useLocation();
@@ -93,7 +94,10 @@ const TicketListPage = () => {
 
         {/* Filter Button */}
         <div className="mb-4 flex justify-end pt-7">
-          <FilterButton onClick={() => setIsFilterModalOpen(true)} text={selectedFilterText} />
+          <FilterButton
+            onClick={() => setIsFilterModalOpen(true)}
+            text={selectedFilterText}
+          />
         </div>
 
         {/* Filter Modal */}
@@ -154,7 +158,16 @@ const TicketListPage = () => {
                   <img src="" alt="" />
                 </div>
               ) : flightsData ? (
-                <Accordion data={flightsData} />
+                <div className="flex flex-col">
+                  <Accordion data={flightsData} />
+                  <Pagination
+                    currentPage={flightsData.pagination.current_page}
+                    totalPages={1}
+                    onPageChange={(newPage) =>
+                      setFilters((prev) => ({ ...prev, page: newPage }))
+                    }
+                  />
+                </div>
               ) : errors.status === 404 ? (
                 <NoDataFound
                   svg={"notfound"}

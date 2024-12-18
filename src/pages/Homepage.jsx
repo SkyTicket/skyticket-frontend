@@ -1,12 +1,11 @@
 import { useState, useRef } from "react";
 import Button from "../components/Elements/Button/Button";
 import Card from "../components/Fragments/Card/Card";
-import HomepageForm from "../components/Fragments/homepageform/homepageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
 import useFavoriteDestination from "../hooks/useFavoriteDestination";
-
+import HomepageForm from "../components/Fragments/HomePageform/HomePageForm";
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [continent, setContinent] = useState("");
