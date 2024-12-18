@@ -1,6 +1,6 @@
 const SearchBar = () => {
   return (
-    <div className="relative w-full rounded-2xl bg-[#EEEEEE] md:max-w-[360px] lg:min-w-[444px]">
+    <div className="relative min-w-80 rounded-2xl bg-[#EEEEEE] sm:w-[600px] md:max-w-[444px] lg:min-w-[444px]">
       <input
         className="h-12 w-full rounded-2xl bg-transparent px-6 py-3 text-sm text-slate-700 shadow-sm transition duration-300 placeholder:bg-[#EEEEEE] hover:border-slate-300 focus:border-slate-400 focus:shadow focus:outline-none"
         placeholder="Cari di sini ..."

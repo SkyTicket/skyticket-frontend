@@ -61,7 +61,7 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
           </div>
           <div className="flex flex-col items-end">
             <div className="text-primary font-bold text-purple-700">
-              {flight.seat_class_price.formatted}
+              {flight.seat_class_price.total.formatted}
             </div>
             <button
               className="hidden rounded-lg bg-purple-700 px-7 py-1 text-white md:block"

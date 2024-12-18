@@ -12,6 +12,7 @@ function AccountPage() {
   const { user, loading, error, setUser, setError, setLoading, refreshUser } =
     useUser();
   const [isMobile, setIsMobile] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(null);
 
   useEffect(() => {
     const updateScreen = () => setIsMobile(window.innerWidth < 500);
@@ -27,7 +28,12 @@ function AccountPage() {
         {isMobile ? (
           <>
             <p className="mx-8 pt-10 text-2xl font-semibold text-black">Akun</p>
-            <AccountMenu />
+            {!isFormOpen ? (
+              <AccountMenu onClick={() => setIsFormOpen(true)} />
+            ) : (
+              <AccountForm onClose={() => setIsFormOpen(false)} />
+            )}
+
             <FooterMobile active={"akun"} />
           </>
         ) : (

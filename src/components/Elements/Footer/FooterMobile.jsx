@@ -9,6 +9,8 @@ import {
 import { Link } from "react-router-dom";
 
 function FooterMobile({ active }) {
+  const navigate = useNavigate();
+
   return (
     <div className="absolute bottom-0 flex w-full items-center justify-around py-2 shadow-lg shadow-black">
      <Link

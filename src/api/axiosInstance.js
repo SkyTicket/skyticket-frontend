@@ -11,7 +11,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    if (config.url === "api/v1/airports" || config.url === "api/v1/flights") {
+    if (
+      config.url === "api/v1/airports" ||
+      config.url === "api/v1/flights" ||
+      config.url === "api/v1/seat-classes-price"
+    ) {
       return config;
     }
 

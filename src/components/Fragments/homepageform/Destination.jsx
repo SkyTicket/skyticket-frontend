@@ -16,8 +16,8 @@ function Destination({ value, onChange, depOrArr }) {
         type="text"
         value={value.airport || ""}
         onClick={() => setShowSetDestination(true)}
-        className="w-[40vw] cursor-pointer border-gray-500 bg-white py-2 text-lg font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none md:w-80 md:border-b"
-        placeholder="Select City"
+        className="w-[50vw] cursor-pointer border-gray-500 bg-white py-4 text-lg font-medium text-black placeholder-gray-300 focus:outline-none lg:w-80 lg:border-b lg:py-2"
+        placeholder="Pilih Kota"
         readOnly
       />
       <input

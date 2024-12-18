@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { fetchFlights } from "../services/flightsService";
 import Button from "../components/Elements/Button/Button";
-import Navbar from "../components/Fragments/Navbar/Navbar";
+import FilterButton from "../components/Elements/Button/FilterButton";
 import DateList from "../components/Elements/Date/DateList";
+import FlightInfo from "../components/Elements/Header/FlightInfo";
 import Accordion from "../components/Fragments/DetailPage/Accordion";
 import FilterItem from "../components/Fragments/Filter/FilterItem";
 import FilterModal from "../components/Fragments/Filter/FilterModals";
-import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
-import FilterButton from "../components/Elements/Button/FilterButton";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
-import FlightInfo from "../components/Elements/Header/FlightInfo";
+import Navbar from "../components/Fragments/Navbar/Navbar";
+import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
+import { fetchFlights } from "../services/flightsService";
 
 const TicketListPage = () => {
   const location = useLocation();
