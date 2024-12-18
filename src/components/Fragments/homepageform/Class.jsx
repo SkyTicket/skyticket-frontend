@@ -46,7 +46,7 @@ function Class({ change, data, prefillClass }) {
               : seat
         }
         onClick={() => setShowSetClass(true)}
-        className="w-[30vw] cursor-pointer border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none md:w-[150px]"
+        className="w-[30vw] cursor-pointer border-b-2 border-[#D0D0D0] bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none lg:w-[150px]"
         placeholder="Select Class"
         readOnly
       />

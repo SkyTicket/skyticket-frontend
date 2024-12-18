@@ -112,9 +112,9 @@ const HomePage = () => {
             },
           )}
         </div>
-        
+
         {loading ? (
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
             {Array.from({ length: 5 }).map((_, index) => (
               <SkeletonCard key={index} />
             ))}
@@ -133,7 +133,7 @@ const HomePage = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
             {destinations.map((item, index) => (
               <Card
                 key={index}
