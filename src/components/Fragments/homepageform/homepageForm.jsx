@@ -170,8 +170,8 @@ function HomepageForm({ prefillData }) {
     <>
       <Toaster />
       <div className="flex h-full w-full flex-col justify-between">
-        <div className="m-4 lg:m-8">
-          <span className="cursor-default select-none text-base font-bold text-black lg:block lg:text-xl">
+        <div className="m-2 md:m-8">
+          <span className="hidden cursor-default select-none text-base font-bold text-black lg:block lg:text-xl">
             Pilih Jadwal Penerbangan Spesial di{" "}
             <span className="text-[#7126B5]">SkyTicket!</span>
           </span>
@@ -179,7 +179,7 @@ function HomepageForm({ prefillData }) {
 
         <div className="relative mx-4 flex flex-col items-center justify-between rounded-xl border lg:mx-8 lg:flex-row lg:gap-4 lg:border-0 lg:py-0">
           <div className="relative flex items-center gap-6">
-            <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-auto before:h-[1px] before:w-[90%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
+            <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-8 before:h-[1px] before:w-[83%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
               <FontAwesomeIcon
                 icon={faPlaneDeparture}
                 className="size-6 text-black opacity-60"
@@ -197,8 +197,14 @@ function HomepageForm({ prefillData }) {
 
           <FontAwesomeIcon
             icon={faRepeat}
-            className={`absolute right-4 top-[34px] h-4 w-4 cursor-pointer rounded-lg bg-black p-1 text-white transition-transform duration-300 lg:static ${
-              filters.isRotated ? "rotate-180" : "rotate-0"
+            className={`absolute right-4 top-[46px] h-4 w-4 cursor-pointer rounded-lg bg-black p-1 text-white transition-transform duration-300 lg:static ${
+              isMobile
+                ? filters.isRotated
+                  ? "-rotate-90"
+                  : "rotate-90"
+                : filters.isRotated
+                  ? "rotate-180"
+                  : "rotate-0"
             }`}
             onClick={handleRotate}
           />
