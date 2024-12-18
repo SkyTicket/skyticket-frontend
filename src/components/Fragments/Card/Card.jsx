@@ -1,6 +1,9 @@
-const Card = ({ destination, airline, date, price, image, label }) => {
+const Card = ({ destination, airline, date, price, image, label, onClick }) => {
   return (
-    <div className="relative mb-8 cursor-pointer rounded-[4px] bg-white p-3 shadow-md transition-transform duration-300 ease-in-out hover:scale-110">
+    <div
+      className="relative mb-8 cursor-pointer rounded-[4px] bg-white p-3 shadow-md transition-transform duration-300 ease-in-out hover:scale-110"
+      onClick={onClick}
+    >
       <div className="relative">
         <img
           src={image}

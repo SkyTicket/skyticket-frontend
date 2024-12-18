@@ -13,14 +13,10 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   return (
     <nav className="bg-white py-4 shadow-lg">
       <div className="mx-auto w-[90%] max-w-[1440px]">
-        <div className="relative flex h-auto flex-col items-center justify-between gap-8 sm:flex-row">
-          <div className="flex flex-1 flex-col items-center gap-8 sm:flex-row">
+        <div className="relative flex h-auto flex-col items-center justify-between gap-4 md:flex-row md:gap-8">
+          <div className="flex flex-1 flex-col items-center gap-4 md:flex-row md:gap-8">
             <Logo />
-            {showSearchBar && isLoggedIn && (
-              <div className="w-full sm:block">
-                <SearchBar />
-              </div>
-            )}
+            {showSearchBar && <SearchBar />}
           </div>
 
           {isLoggedIn ? (
