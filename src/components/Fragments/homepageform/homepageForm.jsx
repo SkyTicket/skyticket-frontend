@@ -7,12 +7,9 @@ import {
   faXmark,
   faRepeat,
   faCalendar,
-  faToggleOn,
-  faToggleOff,
   faPlaneArrival,
   faPlaneDeparture,
 } from "@fortawesome/free-solid-svg-icons";
-
 import Class from "./Class";
 import SetDate2 from "../../Elements/Input/SetDate2";
 import Passengers from "./passengers";
@@ -22,6 +19,7 @@ import { fetchFlights } from "../../../services/flightsService";
 
 function HomepageForm() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isToggleOn, setIsToggleOn] = useState(false);
   const [currentField, setCurrentField] = useState(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(null);
   const navigate = useNavigate();
@@ -127,193 +125,214 @@ function HomepageForm() {
 
   return (
     <>
-      <div>
-        <Toaster />
-      </div>
-      <div className="flex h-full w-[90vw] flex-col justify-between rounded-lg md:w-full">
-        <div className="flex h-full flex-col justify-around gap-4 p-6">
-          <p className="hidden cursor-default select-none font-bold text-black md:block">
-            Pilih Jadwal Penerbangan spesial di{" "}
+      <Toaster />
+      <div className="flex h-full w-full flex-col justify-between">
+        {/* Title */}
+        <div className="m-4 lg:m-8">
+          <span className="cursor-default select-none text-base font-bold text-black lg:block lg:text-xl">
+            Pilih Jadwal Penerbangan Spesial di{" "}
             <span className="text-[#7126B5]">SkyTicket!</span>
-          </p>
+          </span>
+        </div>
 
-          <div className="relative flex flex-col items-center justify-between rounded-lg border py-2 md:flex-row md:gap-4 md:border-0 md:py-0">
-            <div className="relative flex items-center gap-6 pb-1 md:pb-0">
-              <div className="flex items-center gap-3 text-gray-500 before:absolute before:bottom-0 before:left-[10%] before:h-[1px] before:w-[80%] before:border-b-2 before:border-gray-400 before:content-[''] md:before:border-b-0">
-                <FontAwesomeIcon icon={faPlaneDeparture} className="size-6" />
-                <p className="w-[45px] cursor-default select-none">From</p>
-              </div>
-              <Destination
-                value={filters.depCity}
-                onChange={(newDepCity) =>
-                  setFilters((prev) => ({ ...prev, depCity: newDepCity }))
-                }
-                depOrArr="dep"
+        {/* From & To Destination */}
+        <div className="relative mx-4 flex flex-col items-center justify-between rounded-xl border lg:mx-8 lg:flex-row lg:gap-4 lg:border-0 lg:py-0">
+          {/* Departure */}
+          <div className="relative flex items-center gap-6">
+            <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-auto before:h-[1px] before:w-[90%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
+              <FontAwesomeIcon
+                icon={faPlaneDeparture}
+                className="size-6 text-black opacity-60"
               />
+              <p className="w-[45px] cursor-default select-none">From</p>
+            </div>
+            <Destination
+              value={filters.depCity}
+              onChange={(newDepCity) =>
+                setFilters((prev) => ({ ...prev, depCity: newDepCity }))
+              }
+              depOrArr="dep"
+            />
+          </div>
+
+          {/* Swap Icon */}
+          <FontAwesomeIcon
+            icon={faRepeat}
+            className={`absolute right-4 top-[34px] h-4 w-4 cursor-pointer rounded-lg bg-black p-1 text-white transition-transform duration-300 lg:static ${
+              filters.isRotated ? "rotate-180" : "rotate-0"
+            }`}
+            onClick={handleRotate}
+          />
+
+          {/* Arrival */}
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 text-[#8A8A8A]">
+              <FontAwesomeIcon
+                icon={faPlaneArrival}
+                className="size-6 text-black opacity-60"
+              />
+              <p className="w-[45px] cursor-default select-none">To</p>
+            </div>
+            <Destination
+              value={filters.arrCity}
+              onChange={(newArrCity) =>
+                setFilters((prev) => ({ ...prev, arrCity: newArrCity }))
+              }
+              depOrArr="arr"
+            />
+          </div>
+        </div>
+
+        {/* Date, Passengers, and Seat Class */}
+        <div className="m-4 flex flex-col items-center justify-between gap-4 lg:m-8 lg:flex-row">
+          {/* Date Selection */}
+          <div className="flex items-center gap-3 md:gap-6">
+            <div className="flex items-center gap-3 text-[#8A8A8A]">
+              <FontAwesomeIcon
+                icon={faCalendar}
+                className="size-6 text-black opacity-60"
+              />
+              <p className="hidden w-[45px] cursor-default select-none md:block">
+                Date
+              </p>
+            </div>
+            <div className="mr-3 md:mr-0">
+              <p className="cursor-default select-none text-[#8A8A8A]">
+                Departure
+              </p>
+              {isCalendarOpen && currentField === "depDate" && (
+                <SetDate2
+                  onClose={() => setIsCalendarOpen(false)}
+                  onClick={(date) => handleDateSelection(date)}
+                />
+              )}
+              {isMobile ? (
+                <input
+                  type="text"
+                  placeholder="Pilih Tanggal"
+                  readOnly
+                  value={filters.depDate || ""}
+                  className="w-[30vw] border-b-2 border-[#D0D0D0] bg-white py-2 font-medium text-black placeholder-gray-300 focus:outline-none"
+                  onClick={() => handleClickDate("depDate")}
+                />
+              ) : (
+                <DatePicker
+                  disable={false}
+                  prefillDate={filters.depDate}
+                  change={(newDepDate) => {
+                    console.log("Updated DepDate:", newDepDate);
+                    setFilters((prev) => ({ ...prev, depDate: newDepDate }));
+                  }}
+                />
+              )}
             </div>
             <FontAwesomeIcon
-              icon={faRepeat}
-              className={`absolute right-4 top-[43px] h-4 w-4 cursor-pointer rounded-lg bg-black p-1 text-white transition-transform duration-300 md:static ${
-                filters.isRotated
-                  ? "-rotate-90 md:rotate-180"
-                  : "rotate-90 md:rotate-0"
-              }`}
-              onClick={handleRotate}
+              icon={faCalendar}
+              className="block size-6 text-black opacity-60 md:hidden"
             />
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-3 text-gray-500">
-                <FontAwesomeIcon icon={faPlaneArrival} className="size-6" />
-                <p className="w-[45px] cursor-default select-none md:w-auto">
-                  To
-                </p>
-              </div>
-              <Destination
-                value={filters.arrCity}
-                onChange={(newArrCity) =>
-                  setFilters((prev) => ({ ...prev, arrCity: newArrCity }))
-                }
-                depOrArr="arr"
-              />
+            <div>
+              <p className="cursor-default select-none text-[#8A8A8A]">
+                Return
+              </p>
+              {isCalendarOpen && currentField === "arrDate" && (
+                <SetDate2
+                  onClose={() => setIsCalendarOpen(false)}
+                  onClick={(date) => handleDateSelection(date)}
+                />
+              )}
+              {isMobile ? (
+                <input
+                  type="text"
+                  placeholder="Pilih Tanggal"
+                  disabled={!filters.isArrival}
+                  readOnly
+                  value={filters.isArrival ? filters.arrDate : ""}
+                  className={`w-[30vw] border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:outline-none ${
+                    !filters.isArrival ? "cursor-not-allowed bg-gray-200" : ""
+                  }`}
+                  onClick={() => handleClickDate("arrDate")}
+                />
+              ) : (
+                <DatePicker
+                  disable={false}
+                  change={(newDepDate) =>
+                    setFilters((prev) => ({ ...prev, depDate: newDepDate }))
+                  }
+                />
+              )}
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <div className="flex items-center gap-3 md:gap-6">
-              <div className="flex items-center gap-3 text-gray-500">
-                <FontAwesomeIcon
-                  icon={faCalendar}
-                  className="size-6 text-[#6b7280]"
-                />
-                <p className="hidden w-[45px] cursor-default select-none md:block">
-                  Date
-                </p>
-              </div>
-              <div className="mr-3 md:mr-0">
-                <p className="cursor-default select-none text-gray-500">
-                  Departure
-                </p>
-                {isCalendarOpen && currentField === "depDate" && (
-                  <SetDate2
-                    onClose={() => setIsCalendarOpen(false)}
-                    onClick={(date) => handleDateSelection(date)}
-                  />
-                )}
-                {isMobile ? (
-                  <input
-                    type="text"
-                    placeholder="Select a date"
-                    readOnly
-                    value={filters.depDate || ""}
-                    className="w-[30vw] border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none"
-                    onClick={() => handleClickDate("depDate")}
-                  />
-                ) : (
-                  <DatePicker
-                    disable={false}
-                    change={(newDepDate) =>
-                      setFilters((prev) => ({ ...prev, depDate: newDepDate }))
-                    }
-                  />
-                )}
-              </div>
-              <FontAwesomeIcon
-                icon={faCalendar}
-                className="block size-6 text-[#6b7280] md:hidden"
-              />
-              <div>
-                <p className="cursor-default select-none text-gray-500">
-                  Return
-                </p>
-                {isCalendarOpen && currentField === "arrDate" && (
-                  <SetDate2
-                    onClose={() => setIsCalendarOpen(false)}
-                    onClick={(date) => handleDateSelection(date)}
-                  />
-                )}
-                {isMobile ? (
-                  <input
-                    type="text"
-                    placeholder="Select a date"
-                    disabled={!filters.isArrival}
-                    readOnly
-                    value={filters.isArrival ? filters.arrDate : ""}
-                    className={`w-[30vw] border-b border-gray-500 bg-white py-2 font-medium text-black placeholder-gray-300 focus:border-slate-400 focus:outline-none ${
-                      !filters.isArrival ? "cursor-not-allowed bg-gray-200" : ""
-                    }`}
-                    onClick={() => handleClickDate("arrDate")}
-                  />
-                ) : (
-                  <DatePicker
-                    disable={filters.isArrival ? false : true}
-                    change={(newArrDate) =>
-                      setFilters((prev) => ({ ...prev, arrDate: newArrDate }))
-                    }
-                  />
-                )}
-              </div>
-            </div>
+          <div className="-order-1 flex w-full items-center justify-between lg:order-none lg:w-auto">
+            <p className="block cursor-default select-none text-black lg:hidden">
+              Pulang-Pergi?
+            </p>
 
-            <div className="-order-1 flex w-full items-center justify-between md:order-none md:w-auto">
-              <p className="block cursor-default select-none text-black md:hidden">
-                Pulang-Pergi?
+            {/* Return Toggle */}
+            <div
+              className={`flex h-6 w-12 cursor-pointer items-center rounded-[20px] p-1 ${isToggleOn ? "bg-[#4B1979]" : "bg-gray-300"}`}
+              onClick={handleToggle}
+            >
+              <div
+                className={`h-4 w-4 transform rounded-2xl bg-white duration-300 ease-in-out ${isToggleOn ? "translate-x-6" : "translate-x-0"}`}
+              ></div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 md:gap-6">
+            <div className="hidden w-[45px] items-center gap-3 text-[#8A8A8A] md:flex md:w-auto">
+              <img
+                alt="Seat Icon"
+                src="/src/assets/icons/seat.svg"
+                className="size-6"
+              />
+              <p className="cursor-default select-none">Seat</p>
+            </div>
+            <FontAwesomeIcon
+              icon={faUser}
+              className="block size-6 text-black opacity-60 md:hidden"
+            />
+
+            {/* Passengers */}
+            <div className="mr-3 md:mr-0">
+              <p className="cursor-default select-none text-[#8A8A8A]">
+                Passenger
               </p>
-              <FontAwesomeIcon
-                icon={filters.isArrival ? faToggleOn : faToggleOff}
-                className="h-14 w-9 cursor-pointer text-[#4B1979] md:h-10 md:w-6"
-                onClick={handleToggle}
+              <Passengers
+                change={(newPassenger) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    totalPassengers: newPassenger,
+                  }))
+                }
+              />
+            </div>
+            <div className="block w-6 md:hidden">
+              <img
+                alt="Seat Icon"
+                src="/src/assets/icons/seat.svg"
+                className="size-7"
               />
             </div>
 
-            <div className="flex items-center gap-3 md:gap-6">
-              <div className="hidden w-[45px] items-center gap-3 text-gray-500 md:flex md:w-auto">
-                <img
-                  alt="Seat Icon"
-                  src="/src/assets/icons/seat.svg"
-                  className="size-6"
-                />
-                <p className="cursor-default select-none">To</p>
-              </div>
-              <FontAwesomeIcon
-                icon={faUser}
-                className="block size-6 text-[#6b7280] md:hidden"
+            {/* Seat Class */}
+            <div>
+              <p className="cursor-default select-none text-[#8A8A8A]">
+                Seat Class
+              </p>
+              <Class
+                change={(newSeat) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    seatClass: newSeat,
+                  }))
+                }
+                data={filters}
               />
-              <div className="mr-3 md:mr-0">
-                <p className="cursor-default select-none text-gray-500">
-                  Passengers
-                </p>
-                <Passengers
-                  change={(newPassenger) =>
-                    setFilters((prev) => ({
-                      ...prev,
-                      totalPassengers: newPassenger,
-                    }))
-                  }
-                />
-              </div>
-              <div className="block w-6 md:hidden">
-                <img
-                  alt="Seat Icon"
-                  src="/src/assets/icons/seat.svg"
-                  className="size-7"
-                />
-              </div>
-              <div>
-                <p className="cursor-default select-none text-gray-500">
-                  Seat Class
-                </p>
-                <Class
-                  change={(newSeat) =>
-                    setFilters((prev) => ({
-                      ...prev,
-                      seatClass: newSeat,
-                    }))
-                  }
-                  data={filters}
-                />
-              </div>
             </div>
           </div>
         </div>
+        {/* Submit Button */}
         <button
           type="submit"
           className="w-full rounded-t-none bg-purple-700 py-3 font-bold text-white"
@@ -325,4 +344,5 @@ function HomepageForm() {
     </>
   );
 }
+
 export default HomepageForm;
