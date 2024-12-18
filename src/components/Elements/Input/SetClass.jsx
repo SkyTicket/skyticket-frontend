@@ -17,6 +17,23 @@ function SetClass({ close, setSeat, data }) {
     close();
   };
 
+  const showNotif = (x) => {
+    toast.error((t) => (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } pointer-events-auto flex w-full max-w-md items-center bg-white`}
+      >
+        <span className="flex text-sm">{x}</span>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="h-6 w-6 cursor-pointer text-[#151515]"
+          onClick={() => toast.dismiss(t.id)}
+        />
+      </div>
+    ));
+  };
+
   return (
     <BoxSearch
       save={() => handleSave(data?.[openClass]?.input_value || text[openClass])}
@@ -27,29 +44,24 @@ function SetClass({ close, setSeat, data }) {
           <div
             key={index}
             className={`flex w-full items-center justify-between border-b-2 px-4 py-1 text-black ${
-              data?.[index] ? "cursor-pointer" : "cursor-not-allowed"
+              String(data?.[index]?.seat_class_price)
+                .replace(/\u00A0/g, " ")
+                .trim() !== "IDR 0"
+                ? "cursor-pointer"
+                : "cursor-not-allowed"
             } ${openClass === index ? "bg-[#4B1979]" : ""}`}
             onClick={
-              data?.[index]
-                ? () => toggleClass(index)
-                : () =>
-                    toast.error((t) => (
-                      <div
-                        className={`${
-                          t.visible ? "animate-enter" : "animate-leave"
-                        } pointer-events-auto flex w-full max-w-md items-center bg-white`}
-                      >
-                        <span className="flex text-sm">
-                          Please choose your destination city, arrival city and
-                          departure date first
-                        </span>
-                        <FontAwesomeIcon
-                          icon={faXmark}
-                          className="h-6 w-6 cursor-pointer text-[#151515]"
-                          onClick={() => toast.dismiss(t.id)}
-                        />
-                      </div>
-                    ))
+              !data?.[index]
+                ? () =>
+                    showNotif(
+                      "Please choose your destination city, arrival city and departure date first",
+                    )
+                : String(data?.[index]?.seat_class_price)
+                      .replace(/\u00A0/g, " ")
+                      .trim() !== "IDR 0"
+                  ? () => toggleClass(index)
+                  : () =>
+                      showNotif("Tidak ada tiket penerbangan untuk kelas ini.")
             }
           >
             <div className="flex flex-col">
