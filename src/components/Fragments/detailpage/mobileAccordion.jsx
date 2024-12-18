@@ -13,14 +13,16 @@ function MobileAccordion({ flight, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-white">
-      <div className="fixed top-0 flex w-full items-center gap-4 bg-[#4B1979] p-3">
+    <div className="fixed inset-0 z-50 overflow-y-scroll bg-white">
+      <div className="fixed top-0 z-[100] flex w-full items-center gap-4 bg-[#4B1979] p-3">
         <FontAwesomeIcon
           icon={faArrowRight}
           onClick={onClose}
-          className="rotate-180 cursor-pointer"
+          className="rotate-180 cursor-pointer text-white"
         />
-        <p className="cursor-default select-none">Pilihan Penerbangan</p>
+        <p className="cursor-default select-none text-white">
+          Pilihan Penerbangan
+        </p>
       </div>
       <div className="h-12 w-full"></div>
 
@@ -36,8 +38,8 @@ function MobileAccordion({ flight, onClose }) {
         </div>
       </div>
 
-      <div className="h-[106px] w-full"></div>
-      <div className="fixed bottom-0 flex w-full flex-col items-center border-t border-gray-500 bg-white">
+      <div className="h-32 w-full"></div>
+      <div className="fixed bottom-0 z-[100] flex w-full flex-col items-center border-t border-gray-500 bg-white">
         <div className="flex w-full cursor-default select-none justify-between p-4 px-5 font-bold text-black">
           <p>Total</p>
           <p className="text-[#7126B5]">

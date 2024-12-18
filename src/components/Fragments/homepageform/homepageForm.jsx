@@ -158,6 +158,7 @@ function HomepageForm({ prefillData }) {
   };
 
   const handleToggle = () => {
+    setIsToggleOn(!isToggleOn);
     setFilters((prev) => ({
       ...prev,
       arrDate: "",
