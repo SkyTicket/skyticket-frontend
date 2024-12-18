@@ -3,10 +3,17 @@ import Backdrop from "../../Elements/Search/Backdrop";
 import SetClass from "../../Elements/Input/SetClass";
 import { fetchClassPrice } from "../../../services/classPriceService";
 
-function Class({ change, data }) {
+function Class({ change, data, prefillClass }) {
   const [showSetClass, setShowSetClass] = useState(false);
   const [classData, setClassData] = useState(null);
   const [seat, setSeats] = useState("");
+
+  useEffect(() => {
+    if (prefillClass) {
+      change(prefillClass);
+      setSeats(prefillClass);
+    }
+  }, [prefillClass, change]);
 
   const handleSetSeats = (newSeat) => {
     setSeats(newSeat);
@@ -18,12 +25,14 @@ function Class({ change, data }) {
       try {
         const response = await fetchClassPrice(data);
         setClassData(response);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     };
     if (showSetClass) {
       fetchData();
     }
-  }, [showSetClass]);
+  }, [showSetClass, data]);
 
   return (
     <>
