@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 
 const DatePicker = ({ disable, change }) => {
@@ -33,7 +32,7 @@ const DatePicker = ({ disable, change }) => {
       toggleClassName="hidden"
       inputClassName={`${
         disable ? "cursor-not-allowed" : "cursor-pointer"
-      } text-black bg-white font-medium border-b border-gray-500 w-[30vw] md:w-[150px] py-2 focus:outline-none focus:border-slate-400 placeholder-gray-300`}
+      } text-black bg-white font-medium border-b-2 border-[#D0D0D0] w-[30vw] lg:w-[150px] py-2 focus:outline-none placeholder-gray-300`}
       readOnly={true}
       useRange={false}
       asSingle={true}

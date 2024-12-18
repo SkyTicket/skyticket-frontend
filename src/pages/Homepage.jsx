@@ -10,11 +10,50 @@ import useFavoriteDestination from "../hooks/useFavoriteDestination";
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [continent, setContinent] = useState("");
+  const [prefillData, setPrefillData] = useState(null);
   const sectionRef = useRef(null);
   const { destinations, loading, error, totalPages } = useFavoriteDestination(
     page,
     continent,
   );
+
+  const handleCardClick = async (url, destinationData) => {
+    try {
+      const parsedUrl = new URL(url);
+      const params = new URLSearchParams(parsedUrl.search);
+
+      const departure = params.get("departure_airport") || "";
+      const arrival = params.get("arrival_airport") || "";
+      const depDate = params.get("flight_departure_date")
+        ? params.get("flight_departure_date").split("T")[0]
+        : new Date().toISOString().split("T")[0];
+      const totalPassengers = parseInt(
+        params.get("total_adult_passengers") || "1",
+        10,
+      );
+      const seatClass = params.get("seat_class_type") || "";
+
+      setPrefillData({
+        departure: {
+          code: departure,
+          city: destinationData.departure_city || "",
+        },
+        arrival: {
+          code: arrival,
+          city: destinationData.arrival_city || "",
+        },
+        depDate,
+        seatClass,
+        totalPassengers: [totalPassengers, 0, 0],
+      });
+
+      if (sectionRef.current) {
+        sectionRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    } catch (error) {
+      console.error("Error parsing URL:", error);
+    }
+  };
 
   return (
     <>
@@ -44,7 +83,7 @@ const HomePage = () => {
       </section>
 
       <section className="relative mx-auto -mt-[50px] flex w-[93%] max-w-[1068px] flex-col items-center justify-center rounded-xl bg-white shadow-xl">
-        <HomepageForm />
+        <HomepageForm prefillData={prefillData} />
       </section>
 
       <section ref={sectionRef} className="mx-auto w-[90%] max-w-[1440px] py-8">
@@ -104,6 +143,12 @@ const HomePage = () => {
                 price={item.price}
                 image={item.city_image}
                 label={item.promo}
+                onClick={() =>
+                  handleCardClick(item.url, {
+                    departure_city: item.departure_city,
+                    arrival_city: item.arrival_city,
+                  })
+                }
               />
             ))}
           </div>

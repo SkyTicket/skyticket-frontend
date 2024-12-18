@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +17,7 @@ import DatePicker from "../../Elements/Input/SetDate";
 import Destination from "./Destination";
 import { fetchFlights } from "../../../services/flightsService";
 
-function HomepageForm() {
+function HomepageForm({ prefillData }) {
   const [isMobile, setIsMobile] = useState(false);
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [currentField, setCurrentField] = useState(null);
@@ -48,23 +48,23 @@ function HomepageForm() {
   const handleSubmit = async () => {
     try {
       if (!filters.depCity || Object.keys(filters.depCity).length === 0) {
-        throw new Error("Please select a departure city.");
+        throw new Error("Silakan pilih kota keberangkatan Anda");
       }
       if (!filters.arrCity || Object.keys(filters.arrCity).length === 0) {
-        throw new Error("Please select an arrival city.");
+        throw new Error("Silakan pilih kota kedatangan Anda.");
       }
       if (!filters.depDate) {
-        throw new Error("Please select a departure date.");
+        throw new Error("Silakan pilih tanggal keberangkatan Anda.");
       }
       if (
         !filters.totalPassengers ||
         filters.totalPassengers.length === 0 ||
         filters.totalPassengers.every((passenger) => passenger === 0)
       ) {
-        throw new Error("Please select the number of passengers.");
+        throw new Error("Silakan pilih jumlah penumpang.");
       }
       if (!filters.seatClass) {
-        throw new Error("Please select a seat class.");
+        throw new Error("Silakan pilih kelas kursi.");
       }
 
       const response = await fetchFlights(filters);
@@ -79,7 +79,7 @@ function HomepageForm() {
         >
           <span className="flex flex-col gap-2 text-sm">
             {error.response
-              ? `${error.response?.messages?.line_1 || "An unexpected error occurred."} 
+              ? `${error.response?.messages?.line_1 || "Terjadi kesalahan."} 
               ${error.response?.messages?.line_2 || ""}`
               : error.message}
           </span>
@@ -99,6 +99,48 @@ function HomepageForm() {
     window.addEventListener("resize", updateScreen);
 
     return () => window.removeEventListener("resize", updateScreen);
+  }, []);
+
+  useEffect(() => {
+    if (prefillData) {
+      if (prefillData.departure) {
+        const departureCity = {
+          airport: `${prefillData.departure.code} - ${prefillData.departure.city}`,
+          input_value: `${prefillData.departure.code}`,
+        };
+
+        setFilters((prev) => ({
+          ...prev,
+          depCity: departureCity,
+        }));
+      }
+
+      if (prefillData.arrival) {
+        const arrivalCity = {
+          airport: `${prefillData.arrival.code} - ${prefillData.arrival.city}`,
+          input_value: `${prefillData.arrival.code}`,
+        };
+
+        setFilters((prev) => ({
+          ...prev,
+          arrCity: arrivalCity,
+        }));
+      }
+    }
+  }, [prefillData]);
+
+  const handlePassengersChange = useCallback((newPassengers) => {
+    setFilters((prev) => ({
+      ...prev,
+      totalPassengers: newPassengers,
+    }));
+  }, []);
+
+  const handleSeatClassChange = useCallback((newSeatClass) => {
+    setFilters((prev) => ({
+      ...prev,
+      seatClass: newSeatClass,
+    }));
   }, []);
 
   const handleClickDate = (field) => {
@@ -127,7 +169,6 @@ function HomepageForm() {
     <>
       <Toaster />
       <div className="flex h-full w-full flex-col justify-between">
-        {/* Title */}
         <div className="m-4 lg:m-8">
           <span className="cursor-default select-none text-base font-bold text-black lg:block lg:text-xl">
             Pilih Jadwal Penerbangan Spesial di{" "}
@@ -135,9 +176,7 @@ function HomepageForm() {
           </span>
         </div>
 
-        {/* From & To Destination */}
         <div className="relative mx-4 flex flex-col items-center justify-between rounded-xl border lg:mx-8 lg:flex-row lg:gap-4 lg:border-0 lg:py-0">
-          {/* Departure */}
           <div className="relative flex items-center gap-6">
             <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-auto before:h-[1px] before:w-[90%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
               <FontAwesomeIcon
@@ -155,7 +194,6 @@ function HomepageForm() {
             />
           </div>
 
-          {/* Swap Icon */}
           <FontAwesomeIcon
             icon={faRepeat}
             className={`absolute right-4 top-[34px] h-4 w-4 cursor-pointer rounded-lg bg-black p-1 text-white transition-transform duration-300 lg:static ${
@@ -164,7 +202,6 @@ function HomepageForm() {
             onClick={handleRotate}
           />
 
-          {/* Arrival */}
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3 text-[#8A8A8A]">
               <FontAwesomeIcon
@@ -183,9 +220,7 @@ function HomepageForm() {
           </div>
         </div>
 
-        {/* Date, Passengers, and Seat Class */}
         <div className="m-4 flex flex-col items-center justify-between gap-4 lg:m-8 lg:flex-row">
-          {/* Date Selection */}
           <div className="flex items-center gap-3 md:gap-6">
             <div className="flex items-center gap-3 text-[#8A8A8A]">
               <FontAwesomeIcon
@@ -220,7 +255,6 @@ function HomepageForm() {
                   disable={false}
                   prefillDate={filters.depDate}
                   change={(newDepDate) => {
-                    console.log("Updated DepDate:", newDepDate);
                     setFilters((prev) => ({ ...prev, depDate: newDepDate }));
                   }}
                 />
@@ -254,9 +288,9 @@ function HomepageForm() {
                 />
               ) : (
                 <DatePicker
-                  disable={false}
-                  change={(newDepDate) =>
-                    setFilters((prev) => ({ ...prev, depDate: newDepDate }))
+                  disable={filters.isArrival ? false : true}
+                  change={(newArrDate) =>
+                    setFilters((prev) => ({ ...prev, arrDate: newArrDate }))
                   }
                 />
               )}
@@ -268,7 +302,6 @@ function HomepageForm() {
               Pulang-Pergi?
             </p>
 
-            {/* Return Toggle */}
             <div
               className={`flex h-6 w-12 cursor-pointer items-center rounded-[20px] p-1 ${isToggleOn ? "bg-[#4B1979]" : "bg-gray-300"}`}
               onClick={handleToggle}
@@ -293,18 +326,13 @@ function HomepageForm() {
               className="block size-6 text-black opacity-60 md:hidden"
             />
 
-            {/* Passengers */}
             <div className="mr-3 md:mr-0">
               <p className="cursor-default select-none text-[#8A8A8A]">
                 Passenger
               </p>
               <Passengers
-                change={(newPassenger) =>
-                  setFilters((prev) => ({
-                    ...prev,
-                    totalPassengers: newPassenger,
-                  }))
-                }
+                change={handlePassengersChange}
+                prefillPassengers={prefillData?.totalPassengers}
               />
             </div>
             <div className="block w-6 md:hidden">
@@ -315,24 +343,18 @@ function HomepageForm() {
               />
             </div>
 
-            {/* Seat Class */}
             <div>
               <p className="cursor-default select-none text-[#8A8A8A]">
                 Seat Class
               </p>
               <Class
-                change={(newSeat) =>
-                  setFilters((prev) => ({
-                    ...prev,
-                    seatClass: newSeat,
-                  }))
-                }
+                change={handleSeatClassChange}
+                prefillClass={prefillData?.seatClass}
                 data={filters}
               />
             </div>
           </div>
         </div>
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full rounded-t-none bg-purple-700 py-3 font-bold text-white"
