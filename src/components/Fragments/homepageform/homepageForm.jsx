@@ -112,12 +112,7 @@ function HomepageForm({ prefillData }) {
       const response = await fetchFlights(filters);
 
       navigate("/ticket-list", {
-        state: {
-          departure: filters.depCity.input_value,
-          arrival: filters.arrCity.input_value,
-          passengers: filters.totalPassengers.length || 1,
-          seatClass: filters.seatClass || "Economy",
-        },
+        state: { filters },
       });
     } catch (error) {
       toast.error((t) => (
@@ -199,7 +194,7 @@ function HomepageForm({ prefillData }) {
           </span>
         </div>
 
-        <div className="relative mx-4 flex flex-col items-center justify-between rounded-xl border border-[#D1D3D4]  lg:mx-8 lg:flex-row lg:gap-4 lg:border-0 lg:py-0">
+        <div className="relative mx-4 flex flex-col items-center justify-between rounded-xl border border-[#D1D3D4] lg:mx-8 lg:flex-row lg:gap-4 lg:border-0 lg:py-0">
           <div className="relative flex items-center gap-6">
             <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-8 before:h-[1px] before:w-[83%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
               <FontAwesomeIcon
