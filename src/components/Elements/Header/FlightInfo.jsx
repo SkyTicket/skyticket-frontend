@@ -7,16 +7,15 @@ const FlightInfo = () => {
   const location = useLocation();
   const filters = location.state?.filters;
   const totalPassengers =
-    filters.totalPassengers[0] +
-    filters.totalPassengers[1] +
-    filters.totalPassengers[2];
+    filters?.totalPassengers[0] +
+    filters?.totalPassengers[1] +
+    filters?.totalPassengers[2];
   const data = {
-    departure: filters.depCity.input_value,
-    arrival: filters.arrCity.input_value,
+    departure: filters?.depCity.input_value,
+    arrival: filters?.arrCity.input_value,
     passengers: totalPassengers,
-    seatClass: filters.seatClass,
+    seatClass: filters?.seatClass,
   };
-  console.log(data);
 
   return (
     <div className="flex items-center gap-4 sm:gap-2">
