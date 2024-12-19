@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useFlightDetails } from "../../hooks/useFetchFlightDetails";
+import { useSearchParams } from "react-router-dom";
 
-const DetailFlight = (props) => {
+
+const DetailFlight = ( ) => {
+
   return (
     <div className="space-y-4">
       <div className="m-0 flex justify-between">
-        <span className="font-bold text-[#151515]">07:00</span>
+        <span className="font-bold text-[#151515]">07.00 </span>
         <span className="font-bold text-[#A06ECE]">Keberangkatan</span>
       </div>
       <div className="flex justify-between">

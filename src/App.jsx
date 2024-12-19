@@ -13,6 +13,8 @@ import TicketListPage from "./pages/TicketListPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import ResetPasswordPage from "./pages/ResetPaswordPage";
 import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";
+import FlightBooking  from "./pages/FlighBooking";
+import PaymentView from "./pages/Payment";
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/otp" element={<OtpPage />} />
+        <Route path="/testing" element={<FlightBooking />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/ticket-list" element={<TicketListPage />} />
@@ -35,6 +38,14 @@ function App() {
           element={
             <ProtectedRoute>
               <PageOrder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute>
+              <PaymentView />
             </ProtectedRoute>
           }
         />

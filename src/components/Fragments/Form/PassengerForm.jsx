@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import InputForm from "./InputForm";
+import { useForm } from "react-hook-form";
 
-const PassengerForm = ({ index }) => {
+const PassengerForm = ({ index, passenger, onChange, onRemove }) => {
   const [isActive, setIsActive] = useState(false);
+  const {register} = useForm()
 
   const handleToggle = () => {
     setIsActive(!isActive);
@@ -11,16 +13,15 @@ const PassengerForm = ({ index }) => {
   return (
     <div className="mt-4">
       <h3 className="mb-4 rounded-t-xl bg-[#3C3C3C] px-4 py-2 text-lg font-medium text-white">
-        Data Diri Penumpang {index + 1} - Adult
+        Data Diri Penumpang {index + 1}
       </h3>
 
       <InputForm
-        name={`passengers.${index}.first_name`}
         label="Nama Lengkap"
         placeholder="Masukkan nama depan Anda"
-        validation={{
-          required: "Nama Lengkap Wajib Diisi",
-        }}
+        {...register(`passengers.${index}.first_name`, {
+          required: "Nama Depan Wajib diisi"
+        })}
       />
 
       <div className="mb-4 flex justify-between">
@@ -42,41 +43,40 @@ const PassengerForm = ({ index }) => {
       </div>
 
       <InputForm
-        name={`passengers.${index}.last_name`}
         label="Nama Keluarga"
+        {...register(`passengers.${index}.last_name`, {
+          required: "Nama Keluarga Wajib diisi"
+        })}
         placeholder="Masukkan nama keluarga Anda"
-        validation={{}}
       />
 
       <InputForm
         name={`passengers.${index}.birth_date`}
         label="Tanggal Lahir"
         type="date"
-        validation={{
-          required: "Wajib Diisi",
+        {...register(`passengers.${index}.birth_date`, {
+          required: "Wajib diisi",
           max: {
             value: new Date().toISOString().split("T")[0],
             message: "Invalid birth date",
-          },
-        }}
+          }
+        })}
       />
 
       <InputForm
-        name={`passengers.${index}.nationality`}
         label="Kewarganegaraan"
         placeholder="Ex: Indonesia"
-        validation={{
-          required: "Wajib Diisi",
-        }}
+        {...register(`passengers.${index}.nationality`, {
+          required: "Wajib diisi"
+        })}
       />
 
       <InputForm
-        name={`passengers.${index}.nationality`}
         label="KTP/Paspor"
         placeholder=""
-        validation={{
-          required: "Wajib Diisi",
-        }}
+        {...register(`passengers.${index}.identityNumber`, {
+          required: "Nama Keluarga Wajib diisi"
+        })}
       />
 
       <div className="mb-4 flex flex-col">
@@ -92,7 +92,9 @@ const PassengerForm = ({ index }) => {
       </div>
 
       <InputForm
-        name={`passengers.${index}.birth_date`}
+        {...register(`passengers.${index}.identityNumber`, {
+          required: "Nama Keluarga Wajib diisi"
+        })}
         label="Berlaku Sampai"
         type="date"
       />

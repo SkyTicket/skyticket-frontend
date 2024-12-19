@@ -41,7 +41,7 @@ function DetFlight({ flight }) {
         </div>
         <p className="absolute right-0 top-0 font-bold text-purple-500">
           Kedatangan
-        </p>
+        </p> 
       </div>
     </>
   );
