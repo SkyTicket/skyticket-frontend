@@ -82,7 +82,7 @@ function HomepageForm({ prefillData }) {
   const handleSubmit = async () => {
     try {
       if (!filters.depCity || Object.keys(filters.depCity).length === 0) {
-        throw new Error("Silakan pilih kota keberangkatan Anda");
+        throw new Error("Silakan pilih kota keberangkatan Anda.");
       }
       if (!filters.arrCity || Object.keys(filters.arrCity).length === 0) {
         throw new Error("Silakan pilih kota kedatangan Anda.");
