@@ -75,117 +75,98 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
 
   return (
 
-  <div className="mb-6">
-    <h3 className="text-lg font-semibold mb-4">Select Seats</h3>
-    <div className="grid grid-cols-4 gap-2">
-      {availableSeats.map((seat) => (
-        <button
-          key={seat.id}
-          onClick={() => onSeatSelect(seat)}
-          className={`p-2 border rounded ${
-            selectedSeats.find(s => s.id === seat.id)
-              ? 'bg-blue-500 text-white'
-              : 'hover:bg-gray-100'
-          }`}
-        >
-          Seat {seat.id}
-        </button>
-      ))}
-    </div>
-  </div>
 
 
+    <div className="w-full max-w-2xl rounded-lg border border-gray-300">
+      <div className="p-6">
+        <h2 className="mb-6 text-xl font-bold text-black">Pilih Kursi</h2>
+        <div className="mb-8 rounded-lg bg-[#73CA5C] p-4 text-center text-white">
+          <h3 className="font-medium">Economy - 64 Seats Available</h3>
+        </div>
 
-    // <div className="w-full max-w-2xl rounded-lg border border-gray-300">
-    //   <div className="p-6">
-    //     <h2 className="mb-6 text-xl font-bold text-black">Pilih Kursi</h2>
-    //     <div className="mb-8 rounded-lg bg-[#73CA5C] p-4 text-center text-white">
-    //       <h3 className="font-medium">Economy - 64 Seats Available</h3>
-    //     </div>
+        <div className="mb-8 flex justify-center">
+          <div className="grid gap-2">
+            {/* Column headers */}
+            <div className="grid grid-cols-7 gap-2">
+              <div className="col-span-3 grid grid-cols-3">
+                {leftColumns.map((col) => (
+                  <div
+                    key={col}
+                    className="text-center font-medium text-[#8A8A8A]"
+                  >
+                    {col}
+                  </div>
+                ))}
+              </div>
+              <div />
+              <div className="col-span-3 grid grid-cols-3">
+                {rightColumns.map((col) => (
+                  <div
+                    key={col}
+                    className="text-center font-medium text-[#8A8A8A]"
+                  >
+                    {col}
+                  </div>
+                ))}
+              </div>
+            </div>
 
-    //     <div className="mb-8 flex justify-center">
-    //       <div className="grid gap-2">
-    //         {/* Column headers */}
-    //         <div className="grid grid-cols-7 gap-2">
-    //           <div className="col-span-3 grid grid-cols-3">
-    //             {leftColumns.map((col) => (
-    //               <div
-    //                 key={col}
-    //                 className="text-center font-medium text-[#8A8A8A]"
-    //               >
-    //                 {col}
-    //               </div>
-    //             ))}
-    //           </div>
-    //           <div />
-    //           <div className="col-span-3 grid grid-cols-3">
-    //             {rightColumns.map((col) => (
-    //               <div
-    //                 key={col}
-    //                 className="text-center font-medium text-[#8A8A8A]"
-    //               >
-    //                 {col}
-    //               </div>
-    //             ))}
-    //           </div>
-    //         </div>
+            {rows.map((row) => (
+              <div key={row} className="grid grid-cols-7 gap-2">
+                <div className="col-span-3 grid grid-cols-3 gap-2">
+                  {leftColumns.map((col) => {
+                    const seatId = `${col}${row}`;
+                    return (
+                      <button
+                        key={seatId}
+                        type="button"
+                        className={`flex h-10 w-10 items-center justify-center rounded-lg text-base font-medium text-white transition-colors ${getSeatColor(
+                          seatId,
+                        )}`}
+                        onClick={() => handleSeatSelect(seatId)}
+                        disabled={
+                          unavailableSeats.has(seatId) || specialSeats[seatId]
+                        }
+                      >
+                        {unavailableSeats.has(seatId)
+                          ? "X"
+                          : specialSeats[seatId] || seatId}
+                      </button>
+                    );
+                  })}
+                </div>
 
-    //         {rows.map((row) => (
-    //           <div key={row} className="grid grid-cols-7 gap-2">
-    //             <div className="col-span-3 grid grid-cols-3 gap-2">
-    //               {leftColumns.map((col) => {
-    //                 const seatId = `${col}${row}`;
-    //                 return (
-    //                   <button
-    //                     key={seatId}
-    //                     type="button"
-    //                     className={`flex h-10 w-10 items-center justify-center rounded-lg text-base font-medium text-white transition-colors ${getSeatColor(
-    //                       seatId,
-    //                     )}`}
-    //                     onClick={() => handleSeatSelect(seatId)}
-    //                     disabled={
-    //                       unavailableSeats.has(seatId) || specialSeats[seatId]
-    //                     }
-    //                   >
-    //                     {unavailableSeats.has(seatId)
-    //                       ? "X"
-    //                       : specialSeats[seatId] || seatId}
-    //                   </button>
-    //                 );
-    //               })}
-    //             </div>
+                <div className="flex items-center justify-center rounded-md text-xs font-semibold text-[#8A8A8A]">
+                  {row}
+                </div>
 
-    //             <div className="flex items-center justify-center rounded-md text-xs font-semibold text-[#8A8A8A]">
-    //               {row}
-    //             </div>
-
-    //             <div className="col-span-3 grid grid-cols-3 gap-2">
-    //               {rightColumns.map((col) => {
-    //                 const seatId = `${col}${row}`;
-    //                 return (
-    //                   <button
-    //                     key={seatId}
-    //                     type="button"
-    //                     className={`flex h-10 w-10 items-center justify-center rounded-lg text-base font-medium text-white transition-colors ${getSeatColor(
-    //                       seatId,
-    //                     )}`}
-    //                     onClick={() => handleSeatSelect(seatId)}
-    //                     disabled={
-    //                       unavailableSeats.has(seatId) || specialSeats[seatId]
-    //                     }
-    //                   >
-    //                     {unavailableSeats.has(seatId)
-    //                       ? "X"
-    //                       : specialSeats[seatId] || seatId}
-    //                   </button>
-    //                 );
-    //               })}
-    //             </div>
-    //           </div>
-    //         ))}
-    //       </div>
-    //     </div>
-    //   </div>
+                <div className="col-span-3 grid grid-cols-3 gap-2">
+                  {rightColumns.map((col) => {
+                    const seatId = `${col}${row}`;
+                    return (
+                      <button
+                        key={seatId}
+                        type="button"
+                        className={`flex h-10 w-10 items-center justify-center rounded-lg text-base font-medium text-white transition-colors ${getSeatColor(
+                          seatId,
+                        )}`}
+                        onClick={() => handleSeatSelect(seatId)}
+                        disabled={
+                          unavailableSeats.has(seatId) || specialSeats[seatId]
+                        }
+                      >
+                        {unavailableSeats.has(seatId)
+                          ? "X"
+                          : specialSeats[seatId] || seatId}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     // </div>
   );
 };

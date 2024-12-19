@@ -1,8 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function AccordionBox({ onclickHandler, flight, isOpen }) {
+  const [search] = useSearchParams()
+  const adult = search.get('adult')
+  const child = search.get('child')
+  const baby = search.get('baby')
+
   const navigate = useNavigate();
   return (
     <>
@@ -65,7 +70,7 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
             </div>
             <button
               className="hidden rounded-lg bg-purple-700 px-7 py-1 text-white md:block"
-              onClick={() => navigate("/order-ticket")}
+              onClick={() => navigate(`/order-ticket?flight-id=${flight.flight_id}&adult=${adult}&child=${child}&baby=${baby}`)}
             >
               Pilih
             </button>

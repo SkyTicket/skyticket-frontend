@@ -8,10 +8,35 @@ import SelectSeat from "../components/Fragments/Form/SelectSeat";
 import CustomerForm from "../components/Fragments/Form/CustomerForm";
 import DetailFlight from "../components/Fragments/DetailFlight";
 import { useTicketBooking } from '../hooks/useTicketBooking';
+import toast from "react-hot-toast";
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext, useEffect } from "react";
+// import { flightDetailService } from "../services/flightsService";
+
 
 const PageOrder = () => {
 
     const navigate = useNavigate();
+    const [flightsData, setFlightsData] = useState(null);
+    const [errors, setErrors] = useState(null);
+
+    useEffect(() =>{
+      const fetchDetail = async () => {
+        try {
+          const response = await flightDetailService(flightId)
+          if (response.status === 200) {
+            setFlightsData(response.flights)
+          } else {
+            setErrors(response)
+          }
+        } catch (error) {
+          setErrors(error.message)
+        }
+      }
+
+      fetchDetail()
+    }, [flightId])
+
     const { createTicketOrder, isLoading, error, bookingResult } = useTicketBooking();
     const [passengers, setPassengers] = useState([
       {
@@ -76,12 +101,18 @@ const PageOrder = () => {
         setSelectedSeats([...selectedSeats, seat]);
       }
     };
+
+    const { userId } = useContext(AuthContext);
+
+    useEffect(() => {
+      console.log("Current User ID:", userId);
+    }, [userId]);
   
     const handleSubmit = async (e) => {
       e.preventDefault();
       
       if (selectedSeats.length !== passengers.length) {
-        alert('Please select seats for all passengers');
+        toast('Please select seats for all passengers');
         return;
       }
   
@@ -89,7 +120,7 @@ const PageOrder = () => {
         const result = await createTicketOrder({
           seats: selectedSeats,
           passengers,
-          userId: 'user123', // This should come from your auth context/state
+          userId, // This should come from your auth context/state
           ...bookerData,
         });
         
@@ -152,7 +183,9 @@ const PageOrder = () => {
       <Progress className="" />
       <FormProvider {...methods}>
         <div className="mx-auto max-w-7xl p-4">
-          <form className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <form
+          onSubmit={handleSubmit} 
+          className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div className="space-y-6">
               {/* Rest of your existing form components */}
               <div className="rounded-lg border bg-white p-6">
@@ -190,7 +223,7 @@ const PageOrder = () => {
                 <h2 className="mb-4 text-lg font-bold text-[#151515]">
                   Detail Penerbangan
                 </h2>
-                <DetailFlight />
+                <DetailFlight data={flightsData} />
               </div>
 
               <div className="mx-auto w-[95%]">

@@ -68,8 +68,20 @@ function HomepageForm() {
       }
 
       const response = await fetchFlights(filters);
-
-      navigate("/ticket-list", { state: { filters } });
+      console.log(filters)
+      const params = new URLSearchParams({
+        depCity: filters.depCity,
+        arrCity: filters.arrCity,
+        depDate: filters.depDate,
+        isArrival: filters.isArrival,
+        isRotated: filters.isRotated,
+        seatClass: filters.seatClass,
+        adult: filters.totalPassengers[0],
+        child: filters.totalPassengers[1], 
+        baby: filters.totalPassengers[2]
+      });
+      
+      navigate(`/ticket-list?${params}`, { state: { filters } });
     } catch (error) {
       toast.error((t) => (
         <div

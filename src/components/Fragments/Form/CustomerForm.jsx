@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import InputForm from "./InputForm";
+import { useForm } from "react-hook-form";
 
 
 const CustomerForm = ({ bookerData, onChange }) => {
   const [isActive, setIsActive] = useState(false);
+  const {register} = useForm()
 
   const handleToggle = () => {
     setIsActive(!isActive);
@@ -19,10 +21,9 @@ const CustomerForm = ({ bookerData, onChange }) => {
         label="Nama Lengkap"
         placeholder="Masukkan nama lengkap Anda"
         onChange={(e) => onChange('bookerName', e.target.value)}
-        name={bookerData.bookerName}
-        validation={{
-          required: "Nama Lengkap Wajib Diisi",
-        }}
+        {...register("bookerName", {
+          required: "Nama Lengkap Wajib diisi"
+        })}
       />
 
       <div className="mb-4 flex justify-between">
@@ -52,30 +53,28 @@ const CustomerForm = ({ bookerData, onChange }) => {
       <InputForm
         label="Nomor Telepon"
         placeholder="Ex: 081234567890"
-        name={bookerData.bookerPhone}
         onChange={(e) => onChange('bookerPhone', e.target.value)}
-        validation={{
+        {...register("bookerPhone", {
           required: "Phone number is required",
           pattern: {
             value: /^[0-9]+$/,
             message: "Invalid phone number",
-          },
-        }}
+          }
+        })}
       />
 
       <InputForm
         label="Email"
         type="email"
         placeholder="Ex: email@example.com"
-        name={bookerData.bookerEmail}
-        onChange={(e) => onChange('bookerEmail', e.target.value)}
-        validation={{
+        {...register("bookerEmail", {
           required: "Email is required",
           pattern: {
             value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             message: "Invalid email address",
-          },
-        }}
+          }
+        })}
+        onChange={(e) => onChange('bookerEmail', e.target.value)}
       />
     </div>
   );

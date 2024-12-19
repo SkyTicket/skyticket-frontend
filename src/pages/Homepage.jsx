@@ -6,6 +6,8 @@ import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
 import useFavoriteDestination from "../hooks/useFavoriteDestination";
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext, useEffect } from "react";
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
@@ -15,6 +17,11 @@ const HomePage = () => {
     page,
     continent,
   );
+  const { userId } = useContext(AuthContext);
+  
+      useEffect(() => {
+        console.log("Current User ID:", userId);
+      }, [userId]);
 
   return (
     <>
