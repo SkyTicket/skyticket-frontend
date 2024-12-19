@@ -1,28 +1,14 @@
 import React, { useEffect } from "react";
 import { useFlightDetails } from "../../hooks/useFetchFlightDetails";
+import { useSearchParams } from "react-router-dom";
 
 
-const DetailFlight = ( flight ) => {
-  const { 
-    flightDetails, 
-    loading, 
-    error 
-  } = useFlightDetails({
-    flightId: 'flight123',
-    seatClass: 'ECONOMY',
-    adult: 2,
-    child: 1,
-    baby: 0
-  });
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!flightDetails) return <div>No flight details available</div>;
+const DetailFlight = ( ) => {
 
   return (
     <div className="space-y-4">
       <div className="m-0 flex justify-between">
-        <span className="font-bold text-[#151515]">{flight.departure_time}</span>
+        <span className="font-bold text-[#151515]">07.00 </span>
         <span className="font-bold text-[#A06ECE]">Keberangkatan</span>
       </div>
       <div className="flex justify-between">

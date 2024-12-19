@@ -17,25 +17,9 @@ import { useContext, useEffect } from "react";
 const PageOrder = () => {
 
     const navigate = useNavigate();
-    const [flightsData, setFlightsData] = useState(null);
     const [errors, setErrors] = useState(null);
 
-    useEffect(() =>{
-      const fetchDetail = async () => {
-        try {
-          const response = await flightDetailService(flightId)
-          if (response.status === 200) {
-            setFlightsData(response.flights)
-          } else {
-            setErrors(response)
-          }
-        } catch (error) {
-          setErrors(error.message)
-        }
-      }
-
-      fetchDetail()
-    }, [flightId])
+    
 
     const { createTicketOrder, isLoading, error, bookingResult } = useTicketBooking();
     const [passengers, setPassengers] = useState([
@@ -68,6 +52,29 @@ const PageOrder = () => {
       newPassengers[index] = { ...newPassengers[index], [field]: value };
       setPassengers(newPassengers);
     };
+
+    const [timeLeft, setTimeLeft] = useState(15 * 60);
+
+    useEffect(() => {
+        if (timeLeft <= 0) {
+            navigate("/");
+            return;
+        }
+
+        const timer = setInterval(() => {
+            setTimeLeft((prev) => prev - 1);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [timeLeft, navigate]);
+
+    const formatTime = (seconds) => {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${String(Math.floor(mins / 60)).padStart(2, "0")}:${String(
+          mins % 60
+      ).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+  };
   
     const handleRemovePassenger = (index) => {
       setPassengers(passengers.filter((_, i) => i !== index));
@@ -125,6 +132,7 @@ const PageOrder = () => {
         });
         
         console.log('Booking successful:', result);
+        navigate("/payment")
       } catch (err) {
         console.error('Booking failed:', err);
       }
@@ -180,7 +188,10 @@ const PageOrder = () => {
   return (
     <>
       <Navbar />
-      <Progress className="" />
+      <Progress className=""/>
+      <div className="text-white bg-red-500 p-2 rounded-lg text-center">
+          Selesaikan dalam {formatTime(timeLeft)}
+      </div>
       <FormProvider {...methods}>
         <div className="mx-auto max-w-7xl p-4">
           <form
@@ -223,12 +234,12 @@ const PageOrder = () => {
                 <h2 className="mb-4 text-lg font-bold text-[#151515]">
                   Detail Penerbangan
                 </h2>
-                <DetailFlight data={flightsData} />
+                <DetailFlight />
               </div>
 
               <div className="mx-auto w-[95%]">
                 <button
-                  type="submit"
+                  onClick= {() => handleSubmit}
                   className="w-full rounded-lg bg-red-500 px-4 py-3 text-white transition-colors hover:bg-red-600"
                 >
                   Lanjut Bayar

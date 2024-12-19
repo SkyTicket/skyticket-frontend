@@ -1,3 +1,4 @@
+import { children } from "react";
 import { MdNavigateNext } from "react-icons/md";
 
 const Progress = (props) => {
@@ -14,6 +15,9 @@ const Progress = (props) => {
           <MdNavigateNext className="text-[#8A8A8A]" />
         </span>
         <span className={`${progress3} mb-4`}>Selesai</span>
+      </div>
+      <div>
+        {children}
       </div>
     </div>
   );

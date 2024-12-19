@@ -6,6 +6,7 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
   const [search] = useSearchParams()
   const adult = search.get('adult')
   const child = search.get('child')
+  const seatClass = search.get('seatClass')
   const baby = search.get('baby')
 
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ function AccordionBox({ onclickHandler, flight, isOpen }) {
             </div>
             <button
               className="hidden rounded-lg bg-purple-700 px-7 py-1 text-white md:block"
-              onClick={() => navigate(`/order-ticket?flight-id=${flight.flight_id}&adult=${adult}&child=${child}&baby=${baby}`)}
+              onClick={() => navigate(`/order-ticket?flightId=${flight.flight_id}&seatClass=${seatClass}&adult=${adult}&child=${child}&baby=${baby}`)}
             >
               Pilih
             </button>

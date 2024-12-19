@@ -14,6 +14,7 @@ import NotificationsPage from "./pages/NotificationsPage";
 import ResetPasswordPage from "./pages/ResetPaswordPage";
 import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";
 import FlightBooking  from "./pages/FlighBooking";
+import PaymentView from "./pages/Payment";
 
 function App() {
   return (
@@ -37,6 +38,14 @@ function App() {
           element={
             <ProtectedRoute>
               <PageOrder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute>
+              <PaymentView />
             </ProtectedRoute>
           }
         />
