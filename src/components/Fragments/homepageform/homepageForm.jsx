@@ -110,7 +110,6 @@ function HomepageForm({ prefillData }) {
       }
 
       const response = await fetchFlights(filters);
-      console.log(filters)
       const params = new URLSearchParams({
         depCity: filters.depCity,
         arrCity: filters.arrCity,
@@ -119,10 +118,10 @@ function HomepageForm({ prefillData }) {
         isRotated: filters.isRotated,
         seatClass: filters.seatClass,
         adult: filters.totalPassengers[0],
-        child: filters.totalPassengers[1], 
-        baby: filters.totalPassengers[2]
+        child: filters.totalPassengers[1],
+        baby: filters.totalPassengers[2],
       });
-      
+
       navigate(`/ticket-list?${params}`, { state: { filters } });
     } catch (error) {
       toast.error((t) => (
@@ -205,8 +204,8 @@ function HomepageForm({ prefillData }) {
         </div>
 
         <div className="relative mx-4 flex flex-col items-center justify-between rounded-xl border border-[#D1D3D4] lg:mx-8 lg:flex-row lg:gap-4 lg:border-0 lg:py-0">
-          <div className="relative flex items-center gap-6">
-            <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-8 before:h-[1px] before:w-[83%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
+          <div className="relative flex items-center justify-center gap-6">
+            <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-12 before:h-[1px] before:w-[73%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
               <FontAwesomeIcon
                 icon={faPlaneDeparture}
                 className="size-6 text-black opacity-60"
@@ -225,12 +224,18 @@ function HomepageForm({ prefillData }) {
           <FontAwesomeIcon
             icon={faRepeat}
             className={`absolute right-4 top-[46px] h-4 w-4 cursor-pointer rounded-lg bg-black p-1 text-white transition-transform duration-300 lg:static ${
-              filters.isRotated ? "rotate-180" : "rotate-0"
+              isMobile
+                ? filters.isRotated
+                  ? "-rotate-90"
+                  : "rotate-90"
+                : filters.isRotated
+                  ? "rotate-180"
+                  : "rotate-0"
             }`}
             onClick={handleRotate}
           />
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center justify-center gap-6">
             <div className="flex items-center gap-3 text-[#8A8A8A]">
               <FontAwesomeIcon
                 icon={faPlaneArrival}
@@ -383,7 +388,7 @@ function HomepageForm({ prefillData }) {
             </div>
           </div>
         </div>
-        
+
         <button
           type="submit"
           className="w-full rounded-t-none bg-purple-700 py-3 font-bold text-white"

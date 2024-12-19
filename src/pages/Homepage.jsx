@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 import Button from "../components/Elements/Button/Button";
 import Card from "../components/Fragments/Card/Card";
 import Navbar from "../components/Fragments/Navbar/Navbar";
@@ -16,10 +17,10 @@ const HomePage = () => {
     continent,
   );
   const { userId } = useContext(AuthContext);
-  
-      useEffect(() => {
-        console.log("Current User ID:", userId);
-      }, [userId]);
+
+  useEffect(() => {
+    console.log("Current User ID:", userId);
+  }, [userId]);
 
   const handleCardClick = async (url, destinationData) => {
     try {
