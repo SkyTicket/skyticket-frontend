@@ -13,11 +13,7 @@ import Navbar from "../components/Fragments/Navbar/Navbar";
 import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
 import { fetchFlights } from "../services/flightsService";
 import Pagination from "../components/Fragments/Pagination/Pagination";
-import {
-
-  faFilter,
-
-} from "@fortawesome/free-solid-svg-icons";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const TicketListPage = () => {
@@ -142,7 +138,6 @@ const TicketListPage = () => {
           </div>
         ) : null}
 
-       
         {isSidebarOpen && isMobile && (
           <div className="fixed inset-0 z-50 flex items-center justify-center pt-96">
             {/* Overlay */}
@@ -150,8 +145,8 @@ const TicketListPage = () => {
               className="absolute inset-0 bg-black bg-opacity-50"
               onClick={() => setIsSidebarOpen(false)}
             ></div>
-    
-            <div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg pb-44">
+
+            <div className="relative w-full max-w-md rounded-lg bg-white p-6 pb-44 shadow-lg">
               {/* Close Button */}
               <button
                 onClick={() => setIsSidebarOpen(false)}
