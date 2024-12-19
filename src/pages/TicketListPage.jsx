@@ -120,6 +120,9 @@ const TicketListPage = () => {
           <FilterModal
             onFilterSubmit={handleFilterSelect}
             onClose={closeModal}
+            onSubmit={(newSortBy) =>
+              setFilters((prev) => ({ ...prev, sortBy: newSortBy }))
+            }
           />
         )}
 

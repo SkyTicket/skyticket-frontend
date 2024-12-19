@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const FilterModal = ({ onFilterSubmit, onClose }) => {
+const FilterModal = ({ onFilterSubmit, onClose, onSubmit }) => {
   const [selectedFilter, setSelectedFilter] = useState(null);
   const navigate = useNavigate();
 
@@ -11,8 +11,8 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
 
   const handleSubmit = () => {
     onFilterSubmit(selectedFilter);
+    onSubmit(selectedFilter);
     onClose();
-    navigate("/ticket-list");
   };
 
   return (
