@@ -37,7 +37,6 @@ function SetDestination({ close, setCity }) {
     setAirports((prevAirports) =>
       prevAirports.filter((air, index) => index !== id),
     );
-    console.log(id);
   };
 
   return (
@@ -75,7 +74,7 @@ function SetDestination({ close, setCity }) {
             Hapus
           </p>
         </div>
-        <div className="max-h-[210px] overflow-scroll">
+        <div className="max-h-[210px] overflow-y-scroll">
           {airport?.map((air, index) => (
             <div
               key={index}
