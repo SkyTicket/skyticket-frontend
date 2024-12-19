@@ -14,11 +14,9 @@ import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
 import { fetchFlights } from "../services/flightsService";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 import {
-  faAnchorLock,
-  faBus,
-  faDollarSign,
+
   faFilter,
-  faHeart,
+
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
