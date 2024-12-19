@@ -26,9 +26,22 @@ function Class({ change, data, prefillClass }) {
         const response = await fetchClassPrice(data);
         setClassData(response);
       } catch (err) {
-        console.log(err);
+        const status = err?.response?.message;
+
+        let errorMessage = "An unexpected error occurred.";
+        if (status.line_1) {
+          errorMessage = "findNoResult";
+        } else {
+          errorMessage = "notFilled";
+        }
+
+        setClassData((prev) => ({
+          ...prev,
+          message: errorMessage,
+        }));
       }
     };
+
     if (showSetClass) {
       fetchData();
     }
