@@ -14,9 +14,9 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
     onClose();
     navigate("/ticket-list");
   };
-  
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50 pt-96 sm:pt-0">
       <div className="w-80 divide-y-2 rounded-lg bg-white shadow-lg">
         {/* Modal Header */}
         <div className="flex items-center justify-between rounded-t-lg bg-white px-1 py-4">

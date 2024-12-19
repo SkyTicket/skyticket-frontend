@@ -14,6 +14,7 @@ const Button = ({
   width,
   height,
   className,
+  isMobile = false,
 }) => {
   const baseStyles = `flex h-12 items-center justify-center gap-2 text-center shadow-lg focus:outline-none focus:ring transition-colors duration-300`;
 
@@ -29,11 +30,13 @@ const Button = ({
     lg: "min-w-[150px] max-w-[968px]",
   };
 
+  const visibilityClass = isMobile ? "hidden md:flex" : "";
+
   return (
     <button
       type={type}
       onClick={onClick}
-      className={`${baseStyles} ${colorStyles[color]} ${widthStyles[width]} ${height} ${className}`}
+      className={`${baseStyles} ${colorStyles[color]} ${widthStyles[width]} ${height} ${visibilityClass} ${className}`}
     >
       {buttonIcon[type] && (
         <span className="flex items-center">{buttonIcon[type]}</span>

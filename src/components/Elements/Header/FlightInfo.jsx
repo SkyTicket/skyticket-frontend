@@ -13,16 +13,16 @@ const FlightInfo = () => {
   };
 
   return (
-    <div className="flex items-center gap-4 sm:gap-2 w-full">
+    <div className="flex items-center gap-4 sm:gap-2">
       <Link to="/">
-        <button className="rounded-lg bg-transparent px-2 py-1 sm:px-4 sm:py-2 text-white shadow-md hover:text-gray-500">
+        <button className="bg-transparent px-2 py-1 text-white shadow-md hover:text-gray-500 sm:px-4 sm:py-2">
           <FontAwesomeIcon
             icon={faArrowLeft}
-            className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-6 lg:w-4 hover:cursor-pointer"
+            className="h-4 w-4 hover:cursor-pointer sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-6 lg:w-4"
           />
         </button>
       </Link>
-      <span className="font-semibold text-white text-sm sm:text-base md:text-lg lg:text-l">
+      <span className="md:text-md text-xs font-semibold text-white sm:text-sm lg:text-lg relative">
         {`${departure} > ${arrival} - ${passengers} Penumpang - ${seatClass}`}
       </span>
     </div>

@@ -13,6 +13,14 @@ import Navbar from "../components/Fragments/Navbar/Navbar";
 import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
 import { fetchFlights } from "../services/flightsService";
 import Pagination from "../components/Fragments/Pagination/Pagination";
+import {
+  faAnchorLock,
+  faBus,
+  faDollarSign,
+  faFilter,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const TicketListPage = () => {
   const location = useLocation();
@@ -22,6 +30,16 @@ const TicketListPage = () => {
   const [flightsData, setFlightsData] = useState(null);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [selectedFilterText, setSelectedFilterText] = useState("Termurah");
+  const [isMobile, setIsMobile] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     setFilters(location.state?.filters || {});
@@ -67,19 +85,22 @@ const TicketListPage = () => {
 
   return (
     <>
-      <Navbar showLoginButton={true} />
+      <Navbar showLoginButton={true} isMobile={true} />
       <div className="mx-auto max-w-7xl px-4 py-6">
-        <p className="py-6 text-2xl font-semibold text-black">
+        <p className="py-6 pt-0 text-xl font-semibold text-black sm:pt-6 sm:text-2xl md:pt-8">
           Pilih Penerbangan
         </p>
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+
+        <div className="mt-0 flex w-full flex-col items-center justify-between gap-4 md:flex-row">
           <Link
             to="/"
-            className="flex h-14 w-full items-center gap-4 rounded-xl bg-[#A06ECE] px-4 py-3 text-white"
+            className="flex h-14 w-screen items-center gap-4 bg-[#A06ECE] px-2 py-3 text-white sm:rounded-none sm:px-0 sm:pt-0 md:rounded-xl md:px-4 md:pt-3"
           >
             <FlightInfo />
           </Link>
+
           <Button
+            isMobile={true}
             color="green"
             className="h-14 w-full rounded-xl font-semibold md:w-1/3"
             type=""
@@ -108,6 +129,89 @@ const TicketListPage = () => {
           />
         )}
 
+        {isMobile ? (
+          <div className="fixed bottom-24 mb-96 flex items-center py-1">
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="flex items-center gap-2 rounded-2xl border-2 border-gray-400 bg-transparent px-2 py-1 text-gray-400 hover:bg-purple-100"
+            >
+              <FontAwesomeIcon
+                icon={faFilter}
+                className="h-3 w-4 text-gray-400"
+              />
+              <span>Filter</span>
+            </button>
+          </div>
+        ) : null}
+
+       
+        {isSidebarOpen && isMobile && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center pt-96">
+            {/* Overlay */}
+            <div
+              className="absolute inset-0 bg-black bg-opacity-50"
+              onClick={() => setIsSidebarOpen(false)}
+            ></div>
+    
+            <div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg pb-44">
+              {/* Close Button */}
+              <button
+                onClick={() => setIsSidebarOpen(false)}
+                className="absolute right-4 top-4 bg-transparent text-gray-500 hover:text-black"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
+              <h3 className="mb-4 text-lg font-medium text-black">Filter</h3>
+              <div className="divide-y">
+                <FilterItem
+                  label="Transit"
+                  icon={
+                    <img
+                      src="/src/assets/icons/box.svg"
+                      alt="Transit Icon"
+                      className="h-5 w-5"
+                    />
+                  }
+                />
+                <FilterItem
+                  label="Fasilitas"
+                  icon={
+                    <img
+                      src="/src/assets/icons/heart.svg"
+                      alt="Facility Icon"
+                      className="h-5 w-5"
+                    />
+                  }
+                />
+                <FilterItem
+                  label="Harga"
+                  icon={
+                    <img
+                      src="/src/assets/icons/dollar-sign.svg"
+                      alt="Price Icon"
+                      className="h-5 w-5"
+                    />
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="flex justify-center">
           <div className="flex w-full justify-center md:mt-6 md:justify-between">
             <aside className="hidden w-[300px] text-black md:block">
@@ -119,6 +223,7 @@ const TicketListPage = () => {
                 <div className="divide-y">
                   <FilterItem
                     label="Transit"
+                    isMobile={isMobile}
                     icon={
                       <img
                         src="/src/assets/icons/box.svg"
@@ -128,6 +233,8 @@ const TicketListPage = () => {
                     }
                   />
                   <FilterItem
+                    label="Fasilitas"
+                    isMobile={isMobile}
                     icon={
                       <img
                         src="/src/assets/icons/heart.svg"
@@ -135,9 +242,10 @@ const TicketListPage = () => {
                         className="h-5 w-5"
                       />
                     }
-                    label="Fasilitas"
                   />
                   <FilterItem
+                    label="Harga"
+                    isMobile={isMobile}
                     icon={
                       <img
                         src="/src/assets/icons/dollar-sign.svg"
@@ -145,7 +253,6 @@ const TicketListPage = () => {
                         className="h-5 w-5"
                       />
                     }
-                    label="Harga"
                   />
                 </div>
               </div>
