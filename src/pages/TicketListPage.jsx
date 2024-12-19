@@ -174,7 +174,7 @@ const TicketListPage = () => {
                   label="Transit"
                   icon={
                     <img
-                      src="/src/assets/icons/box.svg"
+                      src="/public/assets/icons/box.svg"
                       alt="Transit Icon"
                       className="h-5 w-5"
                     />
@@ -184,7 +184,7 @@ const TicketListPage = () => {
                   label="Fasilitas"
                   icon={
                     <img
-                      src="/src/assets/icons/heart.svg"
+                      src="/public/assets/icons/heart.svg"
                       alt="Facility Icon"
                       className="h-5 w-5"
                     />
@@ -194,7 +194,7 @@ const TicketListPage = () => {
                   label="Harga"
                   icon={
                     <img
-                      src="/src/assets/icons/dollar-sign.svg"
+                      src="/public/assets/icons/dollar-sign.svg"
                       alt="Price Icon"
                       className="h-5 w-5"
                     />
@@ -219,7 +219,7 @@ const TicketListPage = () => {
                     isMobile={isMobile}
                     icon={
                       <img
-                        src="/src/assets/icons/box.svg"
+                        src="/public/assets/icons/box.svg"
                         alt="Transit Icon"
                         className="h-5 w-5"
                       />
@@ -230,7 +230,7 @@ const TicketListPage = () => {
                     isMobile={isMobile}
                     icon={
                       <img
-                        src="/src/assets/icons/heart.svg"
+                        src="/public/assets/icons/heart.svg"
                         alt="Facility Icon"
                         className="h-5 w-5"
                       />
@@ -241,7 +241,7 @@ const TicketListPage = () => {
                     isMobile={isMobile}
                     icon={
                       <img
-                        src="/src/assets/icons/dollar-sign.svg"
+                        src="/public/assets/icons/dollar-sign.svg"
                         alt="Price Icon"
                         className="h-5 w-5"
                       />

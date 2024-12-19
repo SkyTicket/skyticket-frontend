@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import DynamicBanner from "../components/Elements/Banner/DynamicBanner";
-import SkyTicketBanner from "../assets/images/skyticket-banner.png";
+import SkyTicketBanner from "../../public/assets/images/skyticket-banner.png";
 import Logo from "../components/Elements/Logo/Logo";
 import LoginForm from "../components/Fragments/Form/LoginForm";
 import { useAuth } from "../contexts/AuthContext";

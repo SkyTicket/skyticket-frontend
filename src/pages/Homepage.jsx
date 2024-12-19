@@ -127,7 +127,7 @@ const HomePage = () => {
           <div className="flex flex-col items-center justify-center p-5 text-center">
             <img
               alt="Favorite Destination Not Found"
-              src="/src/assets/icons/purple-person-not-found.svg"
+              src="/public/assets/icons/purple-person-not-found.svg"
               className="mb-10 h-auto w-[300px] md:w-[350px]"
             />
             <p className="text-center text-lg text-[#8A8A8A]">{error}</p>
@@ -136,7 +136,7 @@ const HomePage = () => {
           <div className="flex flex-col items-center justify-center p-5 text-center">
             <img
               alt="Favorite Destination Not Found"
-              src="/src/assets/icons/purple-person-not-found.svg"
+              src="/public/assets/icons/purple-person-not-found.svg"
               className="mb-10 h-auto w-[300px] md:w-[350px]"
             />
             <p className="text-center text-lg text-[#8A8A8A]">
