@@ -7,7 +7,8 @@ import BoxSearch from "../Search/BoxSearch";
 function SetClass({ close, setSeat, data }) {
   const [openClass, setOpenClass] = useState(null);
   const text = ["Economy", "Premium Economy", "Business", "First Class"];
-
+  const text1 = ["Economy", "PremiumEconomy", "Business", "FirstClass"];
+  console.log(data);
   const toggleClass = (id) => {
     setOpenClass(openClass === id ? null : id);
   };
@@ -36,7 +37,9 @@ function SetClass({ close, setSeat, data }) {
 
   return (
     <BoxSearch
-      save={() => handleSave(data?.[openClass]?.input_value || text[openClass])}
+      save={() =>
+        handleSave(data?.[openClass]?.input_value || text1[openClass])
+      }
       closeHandler={close}
     >
       <div className="w-full select-none p-4 py-0">
@@ -44,24 +47,17 @@ function SetClass({ close, setSeat, data }) {
           <div
             key={index}
             className={`flex w-full items-center justify-between border-b-2 px-4 py-1 text-black ${
-              String(data?.[index]?.seat_class_price)
-                .replace(/\u00A0/g, " ")
-                .trim() !== "IDR 0"
-                ? "cursor-pointer"
-                : "cursor-not-allowed"
+              data?.message == "notFilled"
+                ? "cursor-not-allowed"
+                : "cursor-pointer"
             } ${openClass === index ? "bg-[#4B1979]" : ""}`}
             onClick={
-              !data?.[index]
+              data?.message == "notFilled"
                 ? () =>
                     showNotif(
                       "Please choose your destination city, arrival city and departure date first",
                     )
-                : String(data?.[index]?.seat_class_price)
-                      .replace(/\u00A0/g, " ")
-                      .trim() !== "IDR 0"
-                  ? () => toggleClass(index)
-                  : () =>
-                      showNotif("Tidak ada tiket penerbangan untuk kelas ini.")
+                : () => toggleClass(index)
             }
           >
             <div className="flex flex-col">
