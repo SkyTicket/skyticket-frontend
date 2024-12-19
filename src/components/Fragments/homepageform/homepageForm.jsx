@@ -37,10 +37,6 @@ function HomepageForm({ prefillData }) {
   });
 
   useEffect(() => {
-    console.log(filters);
-  }, [filters]);
-
-  useEffect(() => {
     const updateScreen = () => setIsMobile(window.innerWidth < 500);
     updateScreen();
     window.addEventListener("resize", updateScreen);

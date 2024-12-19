@@ -8,7 +8,7 @@ function SetClass({ close, setSeat, data }) {
   const [openClass, setOpenClass] = useState(null);
   const text = ["Economy", "Premium Economy", "Business", "First Class"];
   const text1 = ["Economy", "PremiumEconomy", "Business", "FirstClass"];
-  console.log(data);
+
   const toggleClass = (id) => {
     setOpenClass(openClass === id ? null : id);
   };
