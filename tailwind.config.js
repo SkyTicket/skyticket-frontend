@@ -5,7 +5,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}",
   ],
-  darkMode: "class",
+  darkMode: "media",
   theme: {
     extend: {
       fontFamily: {
