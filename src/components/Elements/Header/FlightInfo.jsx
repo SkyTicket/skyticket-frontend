@@ -1,21 +1,29 @@
-import { Link } from "react-router-dom";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const FlightInfo = () => {
+  const location = useLocation();
+  const { departure, arrival, passengers, seatClass } = location.state || {
+    departure: "JKT",
+    arrival: "MLB",
+    passengers: 1,
+    seatClass: "Economy",
+  };
+
   return (
-    <div className="flex items-center gap-2">
-      {/* Button back */}
+    <div className="flex items-center gap-4 sm:gap-2">
       <Link to="/">
-      <button className="rounded-lg bg-[#A06ECE] px-4 py-2 text-purple-600 ">
-        <img
-          src="/src/assets/icons/arrow-left.svg"
-          alt="Back"
-          className="h-5 w-5 hover:cursor-pointer"
-        />
-      </button>
+        <button className="bg-transparent px-2 py-1 text-white shadow-md hover:text-gray-500 sm:px-4 sm:py-2">
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            className="h-4 w-4 hover:cursor-pointer sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-6 lg:w-4"
+          />
+        </button>
       </Link>
-      {/* Detail flight */}
-      <span className="font-medium text-white">
-        JKT → MLB - 2 Penumpang - Economy
+      <span className="md:text-md text-xs font-semibold text-white sm:text-sm lg:text-lg relative">
+        {`${departure} > ${arrival} - ${passengers} Penumpang - ${seatClass}`}
       </span>
     </div>
   );

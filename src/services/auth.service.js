@@ -95,4 +95,45 @@ const ResendOtp = async (email) => {
   }
 };
 
-export { Login, Logout, Register, VerifyOtp, ResendOtp };
+const resetPassword = async (data) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/v1/auth/reset-password",
+      data,
+    );
+    return {
+      status: "Success",
+      message: response.data.message,
+    };
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || "Gagal reset password";
+    return {
+      status: "Error",
+      message: errorMessage,
+    };
+  }
+};
+
+const requestResetPassword = async (email) => {
+  try {
+    const response = await axiosInstance.post("/api/v1/auth/forget-password", {
+      email,
+    });
+    console.log("Response sukses:", response.data);
+
+    return {
+      status: "Success",
+      message: response.data.message,
+    };
+  } catch (error) {
+    console.error("Error Response:", error.response);
+
+    const errorMessage = error.response?.data?.message || "Terjadi kesalahan";
+    return {
+      status: "Error",
+      message: errorMessage,
+    };
+  }
+};
+
+export { Login, Logout, Register, VerifyOtp, ResendOtp, resetPassword, requestResetPassword };
