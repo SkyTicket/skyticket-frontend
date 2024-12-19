@@ -7,6 +7,7 @@ import BoxSearch from "../Search/BoxSearch";
 function SetClass({ close, setSeat, data }) {
   const [openClass, setOpenClass] = useState(null);
   const text = ["Economy", "Premium Economy", "Business", "First Class"];
+  const text1 = ["Economy", "PremiumEconomy", "Business", "FirstClass"];
 
   const toggleClass = (id) => {
     setOpenClass(openClass === id ? null : id);
@@ -17,9 +18,28 @@ function SetClass({ close, setSeat, data }) {
     close();
   };
 
+  const showNotif = (x) => {
+    toast.error((t) => (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } pointer-events-auto flex w-full max-w-md items-center bg-white`}
+      >
+        <span className="flex text-sm">{x}</span>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="h-6 w-6 cursor-pointer text-[#151515]"
+          onClick={() => toast.dismiss(t.id)}
+        />
+      </div>
+    ));
+  };
+
   return (
     <BoxSearch
-      save={() => handleSave(data?.[openClass]?.input_value || text[openClass])}
+      save={() =>
+        handleSave(data?.[openClass]?.input_value || text1[openClass])
+      }
       closeHandler={close}
     >
       <div className="w-full select-none p-4 py-0">
@@ -27,29 +47,17 @@ function SetClass({ close, setSeat, data }) {
           <div
             key={index}
             className={`flex w-full items-center justify-between border-b-2 px-4 py-1 text-black ${
-              data?.[index] ? "cursor-pointer" : "cursor-not-allowed"
+              data?.message == "notFilled"
+                ? "cursor-not-allowed"
+                : "cursor-pointer"
             } ${openClass === index ? "bg-[#4B1979]" : ""}`}
             onClick={
-              data?.[index]
-                ? () => toggleClass(index)
-                : () =>
-                    toast.error((t) => (
-                      <div
-                        className={`${
-                          t.visible ? "animate-enter" : "animate-leave"
-                        } pointer-events-auto flex w-full max-w-md items-center bg-white`}
-                      >
-                        <span className="flex text-sm">
-                          Please choose your destination city, arrival city and
-                          departure date first
-                        </span>
-                        <FontAwesomeIcon
-                          icon={faXmark}
-                          className="h-6 w-6 cursor-pointer text-[#151515]"
-                          onClick={() => toast.dismiss(t.id)}
-                        />
-                      </div>
-                    ))
+              data?.message == "notFilled"
+                ? () =>
+                    showNotif(
+                      "Please choose your destination city, arrival city and departure date first",
+                    )
+                : () => toggleClass(index)
             }
           >
             <div className="flex flex-col">

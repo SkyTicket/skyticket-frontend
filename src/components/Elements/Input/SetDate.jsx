@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 
-const DatePicker = ({ disable, change }) => {
+const DatePicker = ({ disable, change, valueCard }) => {
   const [value, setValue] = useState({
     startDate: null,
     endDate: null,
@@ -13,6 +13,13 @@ const DatePicker = ({ disable, change }) => {
     change(formattedDate);
     setValue(newValue);
   };
+
+  useEffect(() => {
+    setValue({
+      startDate: valueCard,
+      endDate: valueCard,
+    });
+  }, [valueCard]);
 
   useEffect(() => {
     if (disable) {

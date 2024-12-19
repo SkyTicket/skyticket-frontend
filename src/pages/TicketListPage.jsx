@@ -269,7 +269,7 @@ const TicketListPage = () => {
                   <Accordion data={flightsData} />
                   <Pagination
                     currentPage={flightsData.pagination.current_page}
-                    totalPages={1}
+                    totalPages={flightsData.pagination.total_pages}
                     onPageChange={(newPage) =>
                       setFilters((prev) => ({ ...prev, page: newPage }))
                     }

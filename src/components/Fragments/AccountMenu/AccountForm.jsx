@@ -42,7 +42,7 @@ function AccountForm({ onClose }) {
             <p className="text-xl font-bold text-black">Ubah Data Profil</p>
             <FontAwesomeIcon
               icon={faXmark}
-              className="size-6 cursor-pointer text-[#151515]"
+              className="block size-6 cursor-pointer text-[#151515] md:hidden"
               onClick={onClose}
             />
           </div>
