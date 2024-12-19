@@ -21,6 +21,7 @@ const OtpForm = ({ email }) => {
     return () => clearInterval(interval);
   }, []);
 
+
   const handleOtpChange = (e, index) => {
     const { value } = e.target;
 

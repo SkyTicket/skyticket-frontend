@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +10,22 @@ import Button from "../../Elements/Button/Button";
 
 const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   const { isLoggedIn } = useAuth();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); 
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize); 
+  }, []);
+
+  if (isMobile) {
+    return null;
+  }
 
   return (
     <nav className="bg-white py-4 shadow-lg">

@@ -5,15 +5,20 @@ const FavoriteDestination = async (page, continent) => {
     const response = await axiosInstance.get("/api/v1/favorite-destination", {
       params: { page, continent },
     });
+
     return {
       success: true,
-      data: response.data,
+      data: response.data.data,
+      totalPages: response.data.totalPages || 1,
     };
   } catch (error) {
     console.error("Error fetching favorite destinations:", error);
+
+    const errorMessage =
+      error.response?.data?.message || "Gagal memuat destinasi.";
     return {
       success: false,
-      error: error.response?.data?.message || "Gagal memuat destinasi",
+      error: errorMessage,
     };
   }
 };

@@ -1,14 +1,11 @@
 import { useState, useRef } from "react";
 import Button from "../components/Elements/Button/Button";
 import Card from "../components/Fragments/Card/Card";
-import HomepageForm from "../components/Fragments/homepageform/homepageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
 import useFavoriteDestination from "../hooks/useFavoriteDestination";
-import { AuthContext } from "../contexts/AuthContext";
-import { useContext, useEffect } from "react";
-
+import HomepageForm from "../components/Fragments/HomePageform/HomePageForm";
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [continent, setContinent] = useState("");
@@ -119,15 +116,22 @@ const HomePage = () => {
             },
           )}
         </div>
-        
+
         {loading ? (
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
             {Array.from({ length: 5 }).map((_, index) => (
               <SkeletonCard key={index} />
             ))}
           </div>
         ) : error ? (
-          <p className="text-center text-lg text-red-500">{error}</p>
+          <div className="flex flex-col items-center justify-center p-5 text-center">
+            <img
+              alt="Favorite Destination Not Found"
+              src="/src/assets/icons/purple-person-not-found.svg"
+              className="mb-10 h-auto w-[300px] md:w-[350px]"
+            />
+            <p className="text-center text-lg text-[#8A8A8A]">{error}</p>
+          </div>
         ) : destinations.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-5 text-center">
             <img
@@ -140,7 +144,7 @@ const HomePage = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
             {destinations.map((item, index) => (
               <Card
                 key={index}

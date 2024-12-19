@@ -6,20 +6,28 @@ const useFavoriteDestination = (page, continent) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
-
+  
   useEffect(() => {
     const fetchDestinations = async () => {
       setLoading(true);
       setError(null);
-      const response = await FavoriteDestination(page, continent);
-      if (response.data.success) {
-        setDestinations(response.data.data);
-        setTotalPages(response.data.totalPages);
-      } else {
-        setError(response.error);
+      setDestinations([]);
+
+      try {
+        const response = await FavoriteDestination(page, continent);
+        if (response.success) {
+          setDestinations(response.data || []);
+          setTotalPages(response.totalPages || 1);
+        } else {
+          setError(response.error || "Gagal mengambil data.");
+        }
+      } catch (err) {
+        setError(err.message || "Terjadi kesalahan saat memuat data.");
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
+
     fetchDestinations();
   }, [page, continent]);
 
