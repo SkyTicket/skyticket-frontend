@@ -15,6 +15,11 @@ const HomePage = () => {
     page,
     continent,
   );
+  const { userId } = useContext(AuthContext);
+  
+      useEffect(() => {
+        console.log("Current User ID:", userId);
+      }, [userId]);
 
   const handleCardClick = async (url, destinationData) => {
     try {
