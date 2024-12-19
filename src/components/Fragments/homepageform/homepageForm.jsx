@@ -18,11 +18,11 @@ import Destination from "./Destination";
 import { fetchFlights } from "../../../services/flightsService";
 
 function HomepageForm({ prefillData }) {
+  const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [currentField, setCurrentField] = useState(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(null);
-  const navigate = useNavigate();
   const [filters, setFilters] = useState({
     depCity: {},
     arrCity: {},
@@ -36,14 +36,48 @@ function HomepageForm({ prefillData }) {
     page: 1,
   });
 
-  const handleRotate = () => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      isRotated: !prevFilters.isRotated,
-      depCity: prevFilters.arrCity,
-      arrCity: prevFilters.depCity,
-    }));
-  };
+  useEffect(() => {
+    const updateScreen = () => setIsMobile(window.innerWidth < 500);
+    updateScreen();
+    window.addEventListener("resize", updateScreen);
+
+    return () => window.removeEventListener("resize", updateScreen);
+  }, []);
+
+  useEffect(() => {
+    if (prefillData) {
+      if (prefillData.departure) {
+        const departureCity = {
+          airport: `${prefillData.departure.code} - ${prefillData.departure.city}`,
+          input_value: `${prefillData.departure.code}`,
+        };
+
+        setFilters((prev) => ({
+          ...prev,
+          depCity: departureCity,
+        }));
+      }
+
+      if (prefillData.arrival) {
+        const arrivalCity = {
+          airport: `${prefillData.arrival.code} - ${prefillData.arrival.city}`,
+          input_value: `${prefillData.arrival.code}`,
+        };
+
+        setFilters((prev) => ({
+          ...prev,
+          arrCity: arrivalCity,
+        }));
+      }
+
+      if (prefillData.depDate) {
+        setFilters((prev) => ({
+          ...prev,
+          depDate: prefillData.depDate,
+        }));
+      }
+    }
+  }, [prefillData]);
 
   const handleSubmit = async () => {
     try {
@@ -93,41 +127,14 @@ function HomepageForm({ prefillData }) {
     }
   };
 
-  useEffect(() => {
-    const updateScreen = () => setIsMobile(window.innerWidth < 500);
-    updateScreen();
-    window.addEventListener("resize", updateScreen);
-
-    return () => window.removeEventListener("resize", updateScreen);
-  }, []);
-
-  useEffect(() => {
-    if (prefillData) {
-      if (prefillData.departure) {
-        const departureCity = {
-          airport: `${prefillData.departure.code} - ${prefillData.departure.city}`,
-          input_value: `${prefillData.departure.code}`,
-        };
-
-        setFilters((prev) => ({
-          ...prev,
-          depCity: departureCity,
-        }));
-      }
-
-      if (prefillData.arrival) {
-        const arrivalCity = {
-          airport: `${prefillData.arrival.code} - ${prefillData.arrival.city}`,
-          input_value: `${prefillData.arrival.code}`,
-        };
-
-        setFilters((prev) => ({
-          ...prev,
-          arrCity: arrivalCity,
-        }));
-      }
-    }
-  }, [prefillData]);
+  const handleRotate = () => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      isRotated: !prevFilters.isRotated,
+      depCity: prevFilters.arrCity,
+      arrCity: prevFilters.depCity,
+    }));
+  };
 
   const handlePassengersChange = useCallback((newPassengers) => {
     setFilters((prev) => ({
@@ -158,6 +165,7 @@ function HomepageForm({ prefillData }) {
   };
 
   const handleToggle = () => {
+    setIsToggleOn(!isToggleOn);
     setFilters((prev) => ({
       ...prev,
       arrDate: "",
@@ -169,8 +177,8 @@ function HomepageForm({ prefillData }) {
     <>
       <Toaster />
       <div className="flex h-full w-full flex-col justify-between">
-        <div className="m-4 lg:m-8">
-          <span className="cursor-default select-none text-base font-bold text-black lg:block lg:text-xl">
+        <div className="m-2 md:m-8">
+          <span className="hidden cursor-default select-none text-base font-bold text-black lg:block lg:text-xl">
             Pilih Jadwal Penerbangan Spesial di{" "}
             <span className="text-[#7126B5]">SkyTicket!</span>
           </span>
@@ -178,7 +186,7 @@ function HomepageForm({ prefillData }) {
 
         <div className="relative mx-4 flex flex-col items-center justify-between rounded-xl border border-[#D1D3D4]  lg:mx-8 lg:flex-row lg:gap-4 lg:border-0 lg:py-0">
           <div className="relative flex items-center gap-6">
-            <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-auto before:h-[1px] before:w-[90%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
+            <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-8 before:h-[1px] before:w-[83%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
               <FontAwesomeIcon
                 icon={faPlaneDeparture}
                 className="size-6 text-black opacity-60"
@@ -253,7 +261,7 @@ function HomepageForm({ prefillData }) {
               ) : (
                 <DatePicker
                   disable={false}
-                  prefillDate={filters.depDate}
+                  valueCard={prefillData?.depDate}
                   change={(newDepDate) => {
                     setFilters((prev) => ({ ...prev, depDate: newDepDate }));
                   }}
