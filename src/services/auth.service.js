@@ -95,18 +95,20 @@ const ResendOtp = async (email) => {
   }
 };
 
-const resetPassword = async (data) => {
+const resetPassword = async (token, { password, confirmPassword }) => {
   try {
-    const response = await axiosInstance.post(
-      "/api/v1/auth/reset-password",
-      data,
-    );
+    const response = await axiosInstance.post("/api/v1/auth/reset-password", {
+      token,
+      password,
+      confirmPassword,
+    });
     return {
       status: "Success",
       message: response.data.message,
     };
   } catch (error) {
-    const errorMessage = error.response?.data?.message || "Gagal reset password";
+    const errorMessage =
+      error.response?.data?.message || "Gagal reset password";
     return {
       status: "Error",
       message: errorMessage,
@@ -136,4 +138,12 @@ const requestResetPassword = async (email) => {
   }
 };
 
-export { Login, Logout, Register, VerifyOtp, ResendOtp, resetPassword, requestResetPassword };
+export {
+  Login,
+  Logout,
+  Register,
+  VerifyOtp,
+  ResendOtp,
+  resetPassword,
+  requestResetPassword,
+};
