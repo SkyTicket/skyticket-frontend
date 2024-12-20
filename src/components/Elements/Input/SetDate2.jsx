@@ -16,7 +16,7 @@ function SetDate2({ onClick, onClose }) {
   return (
     <>
       <Backdrop />
-      <div className="fixed bottom-0 left-0 right-0 z-50 h-[80vh] rounded-t-xl border bg-white p-6">
+      <div className="fixed bottom-0 left-0 right-0 z-50 h-[80vh] min-h-[390px] rounded-t-xl border bg-white p-6">
         <div className="flex justify-end">
           <FontAwesomeIcon
             icon={faXmark}

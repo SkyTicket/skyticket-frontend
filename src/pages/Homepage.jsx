@@ -1,12 +1,12 @@
-import { useState, useRef, useContext, useEffect } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { useContext, useEffect, useRef, useState } from "react";
 import Button from "../components/Elements/Button/Button";
+import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
 import Card from "../components/Fragments/Card/Card";
+import HomepageForm from "../components/Fragments/HomePageform/HomePageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
-import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
+import { AuthContext } from "../contexts/AuthContext";
 import useFavoriteDestination from "../hooks/useFavoriteDestination";
-import HomepageForm from "../components/Fragments/HomePageform/HomePageForm";
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [continent, setContinent] = useState("");
@@ -17,10 +17,10 @@ const HomePage = () => {
     continent,
   );
   const { userId } = useContext(AuthContext);
-  
-      useEffect(() => {
-        console.log("Current User ID:", userId);
-      }, [userId]);
+
+  useEffect(() => {
+    console.log("Current User ID:", userId);
+  }, [userId]);
 
   const handleCardClick = async (url, destinationData) => {
     try {
