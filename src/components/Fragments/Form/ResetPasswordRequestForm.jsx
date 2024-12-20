@@ -16,18 +16,27 @@ const ResetPasswordRequestForm = (showLogoOnMobile = false) => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log("Data yang dikirim:", data.email);
     try {
       const response = await requestResetPassword(data.email);
-      toast.success(response.message || "Email berhasil dikirim.");
-      setTimeout(() => {
-        navigate("/reset-password", { state: { email: data.email } });
-      }, 3000);
+
+      if (response.status === "Success") {
+        toast.success(response.message || "Email berhasil dikirim.", {
+          style: {
+            textAlign: "center",
+          },
+        });
+      } else {
+        toast.error(response.message || "Terjadi kesalahan.");
+      }
     } catch (error) {
       console.error("Error saat submit:", error);
-      toast.error(error.message || "Terjadi kesalahan.");
+
+      const errorMessage =
+        error.response?.data?.message || "Terjadi kesalahan.";
+      toast.error(errorMessage);
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
       {showLogoOnMobile && (
@@ -61,7 +70,8 @@ const ResetPasswordRequestForm = (showLogoOnMobile = false) => {
         disabled={Object.keys(errors).length > 0}
         className={`w-full rounded-2xl font-medium ${
           Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-purple-500"
-        }`}      >
+        }`}
+      >
         Kirim
       </Button>
 
