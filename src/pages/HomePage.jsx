@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import Button from "../components/Elements/Button/Button";
 import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
 import Card from "../components/Fragments/Card/Card";
-import HomePageForm from "../components/Fragments/HomePageform/HomePageForm";
+import HomePageForm from "../components/Fragments/HomePageForm/HomePageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 import { AuthContext } from "../contexts/AuthContext";
