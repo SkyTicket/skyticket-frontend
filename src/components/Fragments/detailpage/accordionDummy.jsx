@@ -1,134 +1,154 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import DetFlight from "../../Elements/Accordion/DetailFlight";
-import AccordionBox from "../../Elements/Accordion/AccordionBox";
-import DetailFlight from "../DetailFlight";
-import { Card, CardContent } from '../Card/CardDummy';
-import { MapPin } from "lucide-react";
-import { Clock } from "lucide-react";
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-function AccordionDummy() {
+import { Card, CardContent } from "../Card/CardDummy";
 
-    const bookings = [
-        {
-          id: 1,
-          status: 'issued',
-          departureCity: 'Jakarta',
-          departureDate: '5 Maret 2023',
-          departureTime: '15:10',
-          arrivalCity: 'Melbourne',
-          arrivalDate: '5 Maret 2023',
-          arrivalTime: '21:10',
-          bookingCode: '6723y2GHK',
-          class: 'Economy',
-          price: 'IDR 9.850.000',
-          duration: '4h 0m'
-        },
-        {
-          id: 2,
-          status: 'unpaid',
-          departureCity: 'Jakarta',
-          departureDate: '1 Maret 2023',
-          departureTime: '07:00',
-          arrivalCity: 'Bali',
-          arrivalDate: '1 Maret 2023',
-          arrivalTime: '08:15',
-          bookingCode: '6795J2DOG',
-          class: 'Business',
-          price: 'IDR 3.250.000',
-          duration: '1h 15m'
-        },
-        {
-          id: 3,
-          status: 'cancelled',
-          departureCity: 'Jakarta',
-          departureDate: '11 Feb 2023',
-          departureTime: '07:00',
-          arrivalCity: 'Medan',
-          arrivalDate: '11 Feb 2023',
-          arrivalTime: '08:15',
-          bookingCode: '6GIU995567G',
-          class: 'Economy',
-          price: 'IDR 2.950.000',
-          duration: '1h 15m'
-        }
-      ];
-    
-    const getStatusBadge = (status) => {
-        const styles = {
-          issued: 'bg-green-500 hover:bg-green-600',
-          unpaid: 'bg-red-500 hover:bg-red-600',
-          cancelled: 'bg-gray-500 hover:bg-gray-600'
-        };
+function AccordionDummy({ onClick }) {
+  const bookings = [
+    {
+      id: 1,
+      status: "issued",
+      departureCity: "Jakarta",
+      departureDate: "5 Maret 2023",
+      departureTime: "15:10",
+      arrivalCity: "Melbourne",
+      arrivalDate: "5 Maret 2023",
+      arrivalTime: "21:10",
+      bookingCode: "6723y2GHK",
+      class: "Economy",
+      price: "IDR 9.850.000",
+      duration: "4h 0m",
+    },
+    {
+      id: 2,
+      status: "unpaid",
+      departureCity: "Jakarta",
+      departureDate: "1 Maret 2023",
+      departureTime: "07:00",
+      arrivalCity: "Bali",
+      arrivalDate: "1 Maret 2023",
+      arrivalTime: "08:15",
+      bookingCode: "6795J2DOG",
+      class: "Business",
+      price: "IDR 3.250.000",
+      duration: "1h 15m",
+    },
+    {
+      id: 3,
+      status: "cancelled",
+      departureCity: "Jakarta",
+      departureDate: "11 Feb 2023",
+      departureTime: "07:00",
+      arrivalCity: "Medan",
+      arrivalDate: "11 Feb 2023",
+      arrivalTime: "08:15",
+      bookingCode: "6GIU995567G",
+      class: "Economy",
+      price: "IDR 2.950.000",
+      duration: "1h 15m",
+    },
+  ];
+
+  function getStatusBadge(stat) {
+    switch (stat) {
+      case "issued":
+        return "bg-green-500 hover:bg-green-600";
+      case "unpaid":
+        return "bg-red-500 hover:bg-red-600";
+      case "cancelled":
+        return "bg-gray-500 hover:bg-gray-600";
+      default:
+        return "";
     }
-    
+  }
 
   return (
-    <div className="p-4 text-black w-[40vw] ">
-        <h2 className="text-lg font-semibold mb-4">Maret 2023</h2>
-        
-        {/* Booking Cards */}
-        {bookings.map(booking => (
-          <Card key={booking.id} className=" border-[#7126B5] mb-4">
+    <div className="w-[40vw] p-4 text-black">
+      <h2 className="mb-4 text-lg font-semibold">Maret 2023</h2>
+
+      {bookings.map((booking) => {
+        const computedStatus = getStatusBadge(booking.status);
+        return (
+          <Card
+            key={booking.id}
+            className="mb-4 border-[#7126B5]"
+            onClick={() => onClick(booking)}
+          >
             <CardContent className="p-4">
-
-              <div className=" ${styles[status]} flex justify-between items-start mb-4">
-                {getStatusBadge(booking.status)}
+              <div
+                className={`my-4 flex w-min items-start justify-between rounded-full px-4 py-1 text-white ${computedStatus}`}
+              >
+                {booking.status}
               </div>
-              
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <MapPin className="w-4 h-4 text-gray-500" />
-                    <span className="font-semibold">{booking.departureCity}</span>
-                  </div>
-                  <div className="text-sm text-gray-600 ml-6">
-                    {booking.departureDate}
-                  </div>
-                  <div className="text-sm text-gray-600 ml-6">
-                    {booking.departureTime}
+
+              <div className="flex items-center justify-between">
+                <div className="flex">
+                  <FontAwesomeIcon
+                    icon={faLocationDot}
+                    className="mt-1 size-5"
+                  />
+                  <div className="ml-2 flex w-max flex-col">
+                    <span className="font-semibold">
+                      {booking.departureCity}
+                    </span>
+                    <span className="text-sm text-gray-600">
+                      {booking.departureDate}
+                    </span>
+                    <span className="text-sm text-gray-600">
+                      {booking.departureTime}
+                    </span>
                   </div>
                 </div>
 
-                <div className="flex-1 flex flex-col items-center">
-                  <Clock className="w-4 h-4 text-gray-500 mb-1" />
-                  <div className="text-sm text-gray-600">{booking.duration}</div>
+                <div className="mx-2 mb-4 flex w-full flex-col items-center">
+                  <div className="text-sm text-gray-600">
+                    {booking.duration}
+                  </div>
+                  <div className="flex w-full items-center">
+                    <div className="h-0.5 w-full bg-gray-500" />
+                    <div className="h-1 w-1 -translate-x-1 rotate-45 border-r border-t border-gray-500" />
+                  </div>
                 </div>
 
-                <div className="flex-1 text-right">
-                  <div className="flex items-center justify-end gap-2 mb-1">
-                    <MapPin className="w-4 h-4 text-gray-500" />
+                <div className="flex">
+                  <FontAwesomeIcon
+                    icon={faLocationDot}
+                    className="mt-1 size-5"
+                  />
+                  <div className="ml-2 flex w-max flex-col">
                     <span className="font-semibold">{booking.arrivalCity}</span>
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {booking.arrivalDate}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {booking.arrivalTime}
+                    <span className="text-sm text-gray-600">
+                      {booking.arrivalDate}
+                    </span>
+                    <span className="text-sm text-gray-600">
+                      {booking.arrivalTime}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4 pt-4 border-t flex justify-between items-center">
+              <div className="mt-4 flex items-center justify-between border-t pt-4">
                 <div>
-                  <div className="text-sm text-gray-600">Booking Code:</div>
-                  <div className="font-semibold">{booking.bookingCode}</div>
+                  <div className="font-semibold text-black">Booking Code:</div>
+                  <div className="text-sm">{booking.bookingCode}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-600">Class:</div>
-                  <div className="font-semibold">{booking.class}</div>
+                  <div className="font-semibold text-black">Class:</div>
+                  <div className="text-sm">{booking.class}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm text-gray-600">Price:</div>
-                  <div className="font-semibold">{booking.price}</div>
+                  <div className="font-semibold text-[#4B1979]">
+                    {booking.price}
+                  </div>
                 </div>
               </div>
             </CardContent>
           </Card>
-        ))}
-      </div>
-
         );
+      })}
+    </div>
+  );
 }
 
 export default AccordionDummy;

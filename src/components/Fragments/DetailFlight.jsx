@@ -1,20 +1,49 @@
-import React, { useEffect } from "react";
-import { useFlightDetails } from "../../hooks/useFetchFlightDetails";
-import { useSearchParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
+const DetailFlight = ({ data }) => {
+  const [statusCSS, setStatusCSS] = useState("");
 
-const DetailFlight = ( ) => {
+  useEffect(() => {
+    switch (data?.status) {
+      case "issued":
+        setStatusCSS("bg-green-500 hover:bg-green-600");
+        break;
+      case "unpaid":
+        setStatusCSS("bg-red-500 hover:bg-red-600");
+        break;
+      case "cancelled":
+        setStatusCSS("bg-gray-500 hover:bg-gray-600");
+        break;
+      default:
+        setStatusCSS("");
+    }
+    console.log(statusCSS);
+  }, [data?.status]);
 
   return (
-    <div className="space-y-4">
-      <div className="m-0 flex justify-between">
-        <span className="font-bold text-[#151515]">07.00 </span>
-        <span className="font-bold text-[#A06ECE]">Keberangkatan</span>
+    <div className="space-y-4 pt-4">
+      <div className="flex items-center justify-between">
+        <span className="text-lg font-bold text-black">Detail Pesanan</span>
+        <div className={`w-min rounded-full px-4 py-1 text-white ${statusCSS}`}>
+          {data?.status}
+        </div>
       </div>
-      <div className="flex justify-between">
-        <div className="text-[#151515]">
-          <p>27 November 2024</p>
-          <p className="font-medium">Soekarno-Hatta - Terminal 1A Domestik</p>
+      <p className="text-black">
+        Booking Code:{" "}
+        <span className="font-bold text-[#7126B5]">{data?.bookingCode}</span>
+      </p>
+      <div>
+        <div className="m-0 flex justify-between">
+          <span className="font-bold text-[#151515]">
+            {data?.departureTime}
+          </span>
+          <span className="font-bold text-[#A06ECE]">Keberangkatan</span>
+        </div>
+        <div className="flex justify-between">
+          <div className="text-[#151515]">
+            <p>{data?.departureDate}</p>
+            <p className="font-medium">Soekarno Hatta - Terminal 1A Domestik</p>
+          </div>
         </div>
       </div>
 
@@ -35,14 +64,16 @@ const DetailFlight = ( ) => {
           <li>In Flight Entertainment</li>
         </ul>
       </div>
-      <div className="flex justify-between">
-        <span className="font-bold text-[#151515]">11:00</span>
-        <span className="font-bold text-[#A06ECE]">Kedatangan</span>
-      </div>
-      <div className="flex justify-between text-[#151515]">
-        <div>
-          <p>27 November 2024</p>
-          <p className="font-medium">Melbourne International Airport</p>
+      <div>
+        <div className="flex justify-between">
+          <span className="font-bold text-[#151515]">{data?.arrivalTime}</span>
+          <span className="font-bold text-[#A06ECE]">Kedatangan</span>
+        </div>
+        <div className="flex justify-between text-[#151515]">
+          <div>
+            <p>{data?.arrivalDate}</p>
+            <p className="font-medium">Soekarno Hatta - Terminal 1A Domestik</p>
+          </div>
         </div>
       </div>
 
