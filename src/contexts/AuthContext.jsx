@@ -20,9 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token) => {
     Cookies.set("token", token, { expires: 7 });
-    if (email) Cookies.set("email", email, { expires: 7 });
     setIsLoggedIn(true);
-    setUserEmail(email);
   };
 
   const [userId, setUserId] = useState(null);

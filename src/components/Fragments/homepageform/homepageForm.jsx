@@ -12,10 +12,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Class from "./Class";
 import SetDate2 from "../../Elements/Input/SetDate2";
-import Passengers from "./passengers";
+import Passengers from "./Passenger";
 import DatePicker from "../../Elements/Input/SetDate";
 import Destination from "./Destination";
-import { fetchFlights } from "../../../services/flightsService";
+import { fetchFlights } from "../../../services/flights.service";
 
 function HomepageForm({ prefillData }) {
   const navigate = useNavigate();
@@ -349,7 +349,7 @@ function HomepageForm({ prefillData }) {
             <div className="hidden w-[45px] items-center gap-3 text-[#8A8A8A] md:flex md:w-auto">
               <img
                 alt="Seat Icon"
-                src="/src/assets/icons/seat.svg"
+                src="/assets/icons/seat.svg"
                 className="size-6"
               />
               <p className="cursor-default select-none">Seat</p>
@@ -371,7 +371,7 @@ function HomepageForm({ prefillData }) {
             <div className="block w-6 md:hidden">
               <img
                 alt="Seat Icon"
-                src="/src/assets/icons/seat.svg"
+                src="/assets/icons/seat.svg"
                 className="size-7"
               />
             </div>

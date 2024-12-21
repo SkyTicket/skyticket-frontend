@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useFlightDetails } from "../../hooks/useFetchFlightDetails";
 import { useSearchParams } from "react-router-dom";
 
-
 const DetailFlight = ( ) => {
 
   return (

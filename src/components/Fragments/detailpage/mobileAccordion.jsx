@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
 import DetFlight from "../../Elements/Accordion/DetailFlight";
 
 function MobileAccordion({ flight, onClose }) {

@@ -2,9 +2,8 @@ import debounce from "lodash.debounce";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-
 import Box from "../Search/Box";
-import { fetchAirports } from "../../../services/airportsService";
+import { fetchAirports } from "../../../services/airports.service";
 
 function SetDestination({ close, setCity }) {
   const [airport, setAirports] = useState([]);

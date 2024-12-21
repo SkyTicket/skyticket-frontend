@@ -1,12 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import Input from "../../Elements/Input/Input";
-import Button from "../../Elements/Button/Button";
-import { requestResetPassword } from "../../../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Logo from "../../Elements/Logo/Logo";
+import Input from "../../Elements/Input/Input";
+import Button from "../../Elements/Button/Button";
+import { requestResetPassword } from "../../../services/auth.service";
+
 const ResetPasswordRequestForm = (showLogoOnMobile = false) => {
   const {
     register,

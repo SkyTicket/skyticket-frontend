@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DetFlight from "../../Elements/Accordion/DetailFlight";
 import AccordionBox from "../../Elements/Accordion/AccordionBox";
-import MobileAccordion from "./mobileAccordion";
+import MobileAccordion from "./MobileAccordion";
 
 function Accordion({ data }) {
   const [openAccordion, setOpenAccordion] = useState(null);

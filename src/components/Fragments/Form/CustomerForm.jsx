@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import InputForm from "./InputForm";
 import { useForm } from "react-hook-form";
 
-
 const CustomerForm = ({ bookerData, onChange }) => {
   const [isActive, setIsActive] = useState(false);
   const {register} = useForm()

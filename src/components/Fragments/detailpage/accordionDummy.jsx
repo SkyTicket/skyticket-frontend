@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import DetFlight from "../../Elements/Accordion/DetailFlight";
-import AccordionBox from "../../Elements/Accordion/AccordionBox";
-import DetailFlight from "../DetailFlight";
 import { Card, CardContent } from '../Card/CardDummy';
 import { MapPin } from "lucide-react";
 import { Clock } from "lucide-react";
