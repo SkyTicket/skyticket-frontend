@@ -1,153 +1,138 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 import { Card, CardContent } from "../Card/CardDummy";
 
-function AccordionDummy({ onClick }) {
-  const bookings = [
-    {
-      id: 1,
-      status: "issued",
-      departureCity: "Jakarta",
-      departureDate: "5 Maret 2023",
-      departureTime: "15:10",
-      arrivalCity: "Melbourne",
-      arrivalDate: "5 Maret 2023",
-      arrivalTime: "21:10",
-      bookingCode: "6723y2GHK",
-      class: "Economy",
-      price: "IDR 9.850.000",
-      duration: "4h 0m",
-    },
-    {
-      id: 2,
-      status: "unpaid",
-      departureCity: "Jakarta",
-      departureDate: "1 Maret 2023",
-      departureTime: "07:00",
-      arrivalCity: "Bali",
-      arrivalDate: "1 Maret 2023",
-      arrivalTime: "08:15",
-      bookingCode: "6795J2DOG",
-      class: "Business",
-      price: "IDR 3.250.000",
-      duration: "1h 15m",
-    },
-    {
-      id: 3,
-      status: "cancelled",
-      departureCity: "Jakarta",
-      departureDate: "11 Feb 2023",
-      departureTime: "07:00",
-      arrivalCity: "Medan",
-      arrivalDate: "11 Feb 2023",
-      arrivalTime: "08:15",
-      bookingCode: "6GIU995567G",
-      class: "Economy",
-      price: "IDR 2.950.000",
-      duration: "1h 15m",
-    },
-  ];
+function AccordionDummy({ data, onClick }) {
+  const [months, setMonths] = useState(null);
+  const [openHistory, setOpenHistory] = useState(null);
+
+  useEffect(() => {
+    if (data) {
+      setMonths(Object.keys(data));
+    }
+  }, [data]);
 
   function getStatusBadge(stat) {
     switch (stat) {
-      case "issued":
+      case "Issued":
         return "bg-green-500 hover:bg-green-600";
-      case "unpaid":
+      case "Unpaid":
         return "bg-red-500 hover:bg-red-600";
-      case "cancelled":
+      case "Cancelled":
         return "bg-gray-500 hover:bg-gray-600";
       default:
         return "";
     }
   }
 
+  const clickOpenHistoryHandler = (newValue, id) => {
+    setOpenHistory(openHistory === id ? null : id);
+    onClick(newValue);
+  };
+
   return (
-    <div className="w-[40vw] p-4 text-black">
-      <h2 className="mb-4 text-lg font-semibold">Maret 2023</h2>
+    <>
+      {months?.map((history) => (
+        <div key={history} className="w-[40vw] p-4 text-black">
+          <h2 className="mb-4 text-lg font-semibold">{history}</h2>
 
-      {bookings.map((booking) => {
-        const computedStatus = getStatusBadge(booking.status);
-        return (
-          <Card
-            key={booking.id}
-            className="mb-4 border-[#7126B5]"
-            onClick={() => onClick(booking)}
-          >
-            <CardContent className="p-4">
-              <div
-                className={`my-4 flex w-min items-start justify-between rounded-full px-4 py-1 text-white ${computedStatus}`}
+          {data[history]?.map((booking, index) => {
+            const computedStatus = getStatusBadge(
+              booking.booking_payment_status,
+            );
+            return (
+              <Card
+                key={index}
+                className={`mb-4 border-[#7126B5] ${
+                  openHistory === `${history}-${index}`
+                    ? "border-purple-400"
+                    : "border-gray-300"
+                }`}
+                onClick={() =>
+                  clickOpenHistoryHandler(booking, `${history}-${index}`)
+                }
               >
-                {booking.status}
-              </div>
+                <CardContent className="p-4">
+                  <div
+                    className={`my-4 flex w-min items-start justify-between rounded-full px-4 py-1 text-white ${computedStatus}`}
+                  >
+                    {booking.booking_payment_status}
+                  </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    className="mt-1 size-5"
-                  />
-                  <div className="ml-2 flex w-max flex-col">
-                    <span className="font-semibold">
-                      {booking.departureCity}
-                    </span>
-                    <span className="text-sm text-gray-600">
-                      {booking.departureDate}
-                    </span>
-                    <span className="text-sm text-gray-600">
-                      {booking.departureTime}
-                    </span>
-                  </div>
-                </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex">
+                      <FontAwesomeIcon
+                        icon={faLocationDot}
+                        className="mt-1 size-5"
+                      />
+                      <div className="ml-2 flex w-max flex-col">
+                        <span className="font-semibold">
+                          {booking.departure_airport_city}
+                        </span>
+                        <span className="text-sm text-gray-600">
+                          {booking.ticket.departure_date}
+                        </span>
+                        <span className="text-sm text-gray-600">
+                          {booking.ticket.departure_time}
+                        </span>
+                      </div>
+                    </div>
 
-                <div className="mx-2 mb-4 flex w-full flex-col items-center">
-                  <div className="text-sm text-gray-600">
-                    {booking.duration}
-                  </div>
-                  <div className="flex w-full items-center">
-                    <div className="h-0.5 w-full bg-gray-500" />
-                    <div className="h-1 w-1 -translate-x-1 rotate-45 border-r border-t border-gray-500" />
-                  </div>
-                </div>
+                    <div className="mx-2 mb-4 flex w-full flex-col items-center">
+                      <div className="text-sm text-gray-600">
+                        {booking.flight_duration}
+                      </div>
+                      <div className="flex w-full items-center">
+                        <div className="h-0.5 w-full bg-gray-500" />
+                        <div className="h-1 w-1 -translate-x-1 rotate-45 border-r border-t border-gray-500" />
+                      </div>
+                    </div>
 
-                <div className="flex">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    className="mt-1 size-5"
-                  />
-                  <div className="ml-2 flex w-max flex-col">
-                    <span className="font-semibold">{booking.arrivalCity}</span>
-                    <span className="text-sm text-gray-600">
-                      {booking.arrivalDate}
-                    </span>
-                    <span className="text-sm text-gray-600">
-                      {booking.arrivalTime}
-                    </span>
+                    <div className="flex">
+                      <FontAwesomeIcon
+                        icon={faLocationDot}
+                        className="mt-1 size-5"
+                      />
+                      <div className="ml-2 flex w-max flex-col">
+                        <span className="font-semibold">
+                          {booking.arrival_airport_city}
+                        </span>
+                        <span className="text-sm text-gray-600">
+                          {booking.ticket.arrival_date}
+                        </span>
+                        <span className="text-sm text-gray-600">
+                          {booking.ticket.arrival_time}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
 
-              <div className="mt-4 flex items-center justify-between border-t pt-4">
-                <div>
-                  <div className="font-semibold text-black">Booking Code:</div>
-                  <div className="text-sm">{booking.bookingCode}</div>
-                </div>
-                <div>
-                  <div className="font-semibold text-black">Class:</div>
-                  <div className="text-sm">{booking.class}</div>
-                </div>
-                <div className="text-right">
-                  <div className="font-semibold text-[#4B1979]">
-                    {booking.price}
+                  <div className="mt-4 flex items-center justify-between border-t pt-4">
+                    <div>
+                      <div className="font-semibold text-black">
+                        Booking Code:
+                      </div>
+                      <div className="text-sm">{booking.booking_code}</div>
+                    </div>
+                    <div>
+                      <div className="font-semibold text-black">Class:</div>
+                      <div className="text-sm">{booking.seat_class_type}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-semibold text-[#4B1979]">
+                        {booking.booking_amount}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        );
-      })}
-    </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      ))}
+    </>
   );
 }
 
