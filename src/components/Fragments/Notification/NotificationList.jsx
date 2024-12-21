@@ -4,14 +4,14 @@ import NotificationItem from "../../Elements/Notification/NotificationItem";
 const NotificationList = () => {
   const notifications = [
     {
-      icon: "/src/assets/icons/notif.svg",
+      icon: "/assets/icons/notif.svg",
       type: "Promosi",
       message: "Dapatkan Potongan 50% Tiket!",
       date: "20 Maret, 14:04",
       isRead: true,
     },
     {
-      icon: "/src/assets/icons/notif.svg",
+      icon: "/assets/icons/notif.svg",
       type: "Notifikasi",
       message:
         "Terdapat perubahan pada jadwal penerbangan kode booking 45GT6. Cek jadwal perjalanan Anda disini!",

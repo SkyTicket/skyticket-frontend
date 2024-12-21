@@ -27,7 +27,7 @@ const FilterModal = ({ onFilterSubmit, onClose, onSubmit }) => {
             className="ml-auto bg-white text-lg font-bold text-black"
           >
             <img
-              src="/src/assets/icons/close.svg"
+              src="/assets/icons/close.svg"
               alt="Close"
               className="h-4 w-3"
             />
@@ -57,7 +57,7 @@ const FilterModal = ({ onFilterSubmit, onClose, onSubmit }) => {
               {selectedFilter === filter.value && (
                 <span className="text-green-500">
                   <img
-                    src="/src/assets/icons/checklist.svg"
+                    src="/assets/icons/checklist.svg"
                     alt="checklist"
                     className="h-6 w-6"
                   />

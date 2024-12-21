@@ -1,9 +1,8 @@
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-
 import { useUser } from "../../../hooks/useProfile";
-import { updateUserService } from "../../../services/updateUser.service";
+import { updateUserService } from "../../../services/update.user.service";
 
 function AccountForm({ onClose }) {
   const { user, setUser, setError, setLoading } = useUser();

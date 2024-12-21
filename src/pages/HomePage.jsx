@@ -2,11 +2,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import Button from "../components/Elements/Button/Button";
 import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
 import Card from "../components/Fragments/Card/Card";
-import HomepageForm from "../components/Fragments/HomePageform/HomePageForm";
+import HomePageForm from "../components/Fragments/HomePageForm/HomePageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 import { AuthContext } from "../contexts/AuthContext";
 import useFavoriteDestination from "../hooks/useFavoriteDestination";
+
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [continent, setContinent] = useState("");
@@ -81,14 +82,14 @@ const HomePage = () => {
           </span>
         </span>
         <img
-          src="src/assets/images/bangkok.png"
+          src="/assets/images/bangkok.png"
           alt="Bangkok"
           className="absolute right-0 -z-10 h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 md:w-3/5"
         />
       </section>
 
       <section className="relative mx-auto -mt-[50px] flex w-[93%] max-w-[1068px] flex-col items-center justify-center rounded-xl bg-white shadow-xl">
-        <HomepageForm prefillData={prefillData} />
+        <HomePageForm prefillData={prefillData} />
       </section>
 
       <section ref={sectionRef} className="mx-auto w-[90%] max-w-[1440px] py-8">
@@ -128,7 +129,7 @@ const HomePage = () => {
           <div className="flex flex-col items-center justify-center p-5 text-center">
             <img
               alt="Favorite Destination Not Found"
-              src="/src/assets/icons/purple-person-not-found.svg"
+              src="/assets/icons/purple-person-not-found.svg"
               className="mb-10 h-auto w-[300px] md:w-[350px]"
             />
             <p className="text-center text-lg text-[#8A8A8A]">{error}</p>
@@ -137,7 +138,7 @@ const HomePage = () => {
           <div className="flex flex-col items-center justify-center p-5 text-center">
             <img
               alt="Favorite Destination Not Found"
-              src="/src/assets/icons/purple-person-not-found.svg"
+              src="/assets/icons/purple-person-not-found.svg"
               className="mb-10 h-auto w-[300px] md:w-[350px]"
             />
             <p className="text-center text-lg text-[#8A8A8A]">

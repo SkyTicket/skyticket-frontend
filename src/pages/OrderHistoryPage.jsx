@@ -1,7 +1,7 @@
 import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import DetailFlight from "../components/Fragments/DetailFlight";
-import AccordionDummy from "../components/Fragments/detailpage/accordionDummy";
+import AccordionDummy from "../components/Fragments/DetailPage/AccordionDummy";
 import HeaderLogin from "../components/Fragments/Header/Header";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import { useEffect, useState } from "react";
