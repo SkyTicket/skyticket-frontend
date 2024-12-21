@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import { useForm, FormProvider, useFieldArray } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import PassengerForm from "../components/Fragments/Form/PassengerForm";
+import React, { useState, useContext, useEffect } from "react";
+import { useForm, FormProvider, useFieldArray } from "react-hook-form";
+
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Progress from "../components/Elements/Header/Progress";
 import SelectSeat from "../components/Fragments/Form/SelectSeatForm";
+import DetailFlight from "../components/Fragments/OrderHistory/DetailFlight";
 import CustomerForm from "../components/Fragments/Form/CustomerForm";
-import DetailFlight from "../components/Fragments/DetailFlight";
-import { useTicketBooking } from "../hooks/useTicketBooking";
-import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
-import { useContext, useEffect } from "react";
-// import { flightDetailService } from "../services/flightsService";
+import PassengerForm from "../components/Fragments/Form/PassengerForm";
+import { useTicketBooking } from "../hooks/useTicketBooking";
 
 const PageOrder = () => {
   const navigate = useNavigate();
@@ -37,7 +36,6 @@ const PageOrder = () => {
     bookerPhone: "",
   });
 
-  // Mock available seats data
   const availableSeats = Array.from({ length: 20 }, (_, i) => ({
     id: i + 1,
     seatNumber: `${Math.floor(i / 4) + 1}${String.fromCharCode(65 + (i % 4))}`,
@@ -123,7 +121,7 @@ const PageOrder = () => {
       const result = await createTicketOrder({
         seats: selectedSeats,
         passengers,
-        userId, // This should come from your auth context/state
+        userId,
         ...bookerData,
       });
 
@@ -197,7 +195,6 @@ const PageOrder = () => {
             className="grid grid-cols-1 gap-6 lg:grid-cols-2"
           >
             <div className="space-y-6">
-              {/* Rest of your existing form components */}
               <div className="rounded-lg border bg-white p-6">
                 <h2 className="mb-4 text-xl font-bold text-black">
                   Isi Data Pemesan
@@ -230,7 +227,6 @@ const PageOrder = () => {
               />
             </div>
 
-            {/* Right Column - Flight Details & Payment */}
             <div className="space-y-6">
               <div className="rounded-lg bg-white p-6">
                 <h2 className="mb-4 text-lg font-bold text-[#151515]">

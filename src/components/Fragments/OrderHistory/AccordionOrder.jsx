@@ -4,7 +4,7 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 import { Card, CardContent } from "../Card/CardDummy";
 
-function AccordionDummy({ data, onClick }) {
+function AccordionOrder({ data, onClick }) {
   const [months, setMonths] = useState(null);
   const [openHistory, setOpenHistory] = useState(null);
 
@@ -28,8 +28,8 @@ function AccordionDummy({ data, onClick }) {
   }
 
   const clickOpenHistoryHandler = (newValue, id) => {
+    onClick(openHistory === id ? null : newValue);
     setOpenHistory(openHistory === id ? null : id);
-    onClick(newValue);
   };
 
   return (
@@ -136,4 +136,4 @@ function AccordionDummy({ data, onClick }) {
   );
 }
 
-export default AccordionDummy;
+export default AccordionOrder;
