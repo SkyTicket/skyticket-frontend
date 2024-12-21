@@ -99,7 +99,7 @@ const TicketListPage = () => {
             className="h-14 w-full rounded-xl font-semibold md:w-1/3"
             type=""
           >
-            <Link to="/" className="text-center text-white">
+            <Link to="/" className="text-center text-white hover:text-white">
               Ubah Pencarian
             </Link>
           </Button>
