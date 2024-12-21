@@ -1,5 +1,5 @@
 import DetailFlight from "../components/Fragments/DetailFlight";
-import AccordionDummy from "../components/Fragments/DetailPage/accordionDummy";
+import AccordionDummy from "../components/Fragments/DetailPage/AccordionDummy";
 import HeaderLogin from "../components/Fragments/Header/Header";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 
