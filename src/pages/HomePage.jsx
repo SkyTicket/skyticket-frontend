@@ -54,7 +54,10 @@ const HomePage = () => {
       });
 
       if (sectionRef.current) {
-        sectionRef.current.scrollIntoView({ behavior: "smooth" });
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       }
     } catch (error) {
       console.error("Error parsing URL:", error);
