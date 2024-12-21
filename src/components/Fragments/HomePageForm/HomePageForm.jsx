@@ -11,13 +11,13 @@ import {
   faPlaneDeparture,
 } from "@fortawesome/free-solid-svg-icons";
 import Class from "./Class";
-import SetDate2 from "../../Elements/Input/SetDate2";
-import Passengers from "./Passenger";
-import DatePicker from "../../Elements/Input/SetDate";
+import Passengers from "./Passengers";
 import Destination from "./Destination";
+import SetDate2 from "../../Elements/Input/SetDate2";
+import DatePicker from "../../Elements/Input/SetDate";
 import { fetchFlights } from "../../../services/flights.service";
 
-function HomepageForm({ prefillData }) {
+function HomePageForm({ prefillData }) {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
   const [isToggleOn, setIsToggleOn] = useState(false);
@@ -401,4 +401,4 @@ function HomepageForm({ prefillData }) {
   );
 }
 
-export default HomepageForm;
+export default HomePageForm;
