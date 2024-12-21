@@ -10,7 +10,7 @@ import FilterItem from "../components/Fragments/Filter/FilterItem";
 import FilterModal from "../components/Fragments/Filter/FilterModals";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
 import Navbar from "../components/Fragments/Navbar/Navbar";
-import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
+import NoDataFound from "../components/Fragments/DetailPage/NoDataFound";
 import { fetchFlights } from "../services/flights.service";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
