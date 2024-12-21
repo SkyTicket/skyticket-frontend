@@ -27,17 +27,19 @@ const ResetPasswordForm = (showLogoOnMobile = false) => {
         password: data.newPassword,
         confirmPassword: data.confirmPassword,
       });
-  
+
       toast.success(response.message || "Password berhasil diubah.");
-      
+
       setTimeout(() => {
         window.location.href = "/login";
       }, 3000);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Gagal mengubah password. Silakan coba lagi.");
+      toast.error(
+        error.response?.data?.message ||
+          "Gagal mengubah password. Silakan coba lagi.",
+      );
     }
   };
-  
 
   const newPassword = watch("newPassword");
 
@@ -86,9 +88,9 @@ const ResetPasswordForm = (showLogoOnMobile = false) => {
           }}
         >
           {showNewPassword ? (
-            <FontAwesomeIcon icon={faEye} />
+            <FontAwesomeIcon icon={faEye} size="lg" />
           ) : (
-            <FontAwesomeIcon icon={faEyeSlash} />
+            <FontAwesomeIcon icon={faEyeSlash} size="lg" />
           )}
         </div>
       </label>
@@ -127,9 +129,9 @@ const ResetPasswordForm = (showLogoOnMobile = false) => {
           }}
         >
           {showConfirmPassword ? (
-            <FontAwesomeIcon icon={faEye} />
+            <FontAwesomeIcon icon={faEye} size="lg" />
           ) : (
-            <FontAwesomeIcon icon={faEyeSlash} />
+            <FontAwesomeIcon icon={faEyeSlash} size="lg" />
           )}
         </div>
       </label>
@@ -137,8 +139,8 @@ const ResetPasswordForm = (showLogoOnMobile = false) => {
       <Button
         type="submit"
         disabled={Object.keys(errors).length > 0}
-        className={`w-full rounded-2xl font-medium ${
-          Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-purple-500"
+        className={`mt-14 w-full rounded-2xl font-medium ${
+          Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-[#7126B5]"
         }`}
       >
         Simpan

@@ -65,7 +65,7 @@ const LoginForm = ({ showLogoOnMobile = false }) => {
         error={errors.email}
       />
 
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="mb-2 flex items-center justify-between">
           <label className="text-sm text-black">Password</label>
           <Link
@@ -107,7 +107,7 @@ const LoginForm = ({ showLogoOnMobile = false }) => {
 
       <Button
         type="submit"
-        className="w-full rounded-2xl font-medium"
+        className="mt-14 w-full rounded-2xl font-medium"
         disabled={isLoading}
       >
         {isLoading ? "Memproses..." : "Masuk"}
