@@ -106,7 +106,7 @@ const RegisterForm = ({ showLogoOnMobile = false }) => {
         error={errors.phone}
       />
 
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="mb-2 flex items-center justify-between">
           <label className="text-sm text-black">Password</label>
         </div>
@@ -144,7 +144,7 @@ const RegisterForm = ({ showLogoOnMobile = false }) => {
         </div>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="mb-2 flex items-center justify-between">
           <label className="text-sm text-black">Konfirmasi Password</label>
         </div>
@@ -182,7 +182,7 @@ const RegisterForm = ({ showLogoOnMobile = false }) => {
 
       <Button
         type="submit"
-        className="w-full rounded-2xl font-medium"
+        className="mt-14 w-full rounded-2xl font-medium"
         disabled={isLoading}
       >
         {isLoading ? "Memproses..." : "Daftar"}
