@@ -42,13 +42,29 @@ const OrderHistory = () => {
         searchButtonIcon={faSearch}
         searchButtonAction={() => setOpenSearch(true)}
       />
-      {history && (
+      {history ? (
         <div className="mx-auto flex w-[74vw] justify-start gap-10">
           <AccordionOrder
             data={history}
             onClick={(newValue) => setSelected(newValue)}
           />
           {selected && <DetailFlight data={selected} />}
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center text-black">
+          <img
+            src="/assets/icons/noOrderHistory.svg"
+            alt="Order Not Found"
+            className="mb-2 mt-8"
+          />
+          <span>Oops! Riwayat pesanan kosong!</span>
+          <span className="mb-8">
+            Anda belum melakukan pemesanan penerbangan
+          </span>
+          <button className={`min-w-[26rem] bg-[#7126B5] text-white`}>
+            Cari Penerbangan
+          </button>
+          <span className="h-[20vh]"></span>
         </div>
       )}
       {openFilter && (
