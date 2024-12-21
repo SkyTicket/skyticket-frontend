@@ -1,22 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchOrderHistory } from "../services/order.history.service";
 import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 
+import Navbar from "../components/Fragments/Navbar/Navbar";
+import Backdrop from "../components/Elements/Search/Backdrop";
+import SetDate2 from "../components/Elements/Input/SetDate2";
+import FilterOrder from "../components/Fragments/OrderHistory/FilterOrder";
+import HeaderLogin from "../components/Fragments/Header/Header";
 import DetailFlight from "../components/Fragments/OrderHistory/DetailFlight";
 import AccordionOrder from "../components/Fragments/OrderHistory/AccordionOrder";
-import HeaderLogin from "../components/Fragments/Header/Header";
-import Navbar from "../components/Fragments/Navbar/Navbar";
-import FilterOrder from "../components/Fragments/OrderHistory/FilterOrder";
-import SetDestination from "../components/Elements/Input/SetDestination";
-import Backdrop from "../components/Elements/Search/Backdrop";
-import DatePicker from "../components/Elements/Input/SetDate";
-import SetDate2 from "../components/Elements/Input/SetDate2";
+import React from "react";
+import NoOrderHistory from "../components/Fragments/OrderHistory/NoOrderHistory";
 
 const OrderHistory = () => {
   const [selected, setSelected] = useState(null);
   const [history, setHistory] = useState(null);
   const [openFilter, setOpenFilter] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,51 +31,70 @@ const OrderHistory = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const updateScreen = () => setIsMobile(window.innerWidth < 500);
+    updateScreen();
+    window.addEventListener("resize", updateScreen);
+
+    return () => window.removeEventListener("resize", updateScreen);
+  }, []);
+
+  if (isMobile && selected) {
+    return (
+      <DetailFlight
+        data={selected}
+        isMobile={isMobile}
+        onClose={() => setSelected(null)}
+      />
+    );
+  }
+
   return (
     <div className="flex h-screen flex-col">
       <Navbar />
-      <HeaderLogin
-        title="Riwayat Pemesanan"
-        buttonText="Beranda"
-        rightButtonIcon={faFilter}
-        rightButtonText="Filter"
-        rightButtonAction={() => setOpenFilter(true)}
-        searchButtonIcon={faSearch}
-        searchButtonAction={() => setOpenSearch(true)}
-      />
+
+      {!isMobile && (
+        <HeaderLogin
+          title="Riwayat Pemesanan"
+          buttonText="Beranda"
+          rightButtonIcon={faFilter}
+          rightButtonText="Filter"
+          rightButtonAction={() => setOpenFilter(true)}
+          searchButtonIcon={faSearch}
+          searchButtonAction={() => setOpenSearch(true)}
+        />
+      )}
+
       {history ? (
-        <div className="mx-auto flex w-[74vw] justify-start gap-10">
+        <div
+          className={`${isMobile ? "justify-center" : "mx-auto w-[74vw] justify-start"} flex gap-10`}
+        >
           <AccordionOrder
             data={history}
+            isMobile={isMobile}
             onClick={(newValue) => setSelected(newValue)}
+            openFilter={() => setOpenFilter(true)}
+            openSearch={() => setOpenSearch(true)}
           />
           {selected && <DetailFlight data={selected} />}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center text-black">
-          <img
-            src="/assets/icons/noOrderHistory.svg"
-            alt="Order Not Found"
-            className="mb-2 mt-8"
-          />
-          <span>Oops! Riwayat pesanan kosong!</span>
-          <span className="mb-8">
-            Anda belum melakukan pemesanan penerbangan
-          </span>
-          <button className={`min-w-[26rem] bg-[#7126B5] text-white`}>
-            Cari Penerbangan
-          </button>
-          <span className="h-[20vh]"></span>
-        </div>
+        <NoOrderHistory
+          isMobile={isMobile}
+          openFilter={() => setOpenFilter(true)}
+          openSearch={() => setOpenSearch(true)}
+        />
       )}
+
       {openFilter && (
         <>
           <Backdrop />
           <FilterOrder close={() => setOpenFilter(false)} />
         </>
       )}
+
       {openSearch && (
-        <SetDate2 onClose={() => setOpenSearch(false)} isMobile={false} />
+        <SetDate2 onClose={() => setOpenSearch(false)} isMobile={isMobile} />
       )}
     </div>
   );

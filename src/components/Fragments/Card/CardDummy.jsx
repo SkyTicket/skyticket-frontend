@@ -15,7 +15,7 @@ const Card = React.forwardRef(({ className = "", children, ...props }, ref) => {
 const CardContent = React.forwardRef(
   ({ className = "", children, ...props }, ref) => {
     return (
-      <div ref={ref} className={`p-6 pt-0 ${className}`} {...props}>
+      <div ref={ref} className={`md:p-6 ${className}`} {...props}>
         {children}
       </div>
     );
