@@ -27,5 +27,15 @@ const fetchNotificationsByUserId = async () => {
   }
 };
 
-export { createNotification, fetchNotificationsByUserId };
+const updateNotificationReadStatus = async (notificationId, ) => {
+  try {
+    await axiosInstance.patch(`/api/v1/notifications/update/${notificationId}`, {
+      notification_is_read: true
+    });
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Failed to update notification status');
+  }
+};
+
+export { createNotification, fetchNotificationsByUserId, updateNotificationReadStatus };
 

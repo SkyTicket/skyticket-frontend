@@ -7,25 +7,25 @@ import Navbar from "../components/Fragments/Navbar/Navbar";
 import FooterMobile from "../components/Elements/Footer/FooterMobile";
 import { AuthProvider } from "../contexts/AuthContext";
 import { NotificationProvider } from "../contexts/NotificationContext";
+import useNotifications from "../hooks/useNotifications";
 
 const NotificationsPage = () => {
   const [isMobile, setIsMobile] = useState(false);
-
+  const { markAllAsRead } = useNotifications();
   const handleFilterClick = () => {
-    console.log("Filter button clicked!");
   };
 
   const handleSearchClick = () => {
-    console.log("Search button clicked!");
   };
 
   useEffect(() => {
+    markAllAsRead();
     const updateScreen = () => setIsMobile(window.innerWidth < 500);
     updateScreen();
     window.addEventListener("resize", updateScreen);
 
     return () => window.removeEventListener("resize", updateScreen);
-  }, []);
+  }, [markAllAsRead]);
 
   return (
     <AuthProvider>

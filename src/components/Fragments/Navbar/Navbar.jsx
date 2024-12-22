@@ -6,13 +6,19 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import useNotifications from "../../../hooks/useNotifications";
 import SearchBar from "../../Elements/Search/SearchBar";
-
 import Button from "../../Elements/Button/Button";
 import Logo from "../../Elements/Logo/Logo";
 
 const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   const { isLoggedIn } = useAuth();
-  const { notifications, fetchNotifications } = useNotifications();
+
+  const { 
+    notifications, 
+    fetchNotifications, 
+    unreadCount, 
+    markAllAsRead,
+     
+  } = useNotifications();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -35,6 +41,10 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   if (isMobile) {
     return null;
   }
+  const handleNotificationClick = (e) => {
+    e.preventDefault();
+    markAllAsRead();
+  };
 
   return (
     <nav className="bg-white py-4 shadow-lg">
@@ -58,21 +68,21 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
                 />
               </Link>
               <Link to="/notification">
-                <div className="relative">
-                  <FontAwesomeIcon
-                    icon={faBell}
-                    className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
-                  />
-                  {notifications.length > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">
-                      {notifications.length}
-                    </span>
-                  )}
-                </div>
-              </Link>
+                  <div className="relative">
+                    <FontAwesomeIcon
+                      icon={faBell}
+                      className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
+                    />
+                    {unreadCount > 0 && (
+                      <span className="absolute -right-1 -top-1 rounded-full bg-red-500 px-1 text-xs text-white">
+                        {unreadCount}
+                      </span>
+                    )}
+                  </div>
+                </Link>
               <Link to="/account">
                 <FontAwesomeIcon
-                  icon={faUser }
+                  icon={faUser}
                   className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
                 />
               </Link>

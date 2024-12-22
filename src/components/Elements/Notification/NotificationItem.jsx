@@ -32,7 +32,7 @@ const NotificationItem = ({ notification, onMarkAsRead }) => {
     <Link to="/" className="block" onClick={handleClick}>
       <div
         ref={ref}
-        className="flex flex-col items-start justify-between border-gray-200 p-4 md:flex-row md:items-center w-full cursor-pointer" // Menambahkan cursor-pointer untuk interaksi
+        className="flex flex-col items-start justify-between border-gray-200 p-4 md:flex-row md:items-center w-full cursor-pointer overflow-visible"
       >
         <div className="flex w-full items-start md:w-auto">
           <img
