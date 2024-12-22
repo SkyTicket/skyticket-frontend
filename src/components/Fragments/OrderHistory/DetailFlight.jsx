@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, useNavigate } from "react-router-dom";
 
 const DetailFlight = ({ data, isMobile, onClose }) => {
+  const [link, setLink] = useState("");
   const [statusCSS, setStatusCSS] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     switch (data?.booking_payment_status) {
       case "Issued":
-        setStatusCSS("bg-green-500 hover:bg-green-600");
+        setStatusCSS("bg-green-500");
         break;
       case "Unpaid":
-        setStatusCSS("bg-red-500 hover:bg-red-600");
+        setStatusCSS("bg-red-500");
+        setLink("/payment");
         break;
       case "Cancelled":
-        setStatusCSS("bg-gray-500 hover:bg-gray-600");
+        setStatusCSS("bg-gray-500");
+        setLink("/");
         break;
       default:
         setStatusCSS("");
     }
   }, [data?.booking_payment_status]);
+
+  const buttonClickHandle = () => {
+    if (data?.booking_payment_status == "Unpaid") {
+      navigate("/payment", { state: { data } });
+    } else {
+      navigate("/");
+    }
+  };
 
   return (
     <div className={`${isMobile ? "px-4 text-sm" : "w-[30vw]"} space-y-4 pt-4`}>
@@ -39,7 +52,7 @@ const DetailFlight = ({ data, isMobile, onClose }) => {
         </>
       )}
 
-      <div className="flex items-center justify-between">
+      <div className="flex cursor-default select-none items-center justify-between">
         {isMobile ? (
           ""
         ) : (
@@ -51,7 +64,7 @@ const DetailFlight = ({ data, isMobile, onClose }) => {
       </div>
 
       <div
-        className={`${isMobile ? "rounded-xl border border-gray-500 p-5" : ""}`}
+        className={`${isMobile ? "rounded-xl border border-gray-500 p-5" : ""} cursor-default select-none`}
       >
         <p className="text-black">
           Booking Code:{" "}
@@ -118,7 +131,7 @@ const DetailFlight = ({ data, isMobile, onClose }) => {
         </div>
       </div>
 
-      <div className="md:border-t md:pt-3">
+      <div className="cursor-default select-none md:border-t md:pt-3">
         <div className="space-y-2 text-sm text-[#151515]">
           <p className="font-bold">Rincian Harga</p>
           {data?.ticket.amount_details.adults && (
@@ -147,26 +160,33 @@ const DetailFlight = ({ data, isMobile, onClose }) => {
           )}
           <div className="flex justify-between border-t pt-2 text-lg font-bold">
             <span className="text-[#151515]">Total</span>
-            <span className="text-[#7126B5]">{data?.booking_amount}</span>
+            <span className="text-[#7126B5]">
+              {data?.ticket.amount_details.booking_amount_total}
+            </span>
           </div>
         </div>
       </div>
-      <button
-        className={`w-full text-white ${
-          data?.booking_payment_status == "Issued"
-            ? "bg-[#7126B5]"
-            : data?.booking_payment_status == "Unpaid"
+      {data?.booking_payment_status === "Issued" ? (
+        <Link to={data?.ticket.send_eticket_url}>
+          <button className="mt-3 w-full bg-[#7126B5] text-white">
+            Cetak Tiket
+          </button>
+        </Link>
+      ) : (
+        <button
+          className={`mt-3 w-full text-white ${
+            data?.booking_payment_status === "Unpaid"
               ? "bg-[#FF0000]"
               : "bg-gray-500"
-        }`}
-      >
-        {data?.booking_payment_status == "Issued"
-          ? "Cetak Tiket"
-          : data?.booking_payment_status == "Unpaid"
+          }`}
+          onClick={buttonClickHandle}
+        >
+          {data?.booking_payment_status === "Unpaid"
             ? "Lanjut Bayar"
             : "Cari Penerbangan"}
-      </button>
-      {isMobile && <div className="h-4 w-full"></div>}
+        </button>
+      )}
+      {isMobile && <div className="h-2 w-full"></div>}
     </div>
   );
 };
