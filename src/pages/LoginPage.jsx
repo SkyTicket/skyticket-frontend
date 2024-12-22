@@ -7,9 +7,13 @@ import LoginForm from "../components/Fragments/Form/LoginForm";
 import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn,user_role  } = useAuth();
 
+  
   if (isLoggedIn) {
+    if (user_role === "admin") {
+      return <Navigate to="/admin" />;
+    }
     return <Navigate to="/" />;
   }
 
