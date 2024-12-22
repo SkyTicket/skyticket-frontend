@@ -47,22 +47,22 @@ Selamat datang di repositori Front-End dari SkyTicket! Aplikasi pemesanan tiket 
 
 ## 🌐 Routing Aplikasi
 
-Routing dengan akses bebas (semua pengguna dapat mengakses):
-- **Home Page** (`/`): Halaman utama untuk mencari penerbangan. *Dapat diakses oleh semua pengguna.*
-- **OTP Page** (`/otp`): Halaman untuk verifikasi email dengan kode OTP. *Dapat diakses oleh semua pengguna.*
-- **Login Page** (`/login`): Halaman untuk login ke akun pengguna. *Dapat diakses oleh semua pengguna.*
-- **Register Page** (`/register`): Halaman untuk registrasi pengguna baru. *Dapat diakses oleh semua pengguna.*
-- **Ticket List Page** (`/ticket-list`): Halaman untuk melihat daftar penerbangan yang tersedia. *Dapat diakses oleh semua pengguna.*
-- **Reset Password Page** (`/reset-password`): Halaman untuk mengatur ulang kata sandi. *Dapat diakses oleh semua pengguna.*
-- **Reset Password Request Page** (`/reset-password/request`): Halaman untuk meminta pengaturan ulang kata sandi. *Dapat diakses oleh semua pengguna.*
-- **Not Found Page** (`*`): Halaman fallback untuk rute yang tidak ditemukan. *Dapat diakses oleh semua pengguna.*
+Routing dengan akses bebas (*dapat diakses oleh semua pengguna*):
+- **Home Page** (`/`): Halaman utama untuk mencari penerbangan.
+- **OTP Page** (`/otp`): Halaman untuk verifikasi email dengan kode OTP.
+- **Login Page** (`/login`): Halaman untuk login ke akun pengguna.
+- **Register Page** (`/register`): Halaman untuk registrasi pengguna baru.
+- **Ticket List Page** (`/ticket-list`): Halaman untuk melihat daftar penerbangan yang tersedia.
+- **Reset Password Page** (`/reset-password`): Halaman untuk mengatur ulang kata sandi.
+- **Reset Password Request Page** (`/reset-password/request`): Halaman untuk meminta pengaturan ulang kata sandi.
+- **Not Found Page** (`*`): Halaman fallback untuk rute yang tidak ditemukan.
 
-Routing dengan akses terbatas (hanya pengguna yang sudah login yang dapat mengakses):
-- **Order Ticket Page** (`/order-ticket`): Halaman untuk memesan tiket penerbangan. *Hanya untuk pengguna yang sudah login.*
-- **Payment Page** (`/payment`): Halaman untuk melakukan pembayaran tiket. *Hanya untuk pengguna yang sudah login.*
-- **Order History Page** (`/history`): Halaman untuk melihat riwayat pemesanan tiket. *Hanya untuk pengguna yang sudah login.*
-- **Account Page** (`/account`): Halaman untuk mengelola akun pengguna. *Hanya untuk pengguna yang sudah login.*
-- **Notification Page** (`/notification`): Halaman untuk melihat notifikasi terkait pemesanan. *Hanya untuk pengguna yang sudah login.*
+Routing dengan akses terbatas (*hanya untuk pengguna yang sudah login*):
+- **Order Ticket Page** (`/order-ticket`): Halaman untuk memesan tiket penerbangan.
+- **Payment Page** (`/payment`): Halaman untuk melakukan pembayaran tiket.
+- **Order History Page** (`/history`): Halaman untuk melihat riwayat pemesanan tiket.
+- **Account Page** (`/account`): Halaman untuk mengelola akun pengguna.
+- **Notification Page** (`/notification`): Halaman untuk melihat notifikasi terkait pemesanan.
 
 ---
 
