@@ -11,7 +11,7 @@ import Button from "../../Elements/Button/Button";
 
 const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   const { isLoggedIn } = useAuth();
-  const { notifications } = useNotifications(); // Use the notifications context
+  const { notifications, fetchNotifications } = useNotifications();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -24,6 +24,12 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
 
     return () => window.removeEventListener("resize", handleResize); 
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchNotifications();
+    }
+  }, [isLoggedIn]);
 
   if (isMobile) {
     return null;

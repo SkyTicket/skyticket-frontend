@@ -50,7 +50,7 @@ const NotificationsPage = () => {
               searchButtonIcon={faSearch}
               searchButtonAction={handleSearchClick}
             />
-            <div className="mx-auto flex justify-between gap-4">
+            <div className="mx-auto flex justify-center gap-4">
               <NotificationList />
             </div>
           </>

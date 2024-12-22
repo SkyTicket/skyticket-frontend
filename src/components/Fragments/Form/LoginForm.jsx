@@ -46,7 +46,6 @@ const LoginForm = ({ showLogoOnMobile = false }) => {
         toast.error("Login gagal, silakan periksa email dan password Anda.");
       }
     } catch (error) {
-      console.error("Terjadi kesalahan saat login:", error);
       toast.error("Terjadi kesalahan, silakan coba lagi.");
     }
 
