@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { faListUl } from "@fortawesome/free-solid-svg-icons";
 import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
+import { faListUl } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import Logo from "../../Elements/Logo/Logo";
-import Button from "../../Elements/Button/Button";
-import SearchBar from "../../Elements/Search/SearchBar";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
+import useNotifications from "../../../hooks/useNotifications";
+import SearchBar from "../../Elements/Search/SearchBar";
+import Button from "../../Elements/Button/Button";
+import Logo from "../../Elements/Logo/Logo";
 
 const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   const { isLoggedIn } = useAuth();
+
+  const { 
+    notifications, 
+    fetchNotifications, 
+    unreadCount, 
+    markAllAsRead,
+     
+  } = useNotifications();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -23,6 +31,20 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchNotifications();
+    }
+  }, [isLoggedIn]);
+
+  if (isMobile) {
+    return null;
+  }
+  const handleNotificationClick = (e) => {
+    e.preventDefault();
+    markAllAsRead();
+  };
 
   return (
     <nav className="bg-white py-4 shadow-lg">
@@ -46,11 +68,18 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
                 />
               </Link>
               <Link to="/notification">
-                <FontAwesomeIcon
-                  icon={faBell}
-                  className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
-                />
-              </Link>
+                  <div className="relative">
+                    <FontAwesomeIcon
+                      icon={faBell}
+                      className="h-6 w-6 cursor-pointer text-black hover:text-purple-500"
+                    />
+                    {unreadCount > 0 && (
+                      <span className="absolute -right-1 -top-1 rounded-full bg-red-500 px-1 text-xs text-white">
+                        {unreadCount}
+                      </span>
+                    )}
+                  </div>
+                </Link>
               <Link to="/account">
                 <FontAwesomeIcon
                   icon={faUser}

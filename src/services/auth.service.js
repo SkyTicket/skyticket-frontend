@@ -1,16 +1,23 @@
 import Cookies from "js-cookie";
 import axiosInstance from "../api/axiosInstance";
 
+const ADMIN_EMAIL = "admin@skyticket.com";
+
 const Login = async (data) => {
   try {
     const response = await axiosInstance.post("/api/v1/auth/login", data);
 
     if (response.data.token) {
+      const user_role = data.email === ADMIN_EMAIL ? "admin" : "buyer";
       Cookies.set("token", response.data.token, { expires: 7 });
+      Cookies.set("user_role", user_role, { expires: 7 });
+
       return {
         status: "Success",
         message: response.data.message,
         token: response.data.token,
+        user_role: user_role,
+
       };
     } else {
       return {
@@ -32,6 +39,8 @@ const Logout = async () => {
     await axiosInstance.post("/api/v1/auth/logout");
 
     Cookies.remove("token");
+    Cookies.remove("user_role");
+
     return {
       status: "Success",
       message: "Logout berhasil.",

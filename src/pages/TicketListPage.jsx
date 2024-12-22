@@ -77,6 +77,11 @@ const TicketListPage = () => {
     fetchData();
   }, [filters]);
 
+  useEffect(() => {
+    console.log("Modal state:", isFilterModalOpen);
+  }, [isFilterModalOpen]);
+  
+
   return (
     <>
       <Navbar showLoginButton={true} isMobile={true} />

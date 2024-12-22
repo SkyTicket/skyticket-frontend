@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
-import { Login as loginService } from "../services/auth.service";
-import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { Login as loginService } from "../services/auth.service";
 
 const useLogin = () => {
   const { login: contextLogin } = useAuth();
@@ -17,12 +17,15 @@ const useLogin = () => {
       const result = await loginService(data);
       if (result.status === "Success") {
         toast.success(result.message || "Login berhasil");
-        contextLogin(result.token);
-        return { success: true };
+
+        const { token, user_role } = result;
+        contextLogin(token, user_role, email);
+        return true;
       } else {
         if (
+          navigate("/otp", { state: { email } }) &&
           result.message ===
-          "Akun belum diverifikasi. Harap verifikasi melalui OTP terlebih dahulu."
+          "Akun belum diverifikasi. Harap register ulang."
         ) {
           toast.error(result.message);
           return { success: false, requiresVerification: true, email };
