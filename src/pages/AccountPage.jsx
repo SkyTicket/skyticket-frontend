@@ -5,7 +5,6 @@ import HeaderLogin from "../components/Fragments/Header/Header";
 import AccountForm from "../components/Fragments/AccountMenu/AccountForm";
 import AccountMenu from "../components/Fragments/AccountMenu/AccountMenu";
 import { useUser } from "../hooks/useProfile";
-import FooterMobile from "../components/Elements/Footer/FooterMobile";
 import { AuthProvider } from "../contexts/AuthContext";
 
 function AccountPage() {
@@ -26,6 +25,7 @@ function AccountPage() {
       <AuthProvider>
         {isMobile ? (
           <>
+            <Navbar showLoginButton={true} />
             <p className="mx-8 pt-10 text-2xl font-semibold text-black">Akun</p>
             {!isFormOpen ? (
               <AccountMenu onClick={() => setIsFormOpen(true)} />
@@ -35,8 +35,6 @@ function AccountPage() {
                 isMobile={isMobile}
               />
             )}
-
-            <FooterMobile active={"akun"} />
           </>
         ) : (
           <>
