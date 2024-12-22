@@ -20,9 +20,10 @@ const RegisterForm = ({ showLogoOnMobile = false }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-
+  const [backendErrors, setBackendErrors] = useState({});
   const passwordValue = watch("password");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setFocus("name");
@@ -32,10 +33,16 @@ const RegisterForm = ({ showLogoOnMobile = false }) => {
     const { name, email, phone, password } = data;
 
     setIsLoading(true);
-    const success = await performRegister(name, email, phone, password);
+    const result = await performRegister(name, email, phone, password);
 
-    if (success) {
+    if (result.success) {
       navigate("/otp", { state: { email } });
+    } else if (result.errors) {
+      const errorMap = result.errors.reduce((acc, error) => {
+        acc[error.param] = error.msg;
+        return acc;
+      }, {});
+      setBackendErrors(errorMap);
     }
     setIsLoading(false);
   };

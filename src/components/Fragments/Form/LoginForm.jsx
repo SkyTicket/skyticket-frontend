@@ -29,10 +29,14 @@ const LoginForm = ({ showLogoOnMobile = false }) => {
     const { email, password } = data;
 
     setIsLoading(true);
-    const success = await login(email, password);
+    const { success, requiresVerification } = await login(email, password);
 
     if (success) {
       navigate("/");
+    } else if (requiresVerification) {
+      setTimeout(() => {
+        navigate("/otp", { state: { email } });
+      }, 2000);
     }
     setIsLoading(false);
   };

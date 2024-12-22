@@ -19,7 +19,7 @@ const Login = async (data) => {
       };
     }
   } catch (error) {
-    const errorMessage = error.response?.data?.message || "Terjadi kesalahan";
+    const errorMessage = error.response?.data?.message || "Terjadi kesalahan.";
     return {
       status: "Error",
       message: errorMessage,
@@ -34,11 +34,11 @@ const Logout = async () => {
     Cookies.remove("token");
     return {
       status: "Success",
-      message: "Logout berhasil",
+      message: "Logout berhasil.",
     };
   } catch (error) {
     const errorMessage =
-      error.response?.data?.message || "Terjadi kesalahan saat logout";
+      error.response?.data?.message || "Terjadi kesalahan saat logout.";
     return {
       status: "Error",
       message: errorMessage,
@@ -60,10 +60,16 @@ const Register = async (data) => {
       email: data.user_email,
     };
   } catch (error) {
-    const errorMessage = error.response?.data?.message;
+    const errorResponse = error.response;
+    if (errorResponse?.status === 400 && errorResponse.data?.errors) {
+      return {
+        status: "Error",
+        errors: errorResponse.data.errors,
+      };
+    }
     return {
       status: "Error",
-      message: errorMessage,
+      message: errorResponse?.data?.message || "Terjadi kesalahan pada server.",
     };
   }
 };
@@ -78,7 +84,7 @@ const VerifyOtp = async (email, otpCode) => {
     return response.data;
   } catch (error) {
     console.error("Error dari VerifyOtp:", error.response?.data);
-    throw error.response?.data || new Error("Gagal verifikasi OTP");
+    throw error.response?.data || new Error("Gagal verifikasi OTP.");
   }
 };
 
@@ -91,7 +97,7 @@ const ResendOtp = async (email) => {
     return response.data;
   } catch (error) {
     console.error("Error dari ResendOtp:", error.response?.data);
-    throw error.response?.data || new Error("Gagal mengirim ulang OTP");
+    throw error.response?.data || new Error("Gagal mengirim ulang OTP.");
   }
 };
 
@@ -108,7 +114,7 @@ const resetPassword = async (token, { password, confirmPassword }) => {
     };
   } catch (error) {
     const errorMessage =
-      error.response?.data?.message || "Gagal reset password";
+      error.response?.data?.message || "Gagal reset password.";
     return {
       status: "Error",
       message: errorMessage,
@@ -130,7 +136,7 @@ const requestResetPassword = async (email) => {
   } catch (error) {
     console.error("Error Response:", error.response);
 
-    const errorMessage = error.response?.data?.message || "Terjadi kesalahan";
+    const errorMessage = error.response?.data?.message || "Terjadi kesalahan.";
     return {
       status: "Error",
       message: errorMessage,
