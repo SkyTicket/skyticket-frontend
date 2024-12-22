@@ -1,20 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import ProtectedRoute from "./components/Fragments/ProtectedRoute";
 import OtpPage from "./pages/OtpPage";
 import HomePage from "./pages/Homepage";
-import PageOrder from "./pages/PageOrder";
+import PageOrder from "./pages/OrderPage";
 import LoginPage from "./pages/LoginPage";
 import AccountPage from "./pages/AccountPage";
 import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/404";
-import OrderHistory from "./pages/OrderHistory";
-import ProtectedRoute from "./components/Fragments/ProtectedRoute";
+import OrderHistory from "./pages/OrderHistoryPage";
 import TicketListPage from "./pages/TicketListPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import ResetPasswordPage from "./pages/ResetPaswordPage";
 import ResetPasswordRequestPage from "./pages/ResetPasswordRequestPage";
-import FlightBooking from "./pages/FlighBooking";
-import PaymentView from "./pages/Payment";
+import FlightBookingPage from "./pages/FlightBookingPage";
+import PaymentView from "./pages/PaymentPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import RoleProtectedRoute from "./components/Fragments/RoleProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -27,7 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/otp" element={<OtpPage />} />
-          <Route path="/testing" element={<FlightBooking />} />
+          <Route path="/testing" element={<FlightBookingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/ticket-list" element={<TicketListPage />} />

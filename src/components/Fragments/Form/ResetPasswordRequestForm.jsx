@@ -1,12 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import Input from "../../Elements/Input/Input";
-import Button from "../../Elements/Button/Button";
-import { requestResetPassword } from "../../../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Logo from "../../Elements/Logo/Logo";
+import Input from "../../Elements/Input/Input";
+import Button from "../../Elements/Button/Button";
+import { requestResetPassword } from "../../../services/auth.service";
+
 const ResetPasswordRequestForm = (showLogoOnMobile = false) => {
   const {
     register,
@@ -68,14 +69,14 @@ const ResetPasswordRequestForm = (showLogoOnMobile = false) => {
       <Button
         type="submit"
         disabled={Object.keys(errors).length > 0}
-        className={`w-full rounded-2xl font-medium ${
-          Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-purple-500"
+        className={`mt-14 w-full rounded-2xl font-medium ${
+          Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-[#7126B5]"
         }`}
       >
         Kirim
       </Button>
 
-      <p className="mt-10 text-center text-sm text-black">
+      <p className="mt-10 text-center text-black">
         Sudah ingat kata sandi Anda?{" "}
         <Link to="/login">
           <a

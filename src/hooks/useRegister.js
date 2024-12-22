@@ -19,13 +19,16 @@ const useRegister = () => {
       if (result.status === "Success") {
         toast.success(result.message);
         navigate("/otp", { state: { email } });
-        return true;
+        return { success: true };
+      } else if (result.errors) {
+        result.errors.forEach((error) => toast.error(error.msg));
+        return { success: false, errors: result.errors };
       } else {
-        toast.error(result.message || "Registrasi gagal");
+        toast.error(result.message || "Registrasi gagal.");
         return false;
       }
     } catch (error) {
-      toast.error("Gagal mengirim email OTP. Silakan coba lagi.");
+      toast.error("Gagal mengirim email OTP. Silahkan coba lagi.");
       console.error(error);
       return false;
     }

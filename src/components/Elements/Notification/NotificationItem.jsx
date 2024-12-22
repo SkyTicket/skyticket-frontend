@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom"; // Import Link untuk navigasi
-import notifIcon from "../../../assets/icons/notif.svg";
+import notifIcon from "../../../../public/assets/icons/notif.svg";
 
 const NotificationItem = ({ notification, onMarkAsRead }) => {
   const ref = useRef(null);

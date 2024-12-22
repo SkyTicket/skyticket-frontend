@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Backdrop from "../Search/Backdrop";
 
-function SetDate2({ onClick, onClose }) {
+function SetDate2({ onClick, onClose, isMobile }) {
   const [value, setValue] = useState(new Date());
 
   const handleDateChange = (date) => {
@@ -16,7 +16,13 @@ function SetDate2({ onClick, onClose }) {
   return (
     <>
       <Backdrop />
-      <div className="fixed bottom-0 left-0 right-0 z-50 h-[80vh] min-h-[390px] rounded-t-xl border bg-white p-6">
+      <div
+        className={`fixed z-50 border bg-white p-6 ${
+          isMobile
+            ? "bottom-0 left-0 right-0 h-[80vh] min-h-[390px] rounded-t-xl"
+            : "left-[35vw] top-[17vh] h-[66vh] w-[30vw] rounded-xl"
+        }`}
+      >
         <div className="flex justify-end">
           <FontAwesomeIcon
             icon={faXmark}

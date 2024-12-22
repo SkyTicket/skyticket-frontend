@@ -8,7 +8,7 @@ const FilterButton = ({ onClick, text }) => {
       }}
     >
       <img
-        src="/src/assets/icons/prefix-wrapper.svg"
+        src="/assets/icons/prefix-wrapper.svg"
         alt="Termurah"
         className="pr-2"
       />

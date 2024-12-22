@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
-import { faBell, faUser  } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import useNotifications from "../../../hooks/useNotifications";
 import SearchBar from "../../Elements/Search/SearchBar";
-import Logo from "../../Elements/Logo/Logo";
+
 import Button from "../../Elements/Button/Button";
+import Logo from "../../Elements/Logo/Logo";
 
 const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   const { isLoggedIn } = useAuth();
@@ -16,13 +17,13 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); 
+      setIsMobile(window.innerWidth <= 768);
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize); 
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -38,10 +39,14 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   return (
     <nav className="bg-white py-4 shadow-lg">
       <div className="mx-auto w-[90%] max-w-[1440px]">
-        <div className="relative flex h-auto flex-col items-center justify-between gap-4 md:flex-row md:gap-8">
-          <div className="flex flex-1 flex-col items-center gap-4 md:flex-row md:gap-8">
+        <div
+          className={`relative flex h-auto items-center justify-between gap-4 md:flex-row md:gap-8 ${isMobile ? "flex-row" : "flex-col"}`}
+        >
+          <div
+            className={`flex flex-col items-center gap-4 md:flex-row md:gap-8 ${!isMobile && "flex-1"}`}
+          >
             <Logo />
-            {showSearchBar && <SearchBar />}
+            {showSearchBar && !isMobile && <SearchBar />}
           </div>
 
           {isLoggedIn ? (
