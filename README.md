@@ -101,10 +101,10 @@ Routing dengan akses terbatas (*hanya untuk pengguna yang sudah login*):
 │   ├── 📁 hooks
 │   ├── 📁 pages
 │   ├── 📁 services
-│   │   ├── 📄 App.css
-│   │   ├── 📄 App.jsx
-│   │   ├── 📄 index.css
-│   │   └── 📄 main.jsx
+│   ├── 📄 App.css
+│   ├── 📄 App.jsx
+│   ├── 📄 index.css
+│   └── 📄 main.jsx
 ├── 📄 .env.example
 ├── 📄 .gitignore
 ├── 📄 .prettierrc
