@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
@@ -5,13 +6,11 @@ import {
   faHistory,
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 function FooterMobile({ active }) {
-
   return (
-    <div className="absolute bottom-0 flex w-full items-center justify-around py-2 shadow-lg shadow-black">
-     <Link
+    <div className="z-200 fixed bottom-0 flex w-full items-center justify-around bg-white py-2 shadow-lg shadow-black">
+      <Link
         to="/"
         className={`flex flex-col items-center text-[${active == "beranda" ? "#4B1979" : "#8A8A8A"}]`}
       >

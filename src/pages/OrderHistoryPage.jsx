@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { fetchOrderHistory } from "../services/order.history.service";
 import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -8,16 +9,16 @@ import SetDate2 from "../components/Elements/Input/SetDate2";
 import FilterOrder from "../components/Fragments/OrderHistory/FilterOrder";
 import HeaderLogin from "../components/Fragments/Header/Header";
 import DetailFlight from "../components/Fragments/OrderHistory/DetailFlight";
+import FooterMobile from "../components/Elements/Footer/FooterMobile";
 import AccordionOrder from "../components/Fragments/OrderHistory/AccordionOrder";
-import React from "react";
 import NoOrderHistory from "../components/Fragments/OrderHistory/NoOrderHistory";
 
 const OrderHistory = () => {
-  const [selected, setSelected] = useState(null);
   const [history, setHistory] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +68,7 @@ const OrderHistory = () => {
 
       {history ? (
         <div
-          className={`${isMobile ? "justify-center" : "mx-auto w-[74vw] justify-start"} flex gap-10`}
+          className={`${isMobile ? "flex-col justify-center" : "mx-auto w-[74vw] justify-start"} flex gap-6`}
         >
           <AccordionOrder
             data={history}
@@ -96,6 +97,8 @@ const OrderHistory = () => {
       {openSearch && (
         <SetDate2 onClose={() => setOpenSearch(false)} isMobile={isMobile} />
       )}
+
+      {isMobile && <FooterMobile active={"riwayat"} />}
     </div>
   );
 };
