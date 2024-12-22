@@ -9,7 +9,6 @@ import SetDate2 from "../components/Elements/Input/SetDate2";
 import FilterOrder from "../components/Fragments/OrderHistory/FilterOrder";
 import HeaderLogin from "../components/Fragments/Header/Header";
 import DetailFlight from "../components/Fragments/OrderHistory/DetailFlight";
-import FooterMobile from "../components/Elements/Footer/FooterMobile";
 import AccordionOrder from "../components/Fragments/OrderHistory/AccordionOrder";
 import NoOrderHistory from "../components/Fragments/OrderHistory/NoOrderHistory";
 
@@ -52,7 +51,7 @@ const OrderHistory = () => {
 
   return (
     <div className="flex h-screen flex-col">
-      <Navbar />
+      <Navbar showLoginButton={true} />
 
       {!isMobile && (
         <HeaderLogin
@@ -97,8 +96,6 @@ const OrderHistory = () => {
       {openSearch && (
         <SetDate2 onClose={() => setOpenSearch(false)} isMobile={isMobile} />
       )}
-
-      {isMobile && <FooterMobile active={"riwayat"} />}
     </div>
   );
 };
