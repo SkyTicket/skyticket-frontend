@@ -6,6 +6,7 @@ import NotificationList from "../components/Fragments/Notification/NotificationL
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import FooterMobile from "../components/Elements/Footer/FooterMobile";
 import { AuthProvider } from "../contexts/AuthContext";
+import { NotificationProvider } from "../contexts/NotificationContext";
 
 const NotificationsPage = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -28,31 +29,33 @@ const NotificationsPage = () => {
 
   return (
     <AuthProvider>
-      {isMobile ? (
-        <>
-          <p className="mx-8 pt-10 text-2xl font-semibold text-black">
-            Notifikasi
-          </p>
-          <NotificationList />
-          <FooterMobile active={"notifikasi"} />
-        </>
-      ) : (
-        <>
-          <Navbar isActive={"bell"} />
-          <HeaderLogin
-            title="Notifikasi"
-            buttonText="Beranda"
-            rightButtonIcon={faFilter}
-            rightButtonText="Filter"
-            rightButtonAction={handleFilterClick}
-            searchButtonIcon={faSearch}
-            searchButtonAction={handleSearchClick}
-          />
-          <div className="mx-auto flex justify-between gap-4">
+      <NotificationProvider>
+        {isMobile ? (
+          <>
+            <p className="mx-8 pt-10 text-2xl font-semibold text-black">
+              Notifikasi
+            </p>
             <NotificationList />
-          </div>
-        </>
-      )}
+            <FooterMobile active={"notifikasi"} />
+          </>
+        ) : (
+          <>
+            <Navbar isActive={"bell"} />
+            <HeaderLogin
+              title="Notifikasi"
+              buttonText="Beranda"
+              rightButtonIcon={faFilter}
+              rightButtonText="Filter"
+              rightButtonAction={handleFilterClick}
+              searchButtonIcon={faSearch}
+              searchButtonAction={handleSearchClick}
+            />
+            <div className="mx-auto flex justify-between gap-4">
+              <NotificationList />
+            </div>
+          </>
+        )}
+      </NotificationProvider>
     </AuthProvider>
   );
 };

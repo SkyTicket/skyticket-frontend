@@ -1,29 +1,44 @@
 import React from "react";
 import NotificationItem from "../../Elements/Notification/NotificationItem";
+import useNotifications from "../../../hooks/useNotifications";
 
 const NotificationList = () => {
-  const notifications = [
-    {
-      icon: "/src/assets/icons/notif.svg",
-      type: "Promosi",
-      message: "Dapatkan Potongan 50% Tiket!",
-      date: "20 Maret, 14:04",
-      isRead: true,
-    },
-    {
-      icon: "/src/assets/icons/notif.svg",
-      type: "Notifikasi",
-      message:
-        "Terdapat perubahan pada jadwal penerbangan kode booking 45GT6. Cek jadwal perjalanan Anda disini!",
-      date: "5 Maret, 14:04",
-      isRead: false,
-    },
-  ];
+  const { notifications, isFetching, fetchError } = useNotifications();
+
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-center text-gray-600">
+          Loading notifications...
+        </div>
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-center text-red-500">{fetchError}</div>
+      </div>
+    );
+  }
+
+  if (!notifications || notifications.length === 0) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-center text-gray-600">No notifications found</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="mx-auto w-full px-4 md:w-3/4 md:pr-44">
-      {notifications.map((notif, index) => (
-        <NotificationItem key={index} {...notif} />
+    <div class="mx-auto w-full max-w-7xl border-b-2 border-gray-200">
+      {" "}
+      {notifications.map((notification) => (
+        <NotificationItem
+          key={notification.notification_id}
+          notification={notification}
+        />
       ))}
     </div>
   );

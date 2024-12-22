@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { Login as loginService } from "../services/auth.service";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext";
 
 const useLogin = () => {
   const { login: contextLogin } = useAuth();
@@ -10,12 +10,14 @@ const useLogin = () => {
       email: email.trim(),
       user_password: password,
     };
-
+  
     try {
       const result = await loginService(data);
       if (result.status === "Success") {
         toast.success(result.message || "Login berhasil");
-        contextLogin(result.token);
+  
+        const { token, user_role } = result;
+        contextLogin(token, user_role, email); 
         return true;
       } else {
         toast.error(result.message || "Login gagal");
@@ -27,8 +29,10 @@ const useLogin = () => {
       return false;
     }
   };
+  
 
   return { login: performLogin };
 };
 
 export default useLogin;
+
