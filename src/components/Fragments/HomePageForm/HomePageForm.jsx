@@ -344,7 +344,7 @@ function HomepageForm({ prefillData }) {
             <div className="hidden w-[45px] items-center gap-3 text-[#8A8A8A] md:flex md:w-auto">
               <img
                 alt="Seat Icon"
-                src="/public/assets/icons/seat.svg"
+                src="/assets/icons/seat.svg"
                 className="size-6"
               />
               <p className="cursor-default select-none">Seat</p>
@@ -366,7 +366,7 @@ function HomepageForm({ prefillData }) {
             <div className="block w-6 md:hidden">
               <img
                 alt="Seat Icon"
-                src="/public/assets/icons/seat.svg"
+                src="/assets/icons/seat.svg"
                 className="size-7"
               />
             </div>
