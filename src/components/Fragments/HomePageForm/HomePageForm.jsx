@@ -11,13 +11,13 @@ import {
   faPlaneDeparture,
 } from "@fortawesome/free-solid-svg-icons";
 import Class from "./Class";
-import Passengers from "./Passengers";
-import Destination from "./Destination";
 import SetDate2 from "../../Elements/Input/SetDate2";
+import Passengers from "./passengers";
 import DatePicker from "../../Elements/Input/SetDate";
+import Destination from "./Destination";
 import { fetchFlights } from "../../../services/flights.service";
 
-function HomePageForm({ prefillData }) {
+function HomepageForm({ prefillData }) {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
   const [isToggleOn, setIsToggleOn] = useState(false);
@@ -85,7 +85,7 @@ function HomePageForm({ prefillData }) {
       !filters.arrCity.input_value ||
       !filters.depDate
     ) {
-      toast.error("Harap isi semua kolom yang diperlukan!");
+      toast.error("Please fill in all required fields!");
       return;
     }
     try {
@@ -110,6 +110,7 @@ function HomePageForm({ prefillData }) {
       }
 
       const response = await fetchFlights(filters);
+      console.log(filters)
       const params = new URLSearchParams({
         depCity: filters.depCity,
         arrCity: filters.arrCity,
@@ -118,10 +119,10 @@ function HomePageForm({ prefillData }) {
         isRotated: filters.isRotated,
         seatClass: filters.seatClass,
         adult: filters.totalPassengers[0],
-        child: filters.totalPassengers[1],
-        baby: filters.totalPassengers[2],
+        child: filters.totalPassengers[1], 
+        baby: filters.totalPassengers[2]
       });
-
+      
       navigate(`/ticket-list?${params}`, { state: { filters } });
     } catch (error) {
       toast.error((t) => (
@@ -204,8 +205,8 @@ function HomePageForm({ prefillData }) {
         </div>
 
         <div className="relative mx-4 flex flex-col items-center justify-between rounded-xl border border-[#D1D3D4] lg:mx-8 lg:flex-row lg:gap-4 lg:border-0 lg:py-0">
-          <div className="relative flex items-center justify-center gap-6">
-            <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-12 before:h-[1px] before:w-[73%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
+          <div className="relative flex items-center gap-6">
+            <div className="flex items-center gap-3 text-[#8A8A8A] before:absolute before:bottom-0 before:left-8 before:h-[1px] before:w-[83%] before:border-b-2 before:border-[#D0D0D0] before:content-[''] lg:before:border-b-0">
               <FontAwesomeIcon
                 icon={faPlaneDeparture}
                 className="size-6 text-black opacity-60"
@@ -224,18 +225,12 @@ function HomePageForm({ prefillData }) {
           <FontAwesomeIcon
             icon={faRepeat}
             className={`absolute right-4 top-[46px] h-4 w-4 cursor-pointer rounded-lg bg-black p-1 text-white transition-transform duration-300 lg:static ${
-              isMobile
-                ? filters.isRotated
-                  ? "-rotate-90"
-                  : "rotate-90"
-                : filters.isRotated
-                  ? "rotate-180"
-                  : "rotate-0"
+              filters.isRotated ? "rotate-180" : "rotate-0"
             }`}
             onClick={handleRotate}
           />
 
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex items-center gap-6">
             <div className="flex items-center gap-3 text-[#8A8A8A]">
               <FontAwesomeIcon
                 icon={faPlaneArrival}
@@ -349,7 +344,7 @@ function HomePageForm({ prefillData }) {
             <div className="hidden w-[45px] items-center gap-3 text-[#8A8A8A] md:flex md:w-auto">
               <img
                 alt="Seat Icon"
-                src="/assets/icons/seat.svg"
+                src="/public/assets/icons/seat.svg"
                 className="size-6"
               />
               <p className="cursor-default select-none">Seat</p>
@@ -371,7 +366,7 @@ function HomePageForm({ prefillData }) {
             <div className="block w-6 md:hidden">
               <img
                 alt="Seat Icon"
-                src="/assets/icons/seat.svg"
+                src="/public/assets/icons/seat.svg"
                 className="size-7"
               />
             </div>
@@ -388,7 +383,7 @@ function HomePageForm({ prefillData }) {
             </div>
           </div>
         </div>
-
+        
         <button
           type="submit"
           className="w-full rounded-t-none bg-purple-700 py-3 font-bold text-white"
@@ -401,4 +396,4 @@ function HomePageForm({ prefillData }) {
   );
 }
 
-export default HomePageForm;
+export default HomepageForm;

@@ -1,56 +1,33 @@
-import { useState, useEffect } from "react";
-import { fetchFlightsDetail } from "../services/flights.service";
+import { useState, useEffect } from "react"; 
+import { getFlightDetails } from "../services/flights.service";// sesuaikan dengan path
 
-export const useFlightDetails = ({ flightId, seatClass, adult = 0, child = 0, baby = 0 }) => {
-  const [flightDetails, setFlightDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
+export const useFlightDetails = (query) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchDetails = async () => {
+    if (!query) return;
+
+    const fetchFlightDetails = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
-        setLoading(true);
-        const response = await fetchFlightsDetail.getFlightDetails({
-          flightId,
-          seatClass,
-          adult: Number(adult),
-          child: Number(child),
-          baby: Number(baby)
-        });
-        
-        setFlightDetails(response);
-        setError(null);
+        const result = await getFlightDetails(query);
+        setData(result);
+        console.log(result.data)
       } catch (err) {
-        setError({
-          message: err.message || 'Failed to fetch flight details',
-          status: err.status || 500,
-          code: err.code || 'INTERNAL_ERROR'
-        });
-        setFlightDetails(null);
+        setError(err);
       } finally {
         setLoading(false);
       }
     };
 
-    if (flightId && seatClass) {
-      fetchDetails();
-    } else {
-      setError({
-        message: 'Flight ID and Seat Class are required',
-        status: 400,
-        code: 'INVALID_PARAMS'
-      });
-      setLoading(false);
-    }
-  }, [flightId, seatClass, adult, child, baby]);
+    fetchFlightDetails();
+  }, [query]);
 
-  return {
-    flightDetails,
-    loading,
-    error,
-    flight: flightDetails?.flight,
-    pricing: flightDetails?.pricing,
-    seats: flightDetails?.seats,
-    passengers: flightDetails?.passengers
-  };
+  // console.log(query)
+
+  return { data, loading, error };
 };

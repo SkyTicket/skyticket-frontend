@@ -1,13 +1,11 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useState, useRef } from "react";
 import Button from "../components/Elements/Button/Button";
-import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
 import Card from "../components/Fragments/Card/Card";
-import HomePageForm from "../components/Fragments/HomePageForm/HomePageForm";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
-import { AuthContext } from "../contexts/AuthContext";
+import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
 import useFavoriteDestination from "../hooks/useFavoriteDestination";
-
+import HomepageForm from "../components/Fragments/homepageform/homepageForm";
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [continent, setContinent] = useState("");
@@ -17,10 +15,11 @@ const HomePage = () => {
     page,
     continent,
   );
-  const { userId } = useContext(AuthContext);
-
-  useEffect(() => {
-  }, [userId]);
+  // const { userId } = useContext(AuthContext);
+  
+  //     useEffect(() => {
+  //       console.log("Current User ID:", userId);
+  //     }, [userId]);
 
   const handleCardClick = async (url, destinationData) => {
     try {
@@ -53,10 +52,7 @@ const HomePage = () => {
       });
 
       if (sectionRef.current) {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
+        sectionRef.current.scrollIntoView({ behavior: "smooth" });
       }
     } catch (error) {
       console.error("Error parsing URL:", error);
@@ -84,14 +80,14 @@ const HomePage = () => {
           </span>
         </span>
         <img
-          src="/assets/images/bangkok.png"
+          src="src/assets/images/bangkok.png"
           alt="Bangkok"
           className="absolute right-0 -z-10 h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 md:w-3/5"
         />
       </section>
 
       <section className="relative mx-auto -mt-[50px] flex w-[93%] max-w-[1068px] flex-col items-center justify-center rounded-xl bg-white shadow-xl">
-        <HomePageForm prefillData={prefillData} />
+        <HomepageForm prefillData={prefillData} />
       </section>
 
       <section ref={sectionRef} className="mx-auto w-[90%] max-w-[1440px] py-8">
@@ -131,7 +127,7 @@ const HomePage = () => {
           <div className="flex flex-col items-center justify-center p-5 text-center">
             <img
               alt="Favorite Destination Not Found"
-              src="/assets/icons/purple-person-not-found.svg"
+              src="/public/assets/icons/purple-person-not-found.svg"
               className="mb-10 h-auto w-[300px] md:w-[350px]"
             />
             <p className="text-center text-lg text-[#8A8A8A]">{error}</p>
@@ -140,7 +136,7 @@ const HomePage = () => {
           <div className="flex flex-col items-center justify-center p-5 text-center">
             <img
               alt="Favorite Destination Not Found"
-              src="/assets/icons/purple-person-not-found.svg"
+              src="/public/assets/icons/purple-person-not-found.svg"
               className="mb-10 h-auto w-[300px] md:w-[350px]"
             />
             <p className="text-center text-lg text-[#8A8A8A]">
