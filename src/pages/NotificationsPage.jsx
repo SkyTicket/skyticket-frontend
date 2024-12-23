@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
-
 import HeaderLogin from "../components/Fragments/Header/Header";
 import NotificationList from "../components/Fragments/Notification/NotificationList";
 import Navbar from "../components/Fragments/Navbar/Navbar";
-import FooterMobile from "../components/Elements/Footer/FooterMobile";
 import { AuthProvider } from "../contexts/AuthContext";
 import { NotificationProvider } from "../contexts/NotificationContext";
 import useNotifications from "../hooks/useNotifications";
