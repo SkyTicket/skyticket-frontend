@@ -23,9 +23,7 @@ const useLogin = () => {
         return true;
       } else {
         if (
-          navigate("/otp", { state: { email } }) &&
-          result.message ===
-          "Akun belum diverifikasi. Harap register ulang."
+          result.message === "Akun belum diverifikasi. Harap verifikasi melalui OTP terlebih dahulu."
         ) {
           toast.error(result.message);
           return { success: false, requiresVerification: true, email };
