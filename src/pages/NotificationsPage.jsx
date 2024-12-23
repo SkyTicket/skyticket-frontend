@@ -12,11 +12,9 @@ import useNotifications from "../hooks/useNotifications";
 const NotificationsPage = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { markAllAsRead } = useNotifications();
-  const handleFilterClick = () => {
-  };
+  const handleFilterClick = () => {};
 
-  const handleSearchClick = () => {
-  };
+  const handleSearchClick = () => {};
 
   useEffect(() => {
     markAllAsRead();
@@ -30,31 +28,21 @@ const NotificationsPage = () => {
   return (
     <AuthProvider>
       <NotificationProvider>
-        {isMobile ? (
-          <>
-            <p className="mx-8 pt-10 text-2xl font-semibold text-black">
-              Notifikasi
-            </p>
+        <>
+          <Navbar isActive={"bell"} />
+          <HeaderLogin
+            title="Notifikasi"
+            buttonText="Beranda"
+            rightButtonIcon={faFilter}
+            rightButtonText="Filter"
+            rightButtonAction={handleFilterClick}
+            searchButtonIcon={faSearch}
+            searchButtonAction={handleSearchClick}
+          />
+          <div className="mx-auto flex justify-center gap-4">
             <NotificationList />
-            <FooterMobile active={"notifikasi"} />
-          </>
-        ) : (
-          <>
-            <Navbar isActive={"bell"} />
-            <HeaderLogin
-              title="Notifikasi"
-              buttonText="Beranda"
-              rightButtonIcon={faFilter}
-              rightButtonText="Filter"
-              rightButtonAction={handleFilterClick}
-              searchButtonIcon={faSearch}
-              searchButtonAction={handleSearchClick}
-            />
-            <div className="mx-auto flex justify-center gap-4">
-              <NotificationList />
-            </div>
-          </>
-        )}
+          </div>
+        </>
       </NotificationProvider>
     </AuthProvider>
   );

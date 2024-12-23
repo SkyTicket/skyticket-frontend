@@ -263,7 +263,7 @@ function HomepageForm({ prefillData }) {
               <p className="cursor-default select-none text-[#8A8A8A]">
                 Departure
               </p>
-              {isCalendarOpen && currentField === "depDate" && (
+              {/* {isCalendarOpen && currentField === "depDate" && (
                 <SetDate2
                   onClose={() => setIsCalendarOpen(false)}
                   onClick={(date) => handleDateSelection(date)}
@@ -278,7 +278,7 @@ function HomepageForm({ prefillData }) {
                   className="w-[30vw] border-b-2 border-[#D0D0D0] bg-white py-2 font-medium text-black placeholder-gray-300 focus:outline-none"
                   onClick={() => handleClickDate("depDate")}
                 />
-              ) : (
+              ) : ( */}
                 <DatePicker
                   disable={false}
                   valueCard={prefillData?.depDate}
@@ -286,7 +286,7 @@ function HomepageForm({ prefillData }) {
                     setFilters((prev) => ({ ...prev, depDate: newDepDate }));
                   }}
                 />
-              )}
+              {/* )} */}
             </div>
             <FontAwesomeIcon
               icon={faCalendar}

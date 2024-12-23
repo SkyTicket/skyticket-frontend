@@ -15,7 +15,6 @@ const useLogout = () => {
         toast.error(result.message || "Logout gagal");
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan saat logout");
       console.error(error);
     }
   };

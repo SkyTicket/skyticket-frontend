@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("user_role");
     setIsLoggedIn(false);
     setUserEmail(null);
-    setRole(null);
+    setUserRole(null);
   };
 
   return (

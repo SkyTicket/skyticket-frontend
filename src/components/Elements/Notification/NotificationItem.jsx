@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom"; // Import Link untuk navigasi
-import notifIcon from "../../../../public/assets/icons/notif.svg";
+import { Link } from "react-router-dom";
 
 const NotificationItem = ({ notification, onMarkAsRead }) => {
   const ref = useRef(null);
@@ -12,7 +11,7 @@ const NotificationItem = ({ notification, onMarkAsRead }) => {
           onMarkAsRead(notification.notification_id);
         }
       },
-      { threshold: 1.0 }
+      { threshold: 1.0 },
     );
 
     if (ref.current) observer.observe(ref.current);
@@ -32,11 +31,11 @@ const NotificationItem = ({ notification, onMarkAsRead }) => {
     <Link to="/" className="block" onClick={handleClick}>
       <div
         ref={ref}
-        className="flex flex-col items-start justify-between border-gray-200 p-4 md:flex-row md:items-center w-full cursor-pointer overflow-visible"
+        className="flex w-full cursor-pointer flex-col items-start justify-between overflow-visible border-gray-200 p-4 md:flex-row md:items-center"
       >
         <div className="flex w-full items-start md:w-auto">
           <img
-            src={notifIcon}
+            src="/assets/icons/notif.svg"
             alt="Notification Icon"
             className="h-12 w-12 object-contain p-2"
           />
@@ -47,7 +46,9 @@ const NotificationItem = ({ notification, onMarkAsRead }) => {
             <p className="mt-1 text-sm font-semibold text-gray-800 md:text-base">
               {notification.notification_message}
             </p>
-            <p className="text-xs text-gray-500">Syarat dan Ketentuan berlaku!</p>
+            <p className="text-xs text-gray-500">
+              Syarat dan Ketentuan berlaku!
+            </p>
           </div>
         </div>
         <div className="mt-2 flex w-full items-center justify-between md:mt-0 md:w-auto">

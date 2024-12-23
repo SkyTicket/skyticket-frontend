@@ -15,32 +15,34 @@ Selamat datang di repositori Front-End dari SkyTicket! Aplikasi pemesanan tiket 
    - Integrasi destinasi favorit untuk pemilihan penerbangan yang cepat.
 
 2. **Authentication Page (Login, Register, Reset Password, dan OTP)**:
-   - Secure registration with required fields (name, email, phone number, password).
-   - OTP-based email verification (6-digit code).
+   - Masuk ke akun pengguna menggunakan email dan password yang didukung oleh validasi.
+   - Registrasi aman dengan kolom wajib seperti nama, email, nomor telepon, dan kata sandi.
+   - Verifikasi email menggunakan kode OTP (6 digit) untuk memastikan keamanan akun pengguna.
+   - Menyediakan opsi untuk pengguna yang lupa kata sandi dengan tautan untuk membuat kata sandi baru.
 
-3. **Ticket List Page**:
+4. **Ticket List Page**:
    - Jelajahi penerbangan yang tersedia berdasarkan hasil pencarian pengguna.
    - Filter dan urutkan opsi untuk harga, durasi, dan maskapai penerbangan.
 
-4. **Order Ticket Page**:
+5. **Order Ticket Page**:
    - Menyimpan pesanan yang terkonfirmasi di akun pengguna.
 
-5. **Payment Page**:
+6. **Payment Page**:
    - Pembayaran untuk tiket penerbangan dengan berbagai metode.
 
-6. **Order History Page**:
+7. **Order History Page**:
    - Melihat riwayat pemesanan tiket pengguna.
    - Detail pemesanan dapat diunduh.
 
-7. **Notification Page**:
+8. **Notification Page**:
    - Notifikasi terkait pembaruan pemesanan, pembayaran, atau promosi.
    - Filter berdasarkan jenis notifikasi.
 
-8. **Account Page**:
+9. **Account Page**:
    - Pengelolaan informasi akun pengguna.
    - Opsi untuk mengubah detail akun atau menghapus akun.
 
-9. **Responsive Design**:
+10. **Responsive Design**:
    - Berfungsi penuh di platform desktop dan mobile.
 
 ---
@@ -69,7 +71,6 @@ Routing dengan akses terbatas (*hanya untuk pengguna yang sudah login*):
 ## 🛠️ Tech Stack
 
 ### Front-End:
-- **JavaScript**
 - **Vite**
 - **React.js**
 - **Tailwind CSS**
@@ -77,7 +78,6 @@ Routing dengan akses terbatas (*hanya untuk pengguna yang sudah login*):
 ### Peralatan Lainnya:
 - **Axios**
 - **JWT**
-- **SweetAlert2**
 - **Js-cookie**
 
 ---

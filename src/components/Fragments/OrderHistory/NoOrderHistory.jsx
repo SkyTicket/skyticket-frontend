@@ -5,7 +5,7 @@ import React from "react";
 function NoOrderHistory({ isMobile, openFilter, openSearch }) {
   return (
     <div
-      className={`${isMobile && "bg-gradient-to-b from-[#DEC9FF] from-40% to-[#FFE9CA00]"}`}
+      className={`${isMobile && "bg-gradient-to-b"}`}
     >
       {isMobile && (
         <div className="flex flex-col items-end p-4 pb-0">
