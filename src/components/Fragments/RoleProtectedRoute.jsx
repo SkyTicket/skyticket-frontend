@@ -10,7 +10,7 @@ const RoleProtectedRoute = ({ children, allowedRoles }) => {
   }
 
   if (!allowedRoles.includes(user_role)) {
-    return <Navigate to="/" replace />; // Redirect ke home jika role tidak sesuai
+    return <Navigate to="/" replace />;
   }
 
   return children;
