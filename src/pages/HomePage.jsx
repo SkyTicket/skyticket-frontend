@@ -5,7 +5,8 @@ import Navbar from "../components/Fragments/Navbar/Navbar";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 import SkeletonCard from "../components/Elements/Skeleton/Skeleton";
 import useFavoriteDestination from "../hooks/useFavoriteDestination";
-import HomepageForm from "../components/Fragments/homepageform/homepageForm";
+import HomePageForm from "../components/Fragments/HomePageForm/HomePageForm";
+
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [continent, setContinent] = useState("");
@@ -87,7 +88,7 @@ const HomePage = () => {
       </section>
 
       <section className="relative mx-auto -mt-[50px] flex w-[93%] max-w-[1068px] flex-col items-center justify-center rounded-xl bg-white shadow-xl">
-        <HomepageForm prefillData={prefillData} />
+        <HomePageForm prefillData={prefillData} />
       </section>
 
       <section ref={sectionRef} className="mx-auto w-[90%] max-w-[1440px] py-8">
