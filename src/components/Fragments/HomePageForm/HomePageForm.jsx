@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Class from "./Class";
 import SetDate2 from "../../Elements/Input/SetDate2";
-import Passengers from "./passengers";
+import Passengers from "./Passengers";
 import DatePicker from "../../Elements/Input/SetDate";
 import Destination from "./Destination";
 import { fetchFlights } from "../../../services/flights.service";

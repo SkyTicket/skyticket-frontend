@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"; 
-import { getFlightDetails } from "../services/flights.service";// sesuaikan dengan path
+import { getFlightDetails } from "../services/flights.service";
 
 export const useFlightDetails = (query) => {
   const [data, setData] = useState(null);
