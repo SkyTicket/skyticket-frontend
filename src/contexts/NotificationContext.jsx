@@ -66,10 +66,11 @@ const NotificationProvider = ({ children }) => {
   };
   const addNotification = (notification) => {
     setNotifications((prev) => [...prev, notification]);
-    if (!notification.isRead && !hasViewedNotifications) {
+    if (!notification.isRead) {
       setUnreadCount((prev) => prev + 1);
     }
   };
+  
 
   const sendNotification = async (notificationData) => {
     setIsSending(true);
