@@ -19,6 +19,12 @@ const INITIAL_BOOKER = {
 const TIME_LIMIT = 15 * 60;
 
 const PageOrder = () => {
+  const [search] = useSearchParams()
+  const Adult = search.get('adult')
+  const Child = search.get('child')
+  const SeatClass = search.get('seatClass')
+  const Baby = search.get('baby')
+  const Flight = search.get('flightId')
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { createTicketOrder, isLoading, bookingResult } = useTicketBooking();
@@ -44,7 +50,7 @@ const PageOrder = () => {
         validUntil: "",
         selected_seat: "",
         type: "",
-        category
+        // category: "adult"
       }),
       bookerData: INITIAL_BOOKER
     },
@@ -145,7 +151,7 @@ const PageOrder = () => {
           identityNumber: passenger.identityNumber,
           issuingCountry: passenger.issuingCountry,
           validUntil: passenger.validUntil,
-          category: passenger.type
+          // category: "adult"
         })),
         ...formData.bookerData
       };
@@ -156,7 +162,7 @@ const PageOrder = () => {
       console.log("Booking successful:", result);
       
       toast.success("Pemesanan berhasil!");
-      navigate("/payment");
+      navigate(`/payment?flightId=${Flight}&seatClass=${SeatClass}&adult=${Adult}&child=${Child}&baby=${Baby}&bookingCode=${result.bookingCode}&bookingId=${result.data[0]?.booking_id}`);
     } catch (err) {
       console.error("Booking failed:", err);
       toast.error(err.message || "Pemesanan gagal. Silakan coba lagi.");
