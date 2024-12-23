@@ -33,7 +33,7 @@ const LoginForm = ({ showLogoOnMobile = false }) => {
   
     setIsLoading(true);
       if (email === ADMIN_EMAIL && password !== ADMIN_PASSWORD) {
-      toast.error("Password admin tidak valid");
+      toast.error("Password admin tidak valid.");
       setIsLoading(false);
       return;
     }
@@ -44,11 +44,10 @@ const LoginForm = ({ showLogoOnMobile = false }) => {
       if (success && !requiresVerification) {
         toast.success("Login berhasil!");
         navigate("/");
-      } else if (requiresVerification) {
-        toast.warn("Akun belum terverifikasi. Silakan verifikasi akun Anda dan register ulang.");
+      } 
+      else if (requiresVerification) {
+        toast.warn("Akun belum terverifikasi. Silahkan verifikasi akun Anda dan register ulang.");
         navigate("/otp", { state: { email } });
-      } else {
-        toast.error("Login gagal, silakan periksa email dan password Anda.");
       }
     } catch (error) {
       if (error.response?.status === 400) {
