@@ -43,7 +43,7 @@ function AccordionOrder({ data, onClick, isMobile, openFilter, openSearch }) {
           key={history}
           className={`text-black ${
             isMobile
-              ? "w-[100vw] bg-gradient-to-b from-[#DEC9FF] from-40% to-[#FFE9CA00] px-[5vw] pt-4"
+              ? "w-[100vw] px-[5vw] pt-4"
               : "w-[40vw] p-4"
           }`}
         >
