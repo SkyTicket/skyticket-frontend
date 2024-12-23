@@ -6,7 +6,7 @@ const DateItem = ({ day, date, fullDate, isActive, onClick, className }) => {
       onClick={() => onClick({ day, date, fullDate })}
       className={`flex flex-col items-center justify-center rounded-lg px-4 py-2 transition-all duration-200 ease-in-out ${
         isActive
-          ? "bg-purple-400 text-black ring-2 ring-purple-600 dark:bg-purple-400"
+          ? "bg-purple-900 text-black ring-2 ring-purple-600"
           : "hover:bg-gray-100"
       } ${className || ""} `}
     >
