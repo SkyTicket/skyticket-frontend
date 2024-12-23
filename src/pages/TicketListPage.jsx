@@ -54,26 +54,25 @@ const TicketListPage = () => {
   const closeModal = () => {
     setIsFilterModalOpen(false);
   };
-
   useEffect(() => {
-    setIsLoading(true);
     const fetchData = async () => {
-      if (Object.keys(filters).length > 0) {
-        try {
+      setIsLoading(true);
+      try {
+        if (Object.keys(filters).length > 0) {
           const response = await fetchFlights(filters);
           if (response.status === 404) {
             setErrors(response);
           } else {
             setFlightsData(response.flights);
           }
-        } catch (error) {
-          setErrors(error.message);
-        } finally {
-          setIsLoading(false);
         }
+      } catch (error) {
+        setErrors(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
-
+  
     fetchData();
   }, [filters]);
 
@@ -81,7 +80,14 @@ const TicketListPage = () => {
     console.log("Modal state:", isFilterModalOpen);
   }, [isFilterModalOpen]);
   
+  useEffect(() => {
+    if (location.state?.filters) {
+      setFilters(location.state.filters);
+    }
+  }, [location.state?.filters]);
 
+
+  
   return (
     <>
       <Navbar showLoginButton={true} isMobile={true} />
