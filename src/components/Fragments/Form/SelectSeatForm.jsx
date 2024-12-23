@@ -43,7 +43,6 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
     
     return (
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3">Select Passenger</h3>
         <div className="flex flex-wrap gap-2">
           {passengers.map((passenger, index) => (
             <button
@@ -159,14 +158,6 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
         <h2 className="mb-6 text-xl font-bold text-black">Pilih Kursi</h2>
         
         <PassengerSelector />
-
-        <div className="mb-4 p-4 bg-gray-100 rounded-lg">
-          <h3 className="font-bold mb-2">Debug Info:</h3>
-          <p>Display Seat ID: {debugInfo.displaySeatId}</p>
-          <p>Backend Seat ID: {debugInfo.backendSeatId}</p>
-          <p>Current Passenger: {currentPassengerIndex}</p>
-          <p>Selected Seats: {getAllSelectedSeats().map(id => `${reverseSeatMapping[id]}(${id})`).join(', ')}</p>
-        </div>
 
         <div className="mb-8 rounded-lg bg-[#73CA5C] p-4 text-center text-white">
           <h3 className="font-medium">Economy</h3>

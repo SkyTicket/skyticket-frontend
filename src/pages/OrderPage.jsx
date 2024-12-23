@@ -228,7 +228,7 @@ const PageOrder = () => {
                 </h2>
                 {watch('passengers').map((_, index) => (
                   <div key={index} className="mb-6 border-b pb-6 last:border-b-0">
-                    <h3 className="mb-4 text-lg font-semibold">
+                    <h3 className="mb-4 text-lg font-semibold text-black">
                       Data Penumpang {index + 1}
                       {index < adult ? ' (Dewasa)' : ' (Anak)'}
                     </h3>
