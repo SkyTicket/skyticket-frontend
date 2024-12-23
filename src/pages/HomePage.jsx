@@ -81,7 +81,7 @@ const HomePage = () => {
           </span>
         </span>
         <img
-          src="src/assets/images/bangkok.png"
+          src="/assets/images/bangkok.png"
           alt="Bangkok"
           className="absolute right-0 -z-10 h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 md:w-3/5"
         />
