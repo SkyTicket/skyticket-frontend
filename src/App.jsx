@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/Fragments/ProtectedRoute";
 import OtpPage from "./pages/OtpPage";
-import HomePage from "./pages/Homepage";
+import HomePage from "./pages/HomePage";
 import PageOrder from "./pages/OrderPage";
 import LoginPage from "./pages/LoginPage";
 import AccountPage from "./pages/AccountPage";
