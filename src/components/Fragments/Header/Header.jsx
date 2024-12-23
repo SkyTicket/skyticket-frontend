@@ -14,8 +14,8 @@ function HeaderLogin({
 }) {
   return (
     <div className="my-5 flex w-full items-center bg-white px-4 py-4 pt-0 shadow-lg">
-      <div className="mx-auto w-3/4">
-        <p className="py-6 text-2xl font-semibold text-black">{title}</p>
+<div className="mx-auto w-3/4  md:mr-48 mr-24 !important">
+<p className="py-6 text-2xl font-semibold text-black">{title}</p>
         <div className="flex items-center gap-6">
           <Link
             to="/"

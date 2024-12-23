@@ -1,16 +1,23 @@
-import React from "react";
+import React from 'react';
 
-const DateItem = ({ date, day, isActive, onClick }) => {
+const DateItem = ({ day, date, fullDate, isActive, onClick, className }) => {
   return (
-    <div className="divide-y divide-gray-200">
-      <button
-        onClick={onClick}
-        className={`flex h-16 w-auto flex-col items-center rounded-lg bg-white p-3 text-black hover:border-white hover:bg-[#A06ECE] hover:text-white focus:bg-[#7126B5] focus:text-white focus:outline-none`}
-      >
-        <span className="text-sm font-bold">{day}</span>
-        <span className="pt-2 text-sm font-extralight">{date}</span>
-      </button>
-    </div>
+    <button
+      onClick={() => onClick({ day, date, fullDate })}
+      className={`
+        rounded-lg px-4 py-2
+        flex flex-col items-center justify-center
+        transition-all duration-200 ease-in-out
+        ${isActive ? 
+          'ring-2 ring-purple-600 bg-purple-100 text-purple-800' : 
+          'hover:bg-gray-100'
+        }
+        ${className || ''}
+      `}
+    >
+      <span className="text-xs font-medium">{day}</span>
+      <span className="text-sm font-semibold">{date}</span>
+    </button>
   );
 };
 
