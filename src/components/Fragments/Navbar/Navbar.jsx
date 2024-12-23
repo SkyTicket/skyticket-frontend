@@ -22,17 +22,6 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
     if (isLoggedIn) {
       fetchNotifications();
     }
@@ -41,6 +30,7 @@ const Navbar = ({ showSearchBar = true, showLoginButton = false }) => {
   if (isMobile) {
     return null;
   }
+
   const handleNotificationClick = (e) => {
     e.preventDefault();
     markAllAsRead();
