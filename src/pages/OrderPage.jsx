@@ -1,54 +1,74 @@
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useContext, useEffect } from "react";
-import { useForm, FormProvider, useFieldArray } from "react-hook-form";
-
+import { useNavigate, useSearchParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useForm, FormProvider } from "react-hook-form";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Progress from "../components/Elements/Header/Progress";
 import SelectSeat from "../components/Fragments/Form/SelectSeatForm";
 import DetailOrderFlight from "../components/Fragments/OrderHistory/DetailOrderFlight";
 import CustomerForm from "../components/Fragments/Form/CustomerForm";
-import { AuthContext } from "../contexts/AuthContext";
 import PassengerForm from "../components/Fragments/Form/PassengerForm";
 import { useTicketBooking } from "../hooks/useTicketBooking";
 
+const INITIAL_BOOKER = {
+  bookerName: "",
+  bookerEmail: "",
+  bookerPhone: "",
+};
+
+const TIME_LIMIT = 15 * 60;
+
 const PageOrder = () => {
   const navigate = useNavigate();
-  const [errors, setErrors] = useState(null);
-  const { createTicketOrder, isLoading, error, bookingResult } =
-    useTicketBooking();
-  const [passengers, setPassengers] = useState([
-    {
-      title: "",
-      name: "",
-      familyName: "",
-      dateOfBirth: "",
-      nationality: "",
-      identityNumber: "",
-      issuingCountry: "",
-      validUntil: "",
+  const [searchParams] = useSearchParams();
+  const { createTicketOrder, isLoading, bookingResult } = useTicketBooking();
+  const [timeLeft, setTimeLeft] = useState(TIME_LIMIT);
+
+  // Get passenger counts from query params
+  const adult = parseInt(searchParams.get("adult")) || 0;
+  const child = parseInt(searchParams.get("child")) || 0;
+  const baby = parseInt(searchParams.get("baby")) || 0;
+  const totalPassengers = adult + child;
+
+  const methods = useForm({
+    mode: "onChange",
+    defaultValues: {
+      passengers: Array(totalPassengers).fill({
+        title: "Mr",
+        name: "",
+        familyName: "",
+        dateOfBirth: "",
+        nationality: "",
+        identityNumber: "",
+        issuingCountry: "",
+        validUntil: "",
+        selected_seat: "",
+        type: "",
+        category
+      }),
+      bookerData: INITIAL_BOOKER
     },
-  ]);
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const [bookerData, setBookerData] = useState({
-    bookerName: "",
-    bookerEmail: "",
-    bookerPhone: "",
   });
 
-  const availableSeats = Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    seatNumber: `${Math.floor(i / 4) + 1}${String.fromCharCode(65 + (i % 4))}`,
-  }));
+  const { setValue, watch, handleSubmit, formState: { errors } } = methods;
 
-  const handlePassengerChange = (index, field, value) => {
-    const newPassengers = [...passengers];
-    newPassengers[index] = { ...newPassengers[index], [field]: value };
-    setPassengers(newPassengers);
-  };
+  // Watch form values for debugging
+  const formValues = watch();
 
-  const [timeLeft, setTimeLeft] = useState(15 * 60);
+  // Set initial passenger types
+  useEffect(() => {
+    const passengers = methods.getValues("passengers");
+    const updatedPassengers = passengers.map((passenger, index) => ({
+      ...passenger,
+      type: index < adult ? "adult" : "child"
+    }));
+    methods.reset({ 
+      passengers: updatedPassengers,
+      bookerData: methods.getValues("bookerData")
+    });
+  }, [adult, methods]);
 
+  // Timer effect
   useEffect(() => {
     if (timeLeft <= 0) {
       navigate("/");
@@ -70,85 +90,98 @@ const PageOrder = () => {
     ).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
-  const handleRemovePassenger = (index) => {
-    setPassengers(passengers.filter((_, i) => i !== index));
-    setSelectedSeats(selectedSeats.filter((_, i) => i !== index));
-  };
-
-  const handleAddPassenger = () => {
-    setPassengers([
-      ...passengers,
-      {
-        title: "",
-        name: "",
-        familyName: "",
-        dateOfBirth: "",
-        nationality: "",
-        identityNumber: "",
-        issuingCountry: "",
-        validUntil: "",
-      },
-    ]);
-  };
-
   const handleBookerChange = (field, value) => {
-    setBookerData({ ...bookerData, [field]: value });
+    setValue(`bookerData.${field}`, value, { 
+      shouldValidate: true,
+      shouldDirty: true
+    });
   };
 
-  const handleSeatSelect = (seat) => {
-    if (selectedSeats.find((s) => s.id === seat.id)) {
-      setSelectedSeats(selectedSeats.filter((s) => s.id !== seat.id));
-    } else if (selectedSeats.length < passengers.length) {
-      setSelectedSeats([...selectedSeats, seat]);
+  const validateFormData = (formData) => {
+    const { passengers, bookerData } = formData;
+    const validationErrors = [];
+
+    // Validate passenger data
+    passengers.forEach((passenger, index) => {
+      if (!passenger.title || !passenger.name || !passenger.familyName) {
+        validationErrors.push(`Data penumpang ${index + 1} belum lengkap`);
+      }
+      if (!passenger.selected_seat) {
+        validationErrors.push(`Kursi untuk penumpang ${index + 1} belum dipilih`);
+      }
+      if (!passenger.dateOfBirth || !passenger.nationality || !passenger.identityNumber) {
+        validationErrors.push(`Informasi identitas penumpang ${index + 1} belum lengkap`);
+      }
+    });
+
+    // Validate booker data
+    if (!bookerData.bookerName || !bookerData.bookerEmail || !bookerData.bookerPhone) {
+      validationErrors.push("Data pemesan belum lengkap");
+    }
+
+    if (validationErrors.length > 0) {
+      throw new Error(validationErrors.join('\n'));
     }
   };
 
-  const { userId } = useContext(AuthContext);
-
-  useEffect(() => {
-    console.log("Current User ID:", userId);
-  }, [userId]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (selectedSeats.length !== passengers.length) {
-      toast("Please select seats for all passengers");
-      return;
-    }
-
+  const onSubmit = async (formData) => {
     try {
-      const result = await createTicketOrder({
-        seats: selectedSeats,
-        passengers,
-        userId,
-        ...bookerData,
-      });
-
+      console.log("Form data before validation:", formData);
+      
+      // Validate data
+      validateFormData(formData);
+      
+      // Format data for API
+      const orderData = {
+        seats: formData.passengers.map((passenger) => ({
+          id: passenger.selected_seat
+        })),
+        passengers: formData.passengers.map((passenger) => ({
+          title: passenger.title,
+          name: passenger.name,
+          familyName: passenger.familyName,
+          dateOfBirth: passenger.dateOfBirth,
+          nationality: passenger.nationality,
+          identityNumber: passenger.identityNumber,
+          issuingCountry: passenger.issuingCountry,
+          validUntil: passenger.validUntil,
+          category: passenger.type
+        })),
+        ...formData.bookerData
+      };
+      
+      console.log("Submitting order data:", orderData);
+      
+      const result = await createTicketOrder(orderData);
       console.log("Booking successful:", result);
+      
+      toast.success("Pemesanan berhasil!");
       navigate("/payment");
     } catch (err) {
       console.error("Booking failed:", err);
+      toast.error(err.message || "Pemesanan gagal. Silakan coba lagi.");
     }
   };
 
+  // Loading state
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <div className="text-xl">Processing your booking...</div>
+        <div className="text-xl">Memproses pemesanan Anda...</div>
       </div>
     );
   }
 
+  // Success state
   if (bookingResult) {
     return (
       <div className="mx-auto max-w-2xl p-6">
         <div className="rounded-lg border border-green-200 bg-green-50 p-6">
           <h2 className="mb-4 text-2xl font-bold text-green-800">
-            Booking Successful!
+            Pemesanan Berhasil!
           </h2>
           <p className="text-green-700">
-            Your booking code is:{" "}
+            Kode pemesanan Anda:{" "}
             <span className="font-mono font-bold">
               {bookingResult.bookingCode}
             </span>
@@ -158,40 +191,21 @@ const PageOrder = () => {
     );
   }
 
-  const [passengerCount, setPassengerCount] = useState(1);
-
-  const methods = useForm({
-    defaultValues: {
-      passengers: Array.from({ length: passengerCount }, () => ({
-        first_name: "",
-        last_name: "",
-        birth_date: "",
-        nationality: "",
-        ktp_number: "",
-        passport: "",
-        negara_penerbit: "",
-        berlaku_sampai: "",
-        selected_seat: "",
-      })),
-    },
-  });
-
-  const { fields } = useFieldArray({
-    control: methods.control,
-    name: "passengers",
-  });
+  // Debug information
+  console.log("Current form values:", formValues);
+  console.log("Form errors:", errors);
 
   return (
     <>
       <Navbar />
-      <Progress className="" />
+      <Progress />
       <div className="rounded-lg bg-red-500 p-2 text-center text-white">
         Selesaikan dalam {formatTime(timeLeft)}
       </div>
       <FormProvider {...methods}>
         <div className="mx-auto max-w-7xl p-4">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className="grid grid-cols-1 gap-6 lg:grid-cols-2"
           >
             <div className="space-y-6">
@@ -199,32 +213,25 @@ const PageOrder = () => {
                 <h2 className="mb-4 text-xl font-bold text-black">
                   Isi Data Pemesan
                 </h2>
-                <CustomerForm
-                  bookerData={bookerData}
-                  onChange={handleBookerChange}
-                />
+                <CustomerForm onChange={handleBookerChange} />
               </div>
 
               <div className="rounded-lg border bg-white p-6">
                 <h2 className="mb-4 text-xl font-bold text-black">
                   Isi Data Penumpang
                 </h2>
-
-                {passengers.map((passenger, index) => (
-                  <PassengerForm
-                    key={index}
-                    index={index}
-                    passenger={passenger}
-                    onChange={handlePassengerChange}
-                    onRemove={handleRemovePassenger}
-                  />
+                {watch('passengers').map((_, index) => (
+                  <div key={index} className="mb-6 border-b pb-6 last:border-b-0">
+                    <h3 className="mb-4 text-lg font-semibold">
+                      Data Penumpang {index + 1}
+                      {index < adult ? ' (Dewasa)' : ' (Anak)'}
+                    </h3>
+                    <PassengerForm index={index} />
+                  </div>
                 ))}
               </div>
-              <SelectSeat
-                selectedSeats={selectedSeats}
-                availableSeats={availableSeats}
-                onSeatSelect={handleSeatSelect}
-              />
+
+              <SelectSeat />
             </div>
 
             <div className="space-y-6">
@@ -237,10 +244,11 @@ const PageOrder = () => {
 
               <div className="mx-auto w-[95%]">
                 <button
-                  onClick={() => handleSubmit}
-                  className="w-full rounded-lg bg-red-500 px-4 py-3 text-white transition-colors hover:bg-red-600"
+                  type="submit"
+                  className="w-full rounded-lg bg-red-500 px-4 py-3 text-white transition-colors hover:bg-red-600 disabled:bg-gray-400"
+                  disabled={isLoading}
                 >
-                  Lanjut Bayar
+                  {isLoading ? "Memproses..." : "Lanjut Bayar"}
                 </button>
               </div>
             </div>

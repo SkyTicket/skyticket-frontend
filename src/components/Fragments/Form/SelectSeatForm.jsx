@@ -20,7 +20,6 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
     baby: Baby,
   });
 
-  // Debug state untuk melihat seat yang dipilih
   const [debugInfo, setDebugInfo] = useState({
     displaySeatId: null,
     backendSeatId: null,
@@ -39,14 +38,38 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
 
   const [currentPassengerIndex, setCurrentPassengerIndex] = useState(0);
 
-  // Generate seat layout data
+  const PassengerSelector = () => {
+    const passengers = methods.getValues("passengers");
+    
+    return (
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-3">Select Passenger</h3>
+        <div className="flex flex-wrap gap-2">
+          {passengers.map((passenger, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentPassengerIndex(index)}
+              className={`px-4 py-2 rounded-lg ${
+                currentPassengerIndex === index
+                  ? "bg-purple-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              {passenger.title} {passenger.name}
+              {passenger.selected_seat && ` (${reverseSeatMapping[passenger.selected_seat]})`}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   const rows = Array.from({ length: seatTotal / 6 }, (_, i) => i + 1);
   const leftColumns = ["A", "B", "C"];
   const rightColumns = ["D", "E", "F"];
 
-  // Create mapping between display format and backend IDs
   const seatMapping = {};
-  const reverseSeatMapping = {}; // Untuk mencari display ID dari backend ID
+  const reverseSeatMapping = {};
 
   if (seatData) {
     seatData.forEach((seat) => {
@@ -54,33 +77,27 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
       if (seatNumber) {
         seatMapping[seatNumber] = seat.seat_id;
         reverseSeatMapping[seat.seat_id] = seatNumber;
-        console.log(`Mapping created: Display ${seatNumber} -> Backend ${seat.id}`);
       }
     });
   }
 
-  // Predefined unavailable seats
   const unavailableSeats = new Set([]);
   seatData?.forEach((seat) => {
     if (!seat.available) {
       const seatNumber = seat.seat?.seat_number;
       if (seatNumber) {
         unavailableSeats.add(seatNumber);
-        console.log(`Marked as unavailable: ${seatNumber}`);
       }
     }
   });
 
-  // Special seats (if any)
   const specialSeats = {};
 
-  // Get all selected seats across passengers
   const getAllSelectedSeats = () => {
     const selected = methods
       .getValues("passengers")
       .map((p) => p.selected_seat)
       .filter(Boolean);
-    console.log("Currently selected seats:", selected.map(id => `Backend: ${id}, Display: ${reverseSeatMapping[id]}`));
     return selected;
   };
 
@@ -88,26 +105,16 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
     const backendSeatId = seatMapping[displaySeatId];
     const allSelectedSeats = getAllSelectedSeats();
 
-    // Update debug info
     setDebugInfo({
       displaySeatId,
       backendSeatId,
       seatData: seatData?.find(seat => seat.seat_id === backendSeatId)
     });
 
-    console.log('Seat Selected:', {
-      displayFormat: displaySeatId,
-      backendId: backendSeatId,
-      currentPassenger: currentPassengerIndex,
-      alreadySelected: allSelectedSeats.includes(backendSeatId)
-    });
-
-    // If seat is already selected by current passenger, unselect it
     if (
       methods.getValues(`passengers.${currentPassengerIndex}.selected_seat`) ===
       backendSeatId
     ) {
-      console.log(`Unselecting seat ${displaySeatId} (${backendSeatId})`);
       update(currentPassengerIndex, {
         ...methods.getValues(`passengers.${currentPassengerIndex}`),
         selected_seat: "",
@@ -115,15 +122,11 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
       return;
     }
 
-    // If seat is already taken by another passenger
     if (allSelectedSeats.includes(backendSeatId)) {
-      console.log(`Seat ${displaySeatId} (${backendSeatId}) already taken`);
       toast.error("Kursi ini telah diambil oleh penumpang lain");
       return;
     }
 
-    // Assign seat to current passenger
-    console.log(`Assigning seat ${displaySeatId} (${backendSeatId}) to passenger ${currentPassengerIndex}`);
     update(currentPassengerIndex, {
       ...methods.getValues(`passengers.${currentPassengerIndex}`),
       selected_seat: backendSeatId,
@@ -155,7 +158,8 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
       <div className="p-6">
         <h2 className="mb-6 text-xl font-bold text-black">Pilih Kursi</h2>
         
-        {/* Debug Information Panel */}
+        <PassengerSelector />
+
         <div className="mb-4 p-4 bg-gray-100 rounded-lg">
           <h3 className="font-bold mb-2">Debug Info:</h3>
           <p>Display Seat ID: {debugInfo.displaySeatId}</p>
@@ -170,7 +174,6 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
 
         <div className="mb-8 flex justify-center">
           <div className="grid gap-2">
-            {/* Column Headers */}
             <div className="grid grid-cols-7 gap-2">
               <div className="col-span-3 grid grid-cols-3">
                 {leftColumns.map((col) => (
@@ -195,7 +198,6 @@ const SelectSeat = ({ selectedSeats, availableSeats, onSeatSelect }) => {
               </div>
             </div>
 
-            {/* Seat Layout */}
             {rows.map((row) => (
               <div key={row} className="grid grid-cols-7 gap-2">
                 <div className="col-span-3 grid grid-cols-3 gap-2">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFlightDetails } from "../../hooks/useFetchFlightDetails";
+import { useFlightDetails } from "../../../hooks/useFetchFlightDetails";
 import { useSearchParams } from "react-router-dom";
 
 

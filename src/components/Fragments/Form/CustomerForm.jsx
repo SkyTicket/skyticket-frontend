@@ -1,64 +1,76 @@
-import React, { useState } from "react";
+import React from "react";
 import InputForm from "./InputForm";
-import { useForm } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
+const CustomerForm = ({ onChange }) => {
+  const { 
+    register, 
+    formState: { errors },
+    trigger 
+  } = useFormContext();
 
-const CustomerForm = ({  onChange }) => {
-  const [isActive, setIsActive] = useState(false);
-  const {register} = useForm()
+  const validateField = async (field) => {
+    await trigger(`bookerData.${field}`);
+  };
 
-  const handleToggle = () => {
-    setIsActive(!isActive);
+  const handleInputChange = (field, value) => {
+    onChange(field, value);
+    validateField(field);
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      return "Format email tidak valid";
+    }
+    return true;
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^[0-9]{10,13}$/;
+    if (!phoneRegex.test(phone)) {
+      return "Format nomor telepon tidak valid";
+    }
+    return true;
+  };
+
+  const validateName = (name) => {
+    const nameRegex = /^[a-zA-Z\s]*$/;
+    if (!nameRegex.test(name)) {
+      return "Nama hanya boleh berisi huruf";
+    }
+    if (name.length < 3) {
+      return "Nama lengkap minimal 3 karakter";
+    }
+    return true;
   };
 
   return (
-    <div className="">
+    <div className="space-y-4">
       <h3 className="mb-4 rounded-t-xl bg-[#3C3C3C] px-4 py-2 text-lg font-medium text-white">
         Data Diri Pemesan
       </h3>
+      
       <InputForm
         type="text"
         label="Nama Lengkap"
         placeholder="Masukkan nama lengkap Anda"
-        {...register("bookerName", {
-          required: "Nama Lengkap Wajib diisi"
+        error={errors?.bookerData?.bookerName?.message}
+        {...register("bookerData.bookerName", {
+          required: "Nama Lengkap wajib diisi",
+          validate: validateName,
+          onChange: (e) => handleInputChange('bookerName', e.target.value)
         })}
       />
 
-      <div className="mb-4 flex justify-between">
-        <span className="text-black">Punya Nama Keluarga</span>
-        <span className="text-purple-600">
-          <div
-            className={`flex h-8 w-14 cursor-pointer items-center rounded-full p-1 transition-all ${
-              isActive ? "bg-[#4B1979]" : "bg-gray-300"
-            }`}
-            onClick={handleToggle}
-          >
-            <div
-              className={`h-6 w-6 transform rounded-full bg-white shadow-md transition-transform ${
-                isActive ? "translate-x-6" : "translate-x-0"
-              }`}
-            />
-          </div>
-        </span>
-      </div>
-
-      <InputForm
-        name="last_name"
-        label="Nama Keluarga"
-        placeholder="Masukkan nama keluarga Anda"
-        validation={{}}
-      />
       <InputForm
         label="Nomor Telepon"
         placeholder="Ex: 081234567890"
-        onChange={(e) => onChange('bookerPhone', e.target.value)}
-        {...register("bookerPhone", {
-          required: "Nomor Telepon Wajib Di Isi",
-          pattern: {
-            value: /^[0-9]+$/,
-            message: "Format Nomor Telepon Salah",
-          }
+        error={errors?.bookerData?.bookerPhone?.message}
+        {...register("bookerData.bookerPhone", {
+          required: "Nomor Telepon wajib diisi",
+          validate: validatePhone,
+          onChange: (e) => handleInputChange('bookerPhone', e.target.value)
         })}
       />
 
@@ -66,15 +78,21 @@ const CustomerForm = ({  onChange }) => {
         label="Email"
         type="email"
         placeholder="Ex: email@example.com"
-        {...register("bookerEmail", {
-          required: "Email Wajib Di Isi!",
-          pattern: {
-            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Format Email Kurang Tepat",
-          }
+        error={errors?.bookerData?.bookerEmail?.message}
+        {...register("bookerData.bookerEmail", {
+          required: "Email wajib diisi",
+          validate: validateEmail,
+          onChange: (e) => handleInputChange('bookerEmail', e.target.value)
         })}
-        onChange={(e) => onChange('bookerEmail', e.target.value)}
       />
+
+      <div className="mt-4 rounded-lg bg-gray-50 p-4">
+        <ul className="text-xs text-gray-600 space-y-1">
+          <li>• Pastikan email aktif dan dapat dihubungi</li>
+          <li>• Nomor telepon harus aktif dan terhubung dengan WhatsApp</li>
+          <li>• Nama lengkap harus sesuai dengan KTP/Paspor</li>
+        </ul>
+      </div>
     </div>
   );
 };

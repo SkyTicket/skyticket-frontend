@@ -15,7 +15,7 @@ import SetDate2 from "../../Elements/Input/SetDate2";
 import Passengers from "./passengers";
 import DatePicker from "../../Elements/Input/SetDate";
 import Destination from "./Destination";
-import { fetchFlights } from "../../../services/flightsService";
+import { fetchFlights } from "../../../services/flights.service";
 
 function HomepageForm({ prefillData }) {
   const navigate = useNavigate();
