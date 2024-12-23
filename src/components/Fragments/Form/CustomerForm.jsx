@@ -3,7 +3,7 @@ import InputForm from "./InputForm";
 import { useForm } from "react-hook-form";
 
 
-const CustomerForm = ({ bookerData, onChange }) => {
+const CustomerForm = ({  onChange }) => {
   const [isActive, setIsActive] = useState(false);
   const {register} = useForm()
 
@@ -20,7 +20,6 @@ const CustomerForm = ({ bookerData, onChange }) => {
         type="text"
         label="Nama Lengkap"
         placeholder="Masukkan nama lengkap Anda"
-        onChange={(e) => onChange('bookerName', e.target.value)}
         {...register("bookerName", {
           required: "Nama Lengkap Wajib diisi"
         })}
@@ -55,10 +54,10 @@ const CustomerForm = ({ bookerData, onChange }) => {
         placeholder="Ex: 081234567890"
         onChange={(e) => onChange('bookerPhone', e.target.value)}
         {...register("bookerPhone", {
-          required: "Phone number is required",
+          required: "Nomor Telepon Wajib Di Isi",
           pattern: {
             value: /^[0-9]+$/,
-            message: "Invalid phone number",
+            message: "Format Nomor Telepon Salah",
           }
         })}
       />
@@ -68,10 +67,10 @@ const CustomerForm = ({ bookerData, onChange }) => {
         type="email"
         placeholder="Ex: email@example.com"
         {...register("bookerEmail", {
-          required: "Email is required",
+          required: "Email Wajib Di Isi!",
           pattern: {
             value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Invalid email address",
+            message: "Format Email Kurang Tepat",
           }
         })}
         onChange={(e) => onChange('bookerEmail', e.target.value)}

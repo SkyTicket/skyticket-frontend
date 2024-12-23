@@ -124,7 +124,7 @@ const TicketListPage = () => {
         )}
 
         {isMobile ? (
-          <div className="fixed bottom-24 mb-96 flex items-center py-1">
+          <div className="relative bottom-16 flex items-center py-1">
             <button
               onClick={() => setIsSidebarOpen(true)}
               className="flex items-center gap-2 rounded-2xl border-2 border-gray-400 bg-transparent px-2 py-1 text-gray-400 hover:bg-purple-100"
