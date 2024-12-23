@@ -6,7 +6,7 @@ import { useForm, FormProvider, useFieldArray } from "react-hook-form";
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import Progress from "../components/Elements/Header/Progress";
 import SelectSeat from "../components/Fragments/Form/SelectSeatForm";
-import DetailFlight from "../components/Fragments/OrderHistory/DetailFlight";
+import DetailOrderFlight from "../components/Fragments/OrderHistory/DetailOrderFlight";
 import CustomerForm from "../components/Fragments/Form/CustomerForm";
 import { AuthContext } from "../contexts/AuthContext";
 import PassengerForm from "../components/Fragments/Form/PassengerForm";
@@ -232,7 +232,7 @@ const PageOrder = () => {
                 <h2 className="mb-4 text-lg font-bold text-[#151515]">
                   Detail Penerbangan
                 </h2>
-                <DetailFlight />
+                <DetailOrderFlight />
               </div>
 
               <div className="mx-auto w-[95%]">
