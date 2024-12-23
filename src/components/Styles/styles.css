@@ -1,0 +1,49 @@
+@tailwind components;
+
+@keyframes loader {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes push {
+  0% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(395%);
+  }
+}
+
+.animate-loader {
+  animation: loader 3.5s infinite linear;
+}
+
+.animate-push {
+  animation: push 3.5s infinite linear;
+}
+
+@layer components {
+  .custom-calendar {
+    @apply text-center text-black;
+  }
+  .custom-calendar .react-calendar__navigation {
+    @apply flex gap-2;
+  }
+  .custom-calendar .react-calendar__month-view__weekdays__weekday abbr {
+    @apply no-underline;
+  }
+  .custom-calendar .react-calendar__navigation__next2-button,
+  .custom-calendar .react-calendar__navigation__prev2-button {
+    @apply hidden;
+  }
+  .custom-calendar .react-calendar__month-view__weekdays {
+    @apply decoration-0;
+  }
+  .custom-calendar button {
+    @apply bg-white;
+  }
+}
