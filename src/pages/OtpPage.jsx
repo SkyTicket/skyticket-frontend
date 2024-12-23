@@ -27,7 +27,7 @@ const OtpPage = () => {
           <Link to="/register">
             <img
               alt="Arrow Left Icon"
-              src="/public/assets/icons/arrow-left.svg"
+              src="/assets/icons/arrow-left.svg"
               className="w-auto"
             />
           </Link>

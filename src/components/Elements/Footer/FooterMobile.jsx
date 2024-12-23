@@ -2,17 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
   faCircleUser,
-  faHammer,
   faHistory,
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-
+import useNotifications from "../../../hooks/useNotifications";
 function FooterMobile({ active }) {
+  const { notifications } = useNotifications();
 
   return (
     <div className="absolute bottom-0 flex w-full items-center justify-around py-2 shadow-lg shadow-black">
-     <Link
+      <Link
         to="/"
         className={`flex flex-col items-center text-[${active == "beranda" ? "#4B1979" : "#8A8A8A"}]`}
       >
@@ -30,7 +30,14 @@ function FooterMobile({ active }) {
         to="/notification"
         className={`flex flex-col items-center text-[${active == "notifikasi" ? "#4B1979" : "#8A8A8A"}]`}
       >
-        <FontAwesomeIcon icon={faBell} className="size-6" />
+        <div className="relative">
+          <FontAwesomeIcon icon={faBell} className="size-6" />
+          {notifications.length > 0 && (
+            <div className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white">
+              {notifications.length > 99 ? '99+' : notifications.length}
+            </div>
+          )}
+        </div>
         <p className="text-xs">Notifikasi</p>
       </Link>
       <Link
@@ -43,4 +50,5 @@ function FooterMobile({ active }) {
     </div>
   );
 }
+
 export default FooterMobile;

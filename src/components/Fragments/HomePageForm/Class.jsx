@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Backdrop from "../../Elements/Search/Backdrop";
 import SetClass from "../../Elements/Input/SetClass";
-import { fetchClassPrice } from "../../../services/classPriceService";
+import { fetchClassPrice } from "../../../services/class.price.service";
 
 function Class({ change, data, prefillClass }) {
   const [showSetClass, setShowSetClass] = useState(false);

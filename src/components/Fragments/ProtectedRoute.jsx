@@ -12,4 +12,19 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+const RoleProtectedRoute = ({ children, allowedRoles }) => {
+  const { isLoggedIn, role } = useAuth();
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!allowedRoles.includes(role)) {
+    return <Navigate to="*" replace />; // Redirect ke home jika role tidak sesuai
+  }
+
+  return children;
+};
+
 export default ProtectedRoute;
+RoleProtectedRoute;

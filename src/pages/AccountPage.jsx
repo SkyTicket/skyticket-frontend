@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import Navbar from "../components/Fragments/Navbar/Navbar";
 import HeaderLogin from "../components/Fragments/Header/Header";
+import AccountForm from "../components/Fragments/AccountMenu/AccountForm";
 import AccountMenu from "../components/Fragments/AccountMenu/AccountMenu";
 import { useUser } from "../hooks/useProfile";
 import { AuthProvider } from "../contexts/AuthContext";
-import AccountForm from "../components/Fragments/AccountMenu/AccountForm";
-import FooterMobile from "../components/Elements/Footer/FooterMobile";
 
 function AccountPage() {
-  const { user, loading, error, setUser, setError, setLoading, refreshUser } =
-    useUser();
+  const { loading, error } = useUser();
   const [isMobile, setIsMobile] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(null);
 
@@ -27,14 +25,16 @@ function AccountPage() {
       <AuthProvider>
         {isMobile ? (
           <>
+            <Navbar showLoginButton={true} />
             <p className="mx-8 pt-10 text-2xl font-semibold text-black">Akun</p>
             {!isFormOpen ? (
               <AccountMenu onClick={() => setIsFormOpen(true)} />
             ) : (
-              <AccountForm onClose={() => setIsFormOpen(false)} />
+              <AccountForm
+                onClose={() => setIsFormOpen(false)}
+                isMobile={isMobile}
+              />
             )}
-
-            <FooterMobile active={"akun"} />
           </>
         ) : (
           <>

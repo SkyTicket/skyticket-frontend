@@ -9,7 +9,7 @@ const ProgressBar = () => {
       {/* Man pushing */}
       <div className="animate-push absolute -left-16 z-20 flex h-full items-center">
         <img
-          src="/public/assets/icons/man.svg"
+          src="/assets/icons/man.svg"
           alt="man pushing"
           className="h-14"
         />

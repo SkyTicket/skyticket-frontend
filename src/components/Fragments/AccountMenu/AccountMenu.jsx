@@ -19,7 +19,7 @@ function AccountMenu({ onClick }) {
         >
           <img
             alt="Edit Icon"
-            src="/public/assets/icons/edit.svg"
+            src="/assets/icons/edit.svg"
             className="h-6 w-6"
           />
           <div className="select-none text-base font-medium text-black">
@@ -30,7 +30,7 @@ function AccountMenu({ onClick }) {
         <div className="flex cursor-pointer items-center gap-5 border-b border-gray-300 pb-3">
           <img
             alt="Setting Icon"
-            src="/public/assets/icons/setting.svg"
+            src="/assets/icons/setting.svg"
             className="h-6 w-6"
           />
           <p className="select-none text-base font-medium text-black">
@@ -44,7 +44,7 @@ function AccountMenu({ onClick }) {
         >
           <img
             alt="Logout Icon"
-            src="/public/assets/icons/logout.svg"
+            src="/assets/icons/logout.svg"
             className="h-6 w-6"
           />
           <p className="select-none text-base font-medium text-black">Keluar</p>

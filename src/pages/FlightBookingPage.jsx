@@ -4,7 +4,7 @@ import { FlightSummary } from '../components/Fragments/Flights/FlightSummary';
 import { PriceBreakdown } from '../components/Fragments/Flights/PriceBreakdown';
 import { SeatSelection } from '../components/Fragments/Flights/SeatSelection';
 
-const FlightBooking = () => {
+const FlightBookingPage = () => {
     const [bookingData, setBookingData] = useState(null);
   
     const handleFlightSelected = (data) => {
@@ -52,4 +52,4 @@ const FlightBooking = () => {
     );
   };
 
-  export default FlightBooking
+  export default FlightBookingPage

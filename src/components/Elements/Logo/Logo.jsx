@@ -10,7 +10,7 @@ const Logo = ({ size = "default", className = "", ...props }) => {
       <Link to="/">
         <img
           alt="SkyTicket Logo"
-          src="/public/assets/icons/logo1.svg"
+          src="/assets/icons/logo1.svg"
           className={`${sizeClasses[size]} ${className}`}
           {...props}
         />

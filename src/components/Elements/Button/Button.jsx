@@ -1,5 +1,5 @@
-import LoginIcon from "../../../../public/assets/icons/login.svg";
-import SearchIcon from "../../../../public/assets/icons/search.svg";
+import LoginIcon from "/assets/icons/login.svg";
+import SearchIcon from "/assets/icons/search.svg";
 
 const buttonIcon = {
   login: <img src={LoginIcon} alt="Login Icon" className="h-5 w-5" />,
@@ -21,7 +21,7 @@ const Button = ({
   const colorStyles = {
     purple: `bg-[#7126B5] text-white hover:bg-purple-600 active:bg-[#4B1979] active:ring-2 active:ring-purple-400`,
     gray: `bg-gray-600 text-white hover:bg-gray-500 active:bg-gray-700 active:ring-2 active:ring-gray-400`,
-    green: `bg-[#73CA5C] text-white hover:border-2 hover:bg-white hover:text-[#73CA5C]`,
+    green: `bg-[#73CA5C] text-white hover:border-2 hover:text-[#73CA5C] active:ring-2 active:ring-green-400`,
   };
 
   const widthStyles = {

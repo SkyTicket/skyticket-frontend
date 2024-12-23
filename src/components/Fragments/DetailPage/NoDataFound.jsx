@@ -2,7 +2,7 @@ function NoDataFound({ svg, alt, text }) {
   return (
     <div className="flex flex-col items-center">
       <img
-        src={`/public/assets/icons/${svg}.svg`}
+        src={`/assets/icons/${svg}.svg`}
         alt={alt}
         className="h-64 w-64"
       />

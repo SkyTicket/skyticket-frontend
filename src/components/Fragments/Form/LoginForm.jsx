@@ -7,7 +7,10 @@ import Input from "../../Elements/Input/Input";
 import Button from "../../Elements/Button/Button";
 import Logo from "../../Elements/Logo/Logo";
 import useLogin from "../../../hooks/useLogin";
+import { toast } from "react-hot-toast";
 
+const ADMIN_EMAIL = "admin@skyticket.com";
+const ADMIN_PASSWORD = "&(>4dm1n_5kyt1ck3t+?}";
 const LoginForm = ({ showLogoOnMobile = false }) => {
   const { login } = useLogin();
   const {
@@ -27,15 +30,37 @@ const LoginForm = ({ showLogoOnMobile = false }) => {
 
   const handleLogin = async (data) => {
     const { email, password } = data;
-
+  
     setIsLoading(true);
-    const success = await login(email, password);
-
-    if (success) {
-      navigate("/");
+      if (email === ADMIN_EMAIL && password !== ADMIN_PASSWORD) {
+      toast.error("Password admin tidak valid");
+      setIsLoading(false);
+      return;
     }
-    setIsLoading(false);
+  
+    try {
+      const { success, requiresVerification } = await login(email, password);
+  
+      if (success && !requiresVerification) {
+        toast.success("Login berhasil!");
+        navigate("/");
+      } else if (requiresVerification) {
+        toast.warn("Akun belum terverifikasi. Silakan verifikasi akun Anda dan register ulang.");
+        navigate("/otp", { state: { email } });
+      } else {
+        toast.error("Login gagal, silakan periksa email dan password Anda.");
+      }
+    } catch (error) {
+      if (error.response?.status === 400) {
+        toast.error("Permintaan tidak valid. Silakan cek input Anda.");
+      } else {
+        toast.error("Terjadi kesalahan, silakan coba lagi.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
+    
 
   return (
     <form
@@ -65,7 +90,7 @@ const LoginForm = ({ showLogoOnMobile = false }) => {
         error={errors.email}
       />
 
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="mb-2 flex items-center justify-between">
           <label className="text-sm text-black">Password</label>
           <Link
@@ -107,7 +132,7 @@ const LoginForm = ({ showLogoOnMobile = false }) => {
 
       <Button
         type="submit"
-        className="w-full rounded-2xl font-medium"
+        className="mt-14 w-full rounded-2xl font-medium"
         disabled={isLoading}
       >
         {isLoading ? "Memproses..." : "Masuk"}

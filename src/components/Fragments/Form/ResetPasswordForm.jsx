@@ -7,8 +7,9 @@ import Input from "../../Elements/Input/Input";
 import { useSearchParams } from "react-router-dom";
 import { resetPassword } from "../../../services/auth.service";
 import Logo from "../../Elements/Logo/Logo";
+import toast from "react-hot-toast";
 
-const ResetPasswordForm = (showLogoOnMobile = false ) => {
+const ResetPasswordForm = (showLogoOnMobile = false) => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [searchParams] = useSearchParams();
@@ -20,15 +21,23 @@ const ResetPasswordForm = (showLogoOnMobile = false ) => {
     watch,
     formState: { errors },
   } = useForm();
-
   const onSubmit = async (data) => {
-    console.log("Password berhasil diubah:", data);
     try {
-      const response = await resetPassword(token, data.newPassword);
-      alert(response.message || "Password berhasil diubah.");
-      window.location.href = "/login";
+      const response = await resetPassword(token, {
+        password: data.newPassword,
+        confirmPassword: data.confirmPassword,
+      });
+
+      toast.success(response.message || "Password berhasil diubah.");
+
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 3000);
     } catch (error) {
-      alert(error);
+      toast.error(
+        error.response?.data?.message ||
+          "Gagal mengubah password. Silakan coba lagi.",
+      );
     }
   };
 
@@ -44,7 +53,7 @@ const ResetPasswordForm = (showLogoOnMobile = false ) => {
       <h2 className="mb-6 text-2xl font-bold text-black">Reset Password</h2>
 
       {/* New Password */}
-      <label className="relative block text-black dark:text-white">
+      <label className="relative block text-black dark:text-black">
         Masukkan password baru
         <div className="relative">
           <Input
@@ -79,15 +88,15 @@ const ResetPasswordForm = (showLogoOnMobile = false ) => {
           }}
         >
           {showNewPassword ? (
-            <FontAwesomeIcon icon={faEye} />
+            <FontAwesomeIcon icon={faEye} size="lg" />
           ) : (
-            <FontAwesomeIcon icon={faEyeSlash} />
+            <FontAwesomeIcon icon={faEyeSlash} size="lg" />
           )}
         </div>
       </label>
 
       {/* Confirm Password */}
-      <label className="relative block text-black dark:text-white">
+      <label className="relative block text-black dark:text-black">
         Konfirmasi Password Baru
         <div className="relative">
           <Input
@@ -120,9 +129,9 @@ const ResetPasswordForm = (showLogoOnMobile = false ) => {
           }}
         >
           {showConfirmPassword ? (
-            <FontAwesomeIcon icon={faEye} />
+            <FontAwesomeIcon icon={faEye} size="lg" />
           ) : (
-            <FontAwesomeIcon icon={faEyeSlash} />
+            <FontAwesomeIcon icon={faEyeSlash} size="lg" />
           )}
         </div>
       </label>
@@ -130,8 +139,8 @@ const ResetPasswordForm = (showLogoOnMobile = false ) => {
       <Button
         type="submit"
         disabled={Object.keys(errors).length > 0}
-        className={`w-full rounded-2xl font-medium ${
-          Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-purple-500"
+        className={`mt-14 w-full rounded-2xl font-medium ${
+          Object.keys(errors).length > 0 ? "bg-gray-400" : "bg-[#7126B5]"
         }`}
       >
         Simpan

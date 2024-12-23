@@ -10,8 +10,8 @@ import FilterItem from "../components/Fragments/Filter/FilterItem";
 import FilterModal from "../components/Fragments/Filter/FilterModals";
 import LoadingAnimation from "../components/Fragments/Loader/LoadingAnimation";
 import Navbar from "../components/Fragments/Navbar/Navbar";
-import NoDataFound from "../components/Fragments/detailpage/NoDataFound";
-import { fetchFlights } from "../services/flightsService";
+import NoDataFound from "../components/Fragments/DetailPage/NoDataFound";
+import { fetchFlights } from "../services/flights.service";
 import Pagination from "../components/Fragments/Pagination/Pagination";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -77,6 +77,11 @@ const TicketListPage = () => {
     fetchData();
   }, [filters]);
 
+  useEffect(() => {
+    console.log("Modal state:", isFilterModalOpen);
+  }, [isFilterModalOpen]);
+  
+
   return (
     <>
       <Navbar showLoginButton={true} isMobile={true} />
@@ -99,7 +104,7 @@ const TicketListPage = () => {
             className="h-14 w-full rounded-xl font-semibold md:w-1/3"
             type=""
           >
-            <Link to="/" className="text-center text-white">
+            <Link to="/" className="text-center text-white hover:text-white">
               Ubah Pencarian
             </Link>
           </Button>
@@ -120,6 +125,9 @@ const TicketListPage = () => {
           <FilterModal
             onFilterSubmit={handleFilterSelect}
             onClose={closeModal}
+            onSubmit={(newSortBy) =>
+              setFilters((prev) => ({ ...prev, sortBy: newSortBy }))
+            }
           />
         )}
 
@@ -174,7 +182,7 @@ const TicketListPage = () => {
                   label="Transit"
                   icon={
                     <img
-                      src="/public/assets/icons/box.svg"
+                      src="/assets/icons/box.svg"
                       alt="Transit Icon"
                       className="h-5 w-5"
                     />
@@ -184,7 +192,7 @@ const TicketListPage = () => {
                   label="Fasilitas"
                   icon={
                     <img
-                      src="/public/assets/icons/heart.svg"
+                      src="/assets/icons/heart.svg"
                       alt="Facility Icon"
                       className="h-5 w-5"
                     />
@@ -194,7 +202,7 @@ const TicketListPage = () => {
                   label="Harga"
                   icon={
                     <img
-                      src="/public/assets/icons/dollar-sign.svg"
+                      src="/assets/icons/dollar-sign.svg"
                       alt="Price Icon"
                       className="h-5 w-5"
                     />
@@ -219,7 +227,7 @@ const TicketListPage = () => {
                     isMobile={isMobile}
                     icon={
                       <img
-                        src="/public/assets/icons/box.svg"
+                        src="/assets/icons/box.svg"
                         alt="Transit Icon"
                         className="h-5 w-5"
                       />
@@ -230,7 +238,7 @@ const TicketListPage = () => {
                     isMobile={isMobile}
                     icon={
                       <img
-                        src="/public/assets/icons/heart.svg"
+                        src="/assets/icons/heart.svg"
                         alt="Facility Icon"
                         className="h-5 w-5"
                       />
@@ -241,7 +249,7 @@ const TicketListPage = () => {
                     isMobile={isMobile}
                     icon={
                       <img
-                        src="/public/assets/icons/dollar-sign.svg"
+                        src="/assets/icons/dollar-sign.svg"
                         alt="Price Icon"
                         className="h-5 w-5"
                       />

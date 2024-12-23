@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const FilterModal = ({ onFilterSubmit, onClose }) => {
+const FilterModal = ({ onFilterSubmit, onClose, onSubmit }) => {
   const [selectedFilter, setSelectedFilter] = useState(null);
   const navigate = useNavigate();
 
@@ -11,8 +11,8 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
 
   const handleSubmit = () => {
     onFilterSubmit(selectedFilter);
+    onSubmit(selectedFilter);
     onClose();
-    navigate("/ticket-list");
   };
 
   return (
@@ -27,7 +27,7 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
             className="ml-auto bg-white text-lg font-bold text-black"
           >
             <img
-              src="/public/assets/icons/close.svg"
+              src="/assets/icons/close.svg"
               alt="Close"
               className="h-4 w-3"
             />
@@ -57,7 +57,7 @@ const FilterModal = ({ onFilterSubmit, onClose }) => {
               {selectedFilter === filter.value && (
                 <span className="text-green-500">
                   <img
-                    src="/public/assets/icons/checklist.svg"
+                    src="/assets/icons/checklist.svg"
                     alt="checklist"
                     className="h-6 w-6"
                   />

@@ -2,30 +2,21 @@ import debounce from "lodash.debounce";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import Box from "../Search/Box";
-import { fetchAirports } from "../../../services/airports.service";
+import Box from "../../Elements/Search/Box";
 
-function SetDestination({ close, setCity }) {
-  const [airport, setAirports] = useState([]);
-  const [error, setError] = useState(null);
+function FilterOrder({ close, setCity }) {
+  const [filters, setFilters] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // diubah dengan fetch data jika sudah ada API
+  useEffect(() => {
+    setFilters(["weue9211", "ahdb8493", "iasn7382"]);
+  }, []);
 
   const handleSearch = debounce((value, setQuery) => {
     setQuery(value);
+    console.log(searchQuery);
   }, 300);
-
-  useEffect(() => {
-    const fetchAndSetAirports = async () => {
-      try {
-        const response = await fetchAirports(searchQuery);
-        setAirports(response);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
-    fetchAndSetAirports();
-  }, [searchQuery]);
 
   const handleSave = (x) => {
     setCity(x);
@@ -33,8 +24,8 @@ function SetDestination({ close, setCity }) {
   };
 
   const handleDelete = (id) => {
-    setAirports((prevAirports) =>
-      prevAirports.filter((air, index) => index !== id),
+    setFilters((prevFilters) =>
+      prevFilters.filter((filter, index) => index !== id),
     );
   };
 
@@ -50,7 +41,7 @@ function SetDestination({ close, setCity }) {
             type="text"
             name="search"
             id="search"
-            placeholder="Masukkan Kota atau Negara"
+            placeholder="Masukkan Nomer Penerbangan"
             className="w-full bg-white text-sm text-black focus:outline-none"
             onChange={(e) => handleSearch(e.target.value, setSearchQuery)}
           />
@@ -68,13 +59,13 @@ function SetDestination({ close, setCity }) {
           </p>
           <p
             className="cursor-pointer select-none font-medium text-red-500"
-            onClick={() => setAirports([])}
+            onClick={() => setFilters([])}
           >
             Hapus
           </p>
         </div>
         <div className="max-h-[210px] overflow-y-scroll">
-          {airport?.map((air, index) => (
+          {filters?.map((filter, index) => (
             <div
               key={index}
               className={`flex w-full items-center justify-between border-b-2 pt-2 text-[#151515]`}
@@ -83,9 +74,7 @@ function SetDestination({ close, setCity }) {
                 className={`flex w-full cursor-pointer flex-col`}
                 onClick={() => handleSave(air)}
               >
-                <div className={`py-1 text-left text-[#151515]`}>
-                  {air.airport}
-                </div>
+                <div className={`py-1 text-left text-[#151515]`}>{filter}</div>
               </div>
               <FontAwesomeIcon
                 icon={faXmark}
@@ -100,4 +89,4 @@ function SetDestination({ close, setCity }) {
   );
 }
 
-export default SetDestination;
+export default FilterOrder;
