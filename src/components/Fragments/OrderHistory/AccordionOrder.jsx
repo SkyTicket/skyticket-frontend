@@ -42,9 +42,7 @@ function AccordionOrder({ data, onClick, isMobile, openFilter, openSearch }) {
         <div
           key={history}
           className={`text-black ${
-            isMobile
-              ? "w-[100vw] px-[5vw] pt-4"
-              : "w-[40vw] p-4"
+            isMobile ? "w-[100vw] px-[5vw] pt-4" : "w-[40vw] p-4"
           }`}
         >
           {isMobile && index == 0 && (
