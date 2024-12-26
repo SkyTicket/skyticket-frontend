@@ -85,7 +85,7 @@ function HomepageForm({ prefillData }) {
       !filters.arrCity.input_value ||
       !filters.depDate
     ) {
-      toast.error("Please fill in all required fields!");
+      toast.error("Harap isi semua kolom yang tersedia!");
       return;
     }
     try {

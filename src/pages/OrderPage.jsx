@@ -19,12 +19,12 @@ const INITIAL_BOOKER = {
 const TIME_LIMIT = 15 * 60;
 
 const PageOrder = () => {
-  const [search] = useSearchParams()
-  const Adult = search.get('adult')
-  const Child = search.get('child')
-  const SeatClass = search.get('seatClass')
-  const Baby = search.get('baby')
-  const Flight = search.get('flightId')
+  const [search] = useSearchParams();
+  const Adult = search.get("adult");
+  const Child = search.get("child");
+  const SeatClass = search.get("seatClass");
+  const Baby = search.get("baby");
+  const Flight = search.get("flightId");
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { createTicketOrder, isLoading, bookingResult } = useTicketBooking();
@@ -52,11 +52,16 @@ const PageOrder = () => {
         type: "",
         // category: "adult"
       }),
-      bookerData: INITIAL_BOOKER
+      bookerData: INITIAL_BOOKER,
     },
   });
 
-  const { setValue, watch, handleSubmit, formState: { errors } } = methods;
+  const {
+    setValue,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
 
   // Watch form values for debugging
   const formValues = watch();
@@ -66,11 +71,11 @@ const PageOrder = () => {
     const passengers = methods.getValues("passengers");
     const updatedPassengers = passengers.map((passenger, index) => ({
       ...passenger,
-      type: index < adult ? "adult" : "child"
+      type: index < adult ? "adult" : "child",
     }));
-    methods.reset({ 
+    methods.reset({
       passengers: updatedPassengers,
-      bookerData: methods.getValues("bookerData")
+      bookerData: methods.getValues("bookerData"),
     });
   }, [adult, methods]);
 
@@ -97,9 +102,9 @@ const PageOrder = () => {
   };
 
   const handleBookerChange = (field, value) => {
-    setValue(`bookerData.${field}`, value, { 
+    setValue(`bookerData.${field}`, value, {
       shouldValidate: true,
-      shouldDirty: true
+      shouldDirty: true,
     });
   };
 
@@ -113,34 +118,46 @@ const PageOrder = () => {
         validationErrors.push(`Data penumpang ${index + 1} belum lengkap`);
       }
       if (!passenger.selected_seat) {
-        validationErrors.push(`Kursi untuk penumpang ${index + 1} belum dipilih`);
+        validationErrors.push(
+          `Kursi untuk penumpang ${index + 1} belum dipilih`,
+        );
       }
-      if (!passenger.dateOfBirth || !passenger.nationality || !passenger.identityNumber) {
-        validationErrors.push(`Informasi identitas penumpang ${index + 1} belum lengkap`);
+      if (
+        !passenger.dateOfBirth ||
+        !passenger.nationality ||
+        !passenger.identityNumber
+      ) {
+        validationErrors.push(
+          `Informasi identitas penumpang ${index + 1} belum lengkap`,
+        );
       }
     });
 
     // Validate booker data
-    if (!bookerData.bookerName || !bookerData.bookerEmail || !bookerData.bookerPhone) {
+    if (
+      !bookerData.bookerName ||
+      !bookerData.bookerEmail ||
+      !bookerData.bookerPhone
+    ) {
       validationErrors.push("Data pemesan belum lengkap");
     }
 
     if (validationErrors.length > 0) {
-      throw new Error(validationErrors.join('\n'));
+      throw new Error(validationErrors.join("\n"));
     }
   };
 
   const onSubmit = async (formData) => {
     try {
       console.log("Form data before validation:", formData);
-      
+
       // Validate data
       validateFormData(formData);
-      
+
       // Format data for API
       const orderData = {
         seats: formData.passengers.map((passenger) => ({
-          id: passenger.selected_seat
+          id: passenger.selected_seat,
         })),
         passengers: formData.passengers.map((passenger) => ({
           title: passenger.title,
@@ -153,16 +170,18 @@ const PageOrder = () => {
           validUntil: passenger.validUntil,
           // category: "adult"
         })),
-        ...formData.bookerData
+        ...formData.bookerData,
       };
-      
+
       console.log("Submitting order data:", orderData);
-      
+
       const result = await createTicketOrder(orderData);
       console.log("Booking successful:", result);
-      
+
       toast.success("Pemesanan berhasil!");
-      navigate(`/payment?flightId=${Flight}&seatClass=${SeatClass}&adult=${Adult}&child=${Child}&baby=${Baby}&bookingCode=${result.bookingCode}&bookingId=${result.data[0]?.booking_id}`);
+      navigate(
+        `/payment?flightId=${Flight}&seatClass=${SeatClass}&adult=${Adult}&child=${Child}&baby=${Baby}&bookingCode=${result.bookingCode}&bookingId=${result.data[0]?.booking_id}`,
+      );
     } catch (err) {
       console.error("Booking failed:", err);
       toast.error(err.message || "Pemesanan gagal. Silakan coba lagi.");
@@ -226,11 +245,14 @@ const PageOrder = () => {
                 <h2 className="mb-4 text-xl font-bold text-black">
                   Isi Data Penumpang
                 </h2>
-                {watch('passengers').map((_, index) => (
-                  <div key={index} className="mb-6 border-b pb-6 last:border-b-0">
+                {watch("passengers").map((_, index) => (
+                  <div
+                    key={index}
+                    className="mb-6 border-b pb-6 last:border-b-0"
+                  >
                     <h3 className="mb-4 text-lg font-semibold text-black">
                       Data Penumpang {index + 1}
-                      {index < adult ? ' (Dewasa)' : ' (Anak)'}
+                      {index < adult ? " (Dewasa)" : " (Anak)"}
                     </h3>
                     <PassengerForm index={index} />
                   </div>
