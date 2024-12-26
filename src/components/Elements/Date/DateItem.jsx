@@ -4,9 +4,9 @@ const DateItem = ({ day, date, fullDate, isActive, onClick, className }) => {
   return (
     <button
       onClick={() => onClick({ day, date, fullDate })}
-      className={`flex flex-col items-center justify-center rounded-lg px-4 py-2 transition-all duration-200 ease-in-out ${
+      className={`flex flex-col items-center justify-center border-2 rounded-lg px-4 py-2 transition-all duration-200 ease-in-out ${
         isActive
-          ? "bg-purple-900 text-black ring-2 ring-purple-600"
+          ? "text-black ring-2"
           : "hover:bg-gray-100"
       } ${className || ""} `}
     >
