@@ -54,13 +54,12 @@ const DateSelector = () => {
           <DateItem
             {...item}
             onClick={() => handleSelect(item)}
-            className={`bg-purple-600 bg-transparent px-6 py-2 text-sm transition-all duration-200 ease-in-out sm:text-base md:text-lg dark:bg-transparent dark:text-black ${
+            className={`bg-purple-600 bg-transparent px-6 py-2 text-sm transition-all duration-200 ease-in-out sm:text-base md:text-lg dark:text-black ${
               item.isActive
-                ? "bg-purple-400 text-white ring-2 ring-purple-500 focus:ring-purple-500 dark:bg-purple-400 dark:text-white"
+                ? "bg-purple-500 text-white ring-2 ring-purple-600 dark:bg-purple-500 dark:text-white"
                 : "hover:bg-purple-400 hover:text-white"
             }`}
           />
-          
         </React.Fragment>
       ))}
     </div>
