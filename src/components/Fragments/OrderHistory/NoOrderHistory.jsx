@@ -1,12 +1,11 @@
 import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function NoOrderHistory({ isMobile, openFilter, openSearch }) {
   return (
-    <div
-      className={`${isMobile && "bg-gradient-to-b"}`}
-    >
+    <div className={`${isMobile && "bg-gradient-to-b"}`}>
       {isMobile && (
         <div className="flex flex-col items-end p-4 pb-0">
           <div className="mb-4 flex w-full items-center justify-between">
@@ -37,11 +36,13 @@ function NoOrderHistory({ isMobile, openFilter, openSearch }) {
         />
         <span className="text-[#7126B5]">Oops! Riwayat pesanan kosong!</span>
         <span className="mb-8">Anda belum melakukan pemesanan penerbangan</span>
-        <button
-          className={`bg-[#7126B5] text-white ${isMobile ? "" : "min-w-[26rem]"}`}
-        >
-          Cari Penerbangan
-        </button>
+        <Link to={"/"}>
+          <button
+            className={`bg-[#7126B5] text-white ${isMobile ? "" : "min-w-[26rem]"}`}
+          >
+            Cari Penerbangan
+          </button>
+        </Link>
         {!isMobile && <span className="h-[20vh]" />}
       </div>
     </div>

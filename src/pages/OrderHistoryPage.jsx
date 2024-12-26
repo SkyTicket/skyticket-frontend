@@ -22,7 +22,9 @@ const OrderHistory = () => {
     const fetchData = async () => {
       try {
         const response = await fetchOrderHistory();
-        setHistory(response);
+        if (response.status != 404) {
+          setHistory(response);
+        }
       } catch (error) {
         console.log(error);
       }
