@@ -1,10 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import DetFlight from "../../Elements/Accordion/DetailFlight";
 
 function MobileAccordion({ flight, onClose }) {
+  const [search] = useSearchParams();
+  const adult = search.get("adult");
+  const child = search.get("child");
+  const seatClass = search.get("seatClass");
+  const baby = search.get("baby");
   const navigate = useNavigate();
 
   if (!flight) {
@@ -47,7 +52,11 @@ function MobileAccordion({ flight, onClose }) {
         </div>
         <button
           className="mb-4 w-[90vw] rounded-lg bg-[#7126B5] px-7 py-1 text-white"
-          onClick={() => navigate("/order-ticket")}
+          onClick={() =>
+            navigate(
+              `/order-ticket?flightId=${flight.flight_id}&seatClass=${seatClass}&adult=${adult}&child=${child}&baby=${baby}`,
+            )
+          }
         >
           Pilih
         </button>
