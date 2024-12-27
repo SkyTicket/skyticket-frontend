@@ -145,6 +145,8 @@ Routing dengan akses terbatas (*hanya untuk pengguna yang sudah login*):
    - Buat file `.env` di dalam folder `skyticket-frontend` dengan isi berikut:
      ```env
      VITE_BACKEND_URL = your_backend_url
+     MIDTRANS_SERVER_KEY = your_midtrans_server_key
+     MIDTRANS_CLIENT_KEY = your_midtrans_client_key
      ```
 
 5. Jalankan aplikasi untuk pengembangan lokal:
